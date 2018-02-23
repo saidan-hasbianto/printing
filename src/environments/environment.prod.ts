@@ -1,4 +1,5 @@
 export const environment = {
     production: true,
-    hmr       : false
+    hmr       : false,
+    baseUrl:  'https://stylo-api.herokuapp.com/'
 };
