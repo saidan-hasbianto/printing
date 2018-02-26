@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Msitem } from '../../models/msitem';
 import { MsitemService } from '../../services/msitem.service';
 import { ToastrService } from 'ngx-toastr';
-import { Router } from '@angular/router';
+// import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-msitem',
@@ -24,7 +24,7 @@ export class MsitemComponent implements OnInit {
   selectedData: Msitem;
   constructor(
     private itemservice: MsitemService,
-    private router: Router,
+    // private router: Router,
     private toastrSvc: ToastrService
   ) { }
 
@@ -44,10 +44,10 @@ export class MsitemComponent implements OnInit {
     this.selectedData = this.selected[0];
   }
 
-  editData(msitem: Msitem): void {
-    this.selectedData = msitem;
-    this.router.navigate(['msitem-detail', msitem.id]);
-  }
+  // editData(msitem: Msitem): void {
+  //   this.selectedData = msitem;
+  //   this.router.navigate(['msitem-detail', msitem.id]);
+  // }
 
   deleteRow(msitem: Msitem): void {
     if (confirm('Are you sure want to delete?')) {
