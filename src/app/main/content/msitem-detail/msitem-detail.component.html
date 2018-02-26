@@ -42,7 +42,7 @@
                 </mat-form-field>
 
                 <mat-form-field fxFlex="100">
-                    <input matInput placeholder="Minimal Quantity" formControlName="minQty" required>
+                    <input type="number" matInput placeholder="Minimal Quantity" formControlName="minQty" required>
                     <mat-error *ngIf="formErrors.minQty.required">
                         Required
                     </mat-error>
