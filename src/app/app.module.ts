@@ -14,7 +14,7 @@ import { FuseConfigService } from './core/services/config.service';
 import { FuseNavigationService } from './core/components/navigation/navigation.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { Ng2Webstorage } from 'ngx-webstorage';
-import { MyHttpInterceptor } from './httpinterceptor'
+import { MyHttpInterceptor } from './httpinterceptor';
 
 const appRoutes: Routes = [
     {
@@ -43,11 +43,11 @@ const appRoutes: Routes = [
         FuseSplashScreenService,
         FuseConfigService,
         FuseNavigationService,
-        { 
-            provide: HTTP_INTERCEPTORS, 
-            useClass: MyHttpInterceptor, 
-            multi: true 
-        } 
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: MyHttpInterceptor,
+            multi: true
+        }
     ],
     bootstrap   : [
         AppComponent
