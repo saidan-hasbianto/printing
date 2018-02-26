@@ -36,7 +36,7 @@
     "@angularclass/hmr-loader": "3.0.4",
     "@ngx-translate/core": "8.0.0",
     "@swimlane/ngx-charts": "6.1.0",
-    "@swimlane/ngx-datatable": "11.0.3",
+    "@swimlane/ngx-datatable": "11.0.4",
     "@withinpixels/ngx-dnd": "3.1.0",
     "angular-calendar": "0.21.3",
     "classlist.js": "1.1.20150312",
