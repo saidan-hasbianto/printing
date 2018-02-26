@@ -7,6 +7,7 @@ import { of } from 'rxjs/observable/of';
 import { Observable } from 'rxjs/Observable';
 import { tap, catchError } from 'rxjs/operators';
 import { Msproduct } from '../models/msproduct';
+import { Router } from '@angular/router';
 
 const httpOptions = {
   headers: new HttpHeaders(
@@ -22,6 +23,7 @@ export class MsproductService {
   constructor(
     private http: HttpClient,
     private toastr: ToastrService,
+    private router: Router,
     private logErrorHandle: LogErrorHandleService
   ) { }
   getRows(): Observable<Msproduct[]> {
@@ -40,8 +42,9 @@ export class MsproductService {
     /** POST: add a new hero to the server */
   add (prod: Msproduct): Observable<Msproduct> {
     return this.http.post<Msproduct>(this.urlProd, prod, httpOptions).pipe(
-      tap((prod: Msproduct) => this.logErrorHandle.log('Product ID =', + prod.id + ' successfully added', 0)),
-      catchError(this.logErrorHandle.handleError<Msproduct>('add'))
+      tap((prod: Msproduct) => {
+        this.logErrorHandle.log('Product ID =', + prod.id + ' successfully added', 0);
+      }),
     );
   }
 
@@ -50,7 +53,6 @@ export class MsproductService {
       tap((prod: Msproduct) => {
         this.logErrorHandle.log('Updated Product ID =', + prod.id + ' successfully updated', 0);
       }),
-      catchError(this.logErrorHandle.handleError<Msproduct>('update'))
     );
   }
 

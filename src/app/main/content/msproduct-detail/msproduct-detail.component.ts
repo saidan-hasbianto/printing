@@ -12,6 +12,7 @@ import { PricelevelService } from '../../services/pricelevel.service';
 import { Location } from '@angular/common';
 import { MsproductDetailItemformComponent } from '../msproduct-detail-itemform/msproduct-detail-itemform.component';
 import { PricelevelDetailComponent } from '../pricelevel-detail/pricelevel-detail.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-msproduct-detail',
@@ -39,6 +40,7 @@ export class MsproductDetailComponent implements OnInit {
     private pricelevel: PricelevelService,
     private itemservice: ProductItemMaterialService,
     private _location: Location,
+    private toastr: ToastrService,
     private dialog: MatDialog
   ) {
     this.formErrors = {
@@ -111,13 +113,29 @@ export class MsproductDetailComponent implements OnInit {
 
       if (prod.id === 0)
         {
-          this.prodservice.add(prod).subscribe();
-          this.goback();
+          this.prodservice.add(prod).subscribe(
+            success => {
+              this.goback();
+            },
+            error => {
+              // console.log(error.error);
+              this.toastr.error(error.error.error_message, 'Error');
+            }
+          );
+          // this.goback();
         }
         else
         {
-          this.prodservice.update(prod).subscribe();
-          this.goback();
+          this.prodservice.update(prod).subscribe(
+            success => {
+              this.goback();
+            },
+            error => {
+              console.log(error.error);
+              this.toastr.error(error.error.error_message, 'Error');
+            }
+          );
+          // this.goback();
         }
 
     }
@@ -163,7 +181,6 @@ export class MsproductDetailComponent implements OnInit {
 
   addPrice() {
     const dialogRef = this.dialog.open(PricelevelDetailComponent);
-
     dialogRef.afterClosed().subscribe(result => {
       this.pricelevel1.push(result);
     });

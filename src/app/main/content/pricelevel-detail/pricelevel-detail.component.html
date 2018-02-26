@@ -19,14 +19,14 @@
               </mat-form-field>
 
               <mat-form-field fxFlex="100">
-                <input matInput placeholder="Lower Price" formControlName="lowerPrice" required>
+                <input type="number" matInput placeholder="Lower Price" formControlName="lowerPrice" required>
                 <mat-error *ngIf="formErrors.lowerPrice.required">
                     Required
                 </mat-error>
               </mat-form-field>
 
               <mat-form-field fxFlex="100">
-                  <input matInput placeholder="Top Price" formControlName="topPrice" required>
+                  <input type="number" matInput placeholder="Top Price" formControlName="topPrice" required>
                   <mat-error *ngIf="formErrors.topPrice.required">
                       Required
                   </mat-error>

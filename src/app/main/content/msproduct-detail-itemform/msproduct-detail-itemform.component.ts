@@ -55,9 +55,11 @@ export class MsproductDetailItemformComponent implements OnInit {
   }
 
   onSubmit(proditemmat: ProductItemMaterial) {
-    // console.log(this.form.valueChanges);
-    proditemmat.itemName = this.itemOption.find(x => x.id === proditemmat.item).name;
-    this.dialogRef.close(proditemmat);
+    if (this.form.valid)
+    {
+      proditemmat.itemName = this.itemOption.find(x => x.id === proditemmat.item).name;
+      this.dialogRef.close(proditemmat);
+    }
   }
 
   onFormValuesChanged() {

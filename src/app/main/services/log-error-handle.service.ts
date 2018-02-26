@@ -21,7 +21,7 @@ export class LogErrorHandleService {
       console.error(error); // log to console instead
 
       // TODO: better job of transforming error for user consumption
-      this.log('Error', `${operation} failed: ${error.message}`, 3);
+      this.log('Error', `${operation} failed: ${error.error.error_message}`, 3);
 
       // Let the app keep running by returning an empty result.
       return of(result as T);

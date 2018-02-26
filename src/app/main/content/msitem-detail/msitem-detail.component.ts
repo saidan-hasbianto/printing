@@ -4,6 +4,10 @@ import { Msitem } from '../../models/msitem';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MsitemService } from '../../services/msitem.service';
 import { Location } from '@angular/common';
+import { LogErrorHandleService } from '../../services/log-error-handle.service';
+import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs/observable/of';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-msitem-detail',
@@ -24,7 +28,9 @@ export class MsitemDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private itemservice: MsitemService,
-    private _location: Location
+    private _location: Location,
+    private logErrorHandle: LogErrorHandleService,
+    private toastr: ToastrService
   ) {
     this.formErrors = {
       itemCd : {},
@@ -73,11 +79,30 @@ export class MsitemDetailComponent implements OnInit {
     if (this.form.valid) {
       if (item.id === 0) {
         this.loadingbar = false;
-        this.itemservice.add(item).subscribe(res => { this.loadingbar = false; });
-        this.goback();
+        // this.itemservice.add(item).subscribe(res => { this.loadingbar = false; });
+        this.itemservice.add(item).subscribe(
+          success => {
+            this.goback();
+          },
+          error => {
+            console.log(error.error);
+            this.toastr.error(error.error.error_message, 'Error');
+          }
+        );
+        // this.goback();
       } else {
-        this.itemservice.update(item).subscribe(res => { this.loadingbar = false; });
-        this.goback();
+        // this.itemservice.update(item).subscribe(res => { this.loadingbar = false; });
+        this.itemservice.update(item).subscribe(
+           success =>
+           {
+             this.goback();
+           },
+          error =>
+          {
+            console.log(error.error);
+            this.toastr.error(error.error.error_message, 'Error');
+          }
+        );
       }
     }
   }
@@ -106,5 +131,50 @@ export class MsitemDetailComponent implements OnInit {
 
   goback() {
     this._location.back();
+  }
+
+   /**
+   * Handle Http operation that failed.
+   * Let the app continue.
+   * @param operation - name of the operation that failed
+   * @param result - optional value to return as the observable result
+   */
+  handleError<T> (operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+
+      // TODO: send the error to remote logging infrastructure
+      console.error(error); // log to console instead
+
+      // TODO: better job of transforming error for user consumption
+      this.log('Error', `${operation} failed: ${error.error.error_message}`, 3);
+
+      // Let the app keep running by returning an empty result.
+      return of(result as T);
+    };
+  }
+
+  /** Log a RwService message with the MessageService */
+  log( title: string, message: string, type: number) {
+    switch (type) {
+      case 0: {
+        this.toastr.success(message, title);
+        break;
+      }
+      case 1: {
+        this.toastr.info(message, title);
+        break;
+      }
+      case 2: {
+        this.toastr.warning(message, title);
+        break;
+      }
+      case 3: {
+        this.toastr.error(message, title);
+        break;
+      }
+      default : {
+        break;
+      }
+    }
   }
 }
