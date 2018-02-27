@@ -11,7 +11,7 @@ const httpOptions = {
     {
       'Content-Type': 'application/json'
     }
-  )
+  ),
 };
 
 @Injectable()
@@ -30,7 +30,8 @@ export class AuthenticationService {
 
     login(username: string, password: string): Observable<boolean> {
         return this.http.post(environment.baseUrl + 'api-token-auth/', JSON.stringify({ username: username, password: password }), httpOptions)
-            .map((response: Response) => {
+        .timeout(4000)
+        .map((response: Response) => {
                 // login successful if there's a jwt token in the response
                 let token = response.json() && response.json().token;
                 if (token) {
@@ -65,7 +66,7 @@ export class AuthenticationService {
                   {
                     this.toastr.error('Username or password is incorrect', 'Login Failed!');
                   }
-                  if (error.status === 408)
+                  if (error.name === 'TimeoutError')
                   {
                     this.toastr.error('Request Time Out - Cannot comunicate with server', 'Login Failed!');
                   }
@@ -73,7 +74,6 @@ export class AuthenticationService {
                   {
                     this.toastr.error('Server Not Found', 'Login Failed!');
                   }
-
                   return Observable.throw(error);
                 }) as any;
     }
