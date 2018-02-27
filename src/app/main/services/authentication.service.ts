@@ -47,19 +47,34 @@ export class AuthenticationService {
                 }
             }).catch((error, caught) => {
                   // return the error to the method that called it
-                  if (error.status && error.status === '400')
+                  // if (error.status && error.status === 400)
+                  // {
+                  //   this.toastr.error('Username or password is incorrect', 'Login Failed!');
+                  // }
+                  // if (error.status && error.status === 408)
+                  // {
+                  //   this.toastr.error('Request Time Out - Cannot comunicate with server', 'Login Failed!');
+                  // }
+                  // if (error.status && error.status === 404)
+                  // {
+                  //   this.toastr.error('Server Not Found', 'Login Failed!');
+                  // }
+
+
+                  if (error.status === 400)
                   {
                     this.toastr.error('Username or password is incorrect', 'Login Failed!');
                   }
-                  if (error.status && error.status === '408')
+                  if (error.status === 408)
                   {
                     this.toastr.error('Request Time Out - Cannot comunicate with server', 'Login Failed!');
                   }
-                  if (error.status && error.status === '404')
+                  if (error.status === 0)
                   {
                     this.toastr.error('Server Not Found', 'Login Failed!');
                   }
-                  return Observable.throw(error.status);
+
+                  return Observable.throw(error);
                 }) as any;
     }
 
