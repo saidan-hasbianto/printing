@@ -19,7 +19,7 @@ import { MyHttpInterceptor } from './httpinterceptor';
 import { DateValueAccessorModule } from 'angular-date-value-accessor';
 import { MatDatepickerModule, MatNativeDateModule, DateAdapter } from '@angular/material';
 import { DateFormat } from './date-format';
-import { MatFileUploadModule } from 'angular-material-fileupload';
+
 
 const appRoutes: Routes = [
     {
