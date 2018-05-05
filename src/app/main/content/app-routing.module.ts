@@ -17,6 +17,29 @@ import { MsproductComponent } from './msproduct/msproduct.component';
 import { MsproductDetailItemformComponent } from './msproduct-detail-itemform/msproduct-detail-itemform.component';
 import { Pricelevel } from '../models/pricelevel';
 import { PricelevelDetailComponent } from './pricelevel-detail/pricelevel-detail.component';
+import { UsersComponent } from './users/users.component';
+import { UsersDetailComponent } from './users-detail/users-detail.component';
+import { Groups } from '../models/groups';
+import { GroupComponent } from './group/group.component';
+import { GroupDetailComponent } from './group-detail/group-detail.component';
+import { MsactivityComponent } from './msactivity/msactivity.component';
+import { MsmarketingComponent } from './msmarketing/msmarketing.component';
+import { MsoperatorComponent } from './msoperator/msoperator.component';
+import { MsactivityDetailComponent } from './msactivity-detail/msactivity-detail.component';
+import { MsmarketingDetailComponent } from './msmarketing-detail/msmarketing-detail.component';
+import { MsoperatorDetailComponent } from './msoperator-detail/msoperator-detail.component';
+import { MscustomergroupComponent } from './mscustomergroup/mscustomergroup.component';
+import { MscustomergroupDetailComponent } from './mscustomergroup-detail/mscustomergroup-detail.component';
+import { MsdeliveryaddrDetailComponent } from './msdeliveryaddr-detail/msdeliveryaddr-detail.component';
+import { JobordersComponent } from './joborders/joborders.component';
+import { JobordersDetailComponent } from './joborders-detail/joborders-detail.component';
+import { ReceiptingListComponent } from './receipting-list/receipting-list.component';
+import { ReceiptJobOrdersComponent } from './receipt-job-orders/receipt-job-orders.component';
+import { MarkupreleasesComponent } from './markupreleases/markupreleases.component';
+import { MarkupreleasejobordersComponent } from './markupreleasejoborders/markupreleasejoborders.component';
+import { MarkupreleasesService } from '../services/markupreleases.service';
+import { ReceiptingDetailComponent } from './receipting-detail/receipting-detail.component';
+import { MarkupreleaseDetailComponent } from './markuprelease-detail/markuprelease-detail.component';
 
 const routes = [
   {
@@ -79,6 +102,163 @@ const routes = [
     path     : 'pricelevel',
     component: PricelevelDetailComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path     : 'users',
+    component: UsersComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path     : 'users-detail',
+    component: UsersDetailComponent,
+    canActivate: [AuthGuard],
+    data: {data: this.selectedData, type: 'edit'}
+  },
+  {
+    path     : 'group',
+    component: GroupComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path     : 'group-detail',
+    component: GroupDetailComponent,
+    canActivate: [AuthGuard],
+    data: {data: this.selectedData, type: 'edit'}
+  },
+  {
+    path     : 'msactivity',
+    component: MsactivityComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path     : 'msactivity-detail/:id',
+    component: MsactivityDetailComponent,
+    canActivate: [AuthGuard],
+    data: {data: this.selectedData, type: 'edit'}
+  },
+  {
+    path     : 'msmarketing',
+    component: MsmarketingComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path     : 'msmarketing-detail',
+    component: MsmarketingDetailComponent,
+    canActivate: [AuthGuard]
+    // data: {data: this.selectedData, type: 'edit'}
+  },
+  {
+    path     : 'msmarketing-detail/:id',
+    component: MsmarketingDetailComponent,
+    canActivate: [AuthGuard],
+    data: {data: this.selectedData, type: 'edit'}
+  },
+  {
+    path     : 'msoperator',
+    component: MsoperatorComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path     : 'msoperator-detail',
+    component: MsoperatorDetailComponent,
+    canActivate: [AuthGuard]
+    // data: {data: this.selectedData, type: 'edit'}
+  },
+  {
+    path     : 'msoperator-detail/:id',
+    component: MsoperatorDetailComponent,
+    canActivate: [AuthGuard],
+    data: {data: this.selectedData, type: 'edit'}
+  },
+  {
+    path     : 'mscustomer',
+    component: MscustomergroupComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path     : 'mscustomer-detail',
+    component: MscustomergroupDetailComponent,
+    canActivate: [AuthGuard]
+    // data: {data: this.selectedData, type: 'edit'}
+  },
+  {
+    path     : 'mscustomergroup-detail/:id',
+    component: MscustomergroupDetailComponent,
+    canActivate: [AuthGuard],
+    data: {data: this.selectedData, type: 'edit'}
+  },
+  {
+    path     : 'msdeliveryaddr-detail',
+    component: MsdeliveryaddrDetailComponent,
+    canActivate: [AuthGuard],
+    // data: {data: this.selectedData, type: 'edit'}
+  },
+  {
+    path     : 'msdeliveryaddr-detail/:id',
+    component: MsdeliveryaddrDetailComponent,
+    canActivate: [AuthGuard],
+    data: {data: this.selectedData, type: 'edit'}
+  },
+  {
+    path     : 'joborders',
+    component: JobordersComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path     : 'joborders-detail',
+    component: JobordersDetailComponent,
+    canActivate: [AuthGuard],
+    // data: {data: this.selectedData, type: 'edit'}
+  },
+  {
+    path     : 'joborders-detail/:id',
+    component: JobordersDetailComponent,
+    canActivate: [AuthGuard],
+    data: {data: this.selectedData, type: 'edit'}
+  },
+  {
+    path     : 'receipts',
+    component: ReceiptingListComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path     : 'receipts-detail',
+    component: ReceiptingDetailComponent,
+    canActivate: [AuthGuard],
+    // data: {data: this.selectedData, type: 'edit'}
+  },
+  {
+    path     : 'receipts-detail/:id',
+    component: ReceiptingDetailComponent,
+    canActivate: [AuthGuard],
+    data: {data: this.selectedData, type: 'edit'}
+  },
+  {
+    path     : 'receiptjoborders',
+    component: ReceiptJobOrdersComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path     : 'markupreleases',
+    component: MarkupreleasesComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path     : 'markupreleases-detail',
+    component: MarkupreleaseDetailComponent,
+    canActivate: [AuthGuard],
+    // data: {data: this.selectedData, type: 'edit'}
+  },
+  {
+    path     : 'markupreleases-detail/:id',
+    component: MarkupreleaseDetailComponent,
+    canActivate: [AuthGuard],
+    data: {data: this.selectedData, type: 'edit'}
+  },
+  {
+    path     : 'markupreleasejoborders',
+    component: MarkupreleasejobordersComponent,
+    canActivate: [AuthGuard]
   }
 ];
 
@@ -94,7 +274,28 @@ const routes = [
     MsproductComponent,
     MsproductDetailComponent,
     MsproductDetailItemformComponent,
-    PricelevelDetailComponent
+    PricelevelDetailComponent,
+    UsersComponent,
+    UsersDetailComponent,
+    GroupComponent,
+    GroupDetailComponent,
+    MsactivityComponent,
+    MsactivityDetailComponent,
+    MsmarketingComponent,
+    MsmarketingDetailComponent,
+    MsoperatorComponent,
+    MsoperatorDetailComponent,
+    MscustomergroupComponent,
+    MscustomergroupDetailComponent,
+    MsdeliveryaddrDetailComponent,
+    JobordersComponent,
+    JobordersDetailComponent,
+    ReceiptingListComponent,
+    ReceiptingDetailComponent,
+    ReceiptJobOrdersComponent,
+    MarkupreleasesComponent,
+    MarkupreleaseDetailComponent,
+    MarkupreleasejobordersComponent
   ],
   imports     : [
       SharedModule,
@@ -104,7 +305,8 @@ const routes = [
       FuseSampleComponent
   ],
   entryComponents: [
-    MsproductDetailItemformComponent
+    MsproductDetailItemformComponent,
+    MsmarketingDetailComponent
   ]
 })
 export class AppRoutingModule { }

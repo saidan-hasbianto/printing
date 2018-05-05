@@ -1,7 +1,8 @@
 
 export interface Pricelevel {
   id: number;
-  name: string;
+  levelDescs: string;
+  level: number;
   lowerPrice: number;
   topPrice: number;
 }

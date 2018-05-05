@@ -15,6 +15,11 @@ import { FuseNavigationService } from './core/components/navigation/navigation.s
 import { TranslateModule } from '@ngx-translate/core';
 import { Ng2Webstorage } from 'ngx-webstorage';
 import { MyHttpInterceptor } from './httpinterceptor';
+// import { MatNativeDateModule } from '@angular/material';
+import { DateValueAccessorModule } from 'angular-date-value-accessor';
+import { MatDatepickerModule, MatNativeDateModule, DateAdapter } from '@angular/material';
+import { DateFormat } from './date-format';
+import { MatFileUploadModule } from 'angular-material-fileupload';
 
 const appRoutes: Routes = [
     {
@@ -38,6 +43,10 @@ const appRoutes: Routes = [
         FuseMainModule,
         ToastrModule.forRoot(),
         Ng2Webstorage,
+        MatNativeDateModule,
+        DateValueAccessorModule
+        , MatDatepickerModule
+        , MatFileUploadModule
     ],
     providers   : [
         FuseSplashScreenService,
@@ -48,6 +57,9 @@ const appRoutes: Routes = [
             useClass: MyHttpInterceptor,
             multi: true
         }
+        ,{
+            provide: DateAdapter, useClass: DateFormat
+        }
     ],
     bootstrap   : [
         AppComponent
@@ -55,4 +67,7 @@ const appRoutes: Routes = [
 })
 export class AppModule
 {
+    constructor(private dateAdapter:DateAdapter<Date>) {
+		dateAdapter.setLocale('en-in'); // DD/MM/YYYY
+	}
 }

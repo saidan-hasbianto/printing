@@ -12,10 +12,11 @@
           <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto" fxLayoutWrap>
 
               <mat-form-field fxFlex="100">
-                <input matInput placeholder="Level Name" formControlName="name" required>
-                  <mat-error *ngIf="formErrors.name.required">
-                      Required
-                  </mat-error>
+                <mat-select placeholder="Level" formControlName="level" required>
+                  <mat-option *ngFor="let item of levelOption" [value]="item.value">
+                    {{ item.display_name }}
+                  </mat-option>
+                </mat-select>
               </mat-form-field>
 
               <mat-form-field fxFlex="100">

@@ -93,6 +93,7 @@ export class MsproductDetailComponent implements OnInit {
   }
 
   onSubmit(prod: Msproduct) {
+    console.log(this.pricelevel1);
     if (this.form.valid) {
       if (this.pricelevel1.length > 0 )
       {

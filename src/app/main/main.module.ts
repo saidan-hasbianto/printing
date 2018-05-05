@@ -35,7 +35,40 @@ import { MsproductDetailItemformComponent } from './content/msproduct-detail-ite
 import { PricelevelDetailComponent } from './content/pricelevel-detail/pricelevel-detail.component';
 import { PricelevelService } from './services/pricelevel.service';
 import { ProductItemMaterialService } from './services/product-item-material.service';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatButtonModule } from '@angular/material';
+import { UsersComponent } from './content/users/users.component';
+import { UsersDetailComponent } from './content/users-detail/users-detail.component';
+import { UsersService } from './services/users.service';
+import { GroupComponent } from './content/group/group.component';
+import { GroupDetailComponent } from './content/group-detail/group-detail.component';
+import { GroupService } from './services/group.service';
+import { MsactivityComponent } from './content/msactivity/msactivity.component';
+import { MsmarketingComponent } from './content/msmarketing/msmarketing.component';
+import { MsoperatorComponent } from './content/msoperator/msoperator.component';
+import { MsactivityService } from './services/msactivity.service';
+import { MsmarketingService } from './services/msmarketing.service';
+import { MsoperatorService } from './services/msoperator.service';
+import { MsactivityDetailComponent } from './content/msactivity-detail/msactivity-detail.component';
+import { MsmarketingDetailComponent } from './content/msmarketing-detail/msmarketing-detail.component';
+import { MsoperatorDetailComponent } from './content/msoperator-detail/msoperator-detail.component';
+import { MsdeliveryaddrService } from './services/msdeliveryaddr.service';
+import { MscustomergroupService } from './services/mscustomergroup.service';
+import { MsdeliveryaddrDetailComponent } from './content/msdeliveryaddr-detail/msdeliveryaddr-detail.component';
+import { JobordersComponent } from './content/joborders/joborders.component';
+import { JobordersService } from './services/joborders.service';
+import { JobordersDetailComponent } from './content/joborders-detail/joborders-detail.component';
+import { FileUploaDService } from './services/file-uploa-d.service';
+import { ReceiptingListComponent } from './content/receipting-list/receipting-list.component';
+import { ReceiptingListService } from './services/receipting-list.service';
+import { ReceiptJobOrdersComponent } from './content/receipt-job-orders/receipt-job-orders.component';
+import { MarkupreleasesComponent } from './content/markupreleases/markupreleases.component';
+import { MarkupreleasejobordersComponent } from './content/markupreleasejoborders/markupreleasejoborders.component';
+import { ReceiptJobOrdersService } from './services/receipt-job-orders.service';
+import { MarkupreleasesService } from './services/markupreleases.service';
+import { MarkupreleasejobordersService } from './services/markupreleasejoborders.service';
+import { MarkupreleaseDetailComponent } from './content/markuprelease-detail/markuprelease-detail.component';
+import { ReceiptingDetailComponent } from './content/receipting-detail/receipting-detail.component';
+import { MatFileUploadModule } from 'angular-material-fileupload';
 
 @NgModule({
     declarations: [
@@ -57,7 +90,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
         FuseSearchBarModule,
         AppRoutingModule,
         PageRoutingModule,
-        NgxDatatableModule
+        NgxDatatableModule,
+        MatFileUploadModule
     ],
     exports     : [
         FuseMainComponent
@@ -71,7 +105,20 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
         LogErrorHandleService,
         MsproductService,
         PricelevelService,
-        ProductItemMaterialService
+        ProductItemMaterialService,
+        UsersService,
+        GroupService,
+        MsactivityService,
+        MsmarketingService,
+        MsoperatorService,
+        MsdeliveryaddrService,
+        MscustomergroupService,
+        JobordersService,
+        FileUploaDService,
+        ReceiptingListService,
+        ReceiptJobOrdersService,
+        MarkupreleasesService,
+        MarkupreleasejobordersService
         // { provide: MatDialogRef, useValue: {} },
         // { provide: MAT_DIALOG_DATA, useValue: [] },
     ],

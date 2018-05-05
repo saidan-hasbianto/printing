@@ -18,9 +18,18 @@ export class PricelevelDetailComponent implements OnInit {
   formErrors: any;
   type: string;
   isDelete: boolean;
-  price: Pricelevel = { id: 0, name: '', lowerPrice: 0, topPrice: 0};
+  price: Pricelevel = { id: 0, levelDescs: '', level: 0, lowerPrice: 0, topPrice: 0};
   sub: any;
-  loadingbar: boolean = false;
+  divVal = true;
+  loadingbar = false;
+
+  levelOption = [
+    {value: '1', display_name: 'Level 1'},
+    {value: '2', display_name: 'Level 2'},
+    {value: '3', display_name: 'Level 3'},
+    {value: '4', display_name: 'Level 4'},
+    {value: '5', display_name: 'Level 5'}
+  ];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -32,7 +41,8 @@ export class PricelevelDetailComponent implements OnInit {
   ) {
     this.formErrors = {
       topPrice : {},
-      name : {},
+      levelDescs : {},
+      level : {},
       lowerPrice : {}
       };
 
@@ -44,7 +54,8 @@ export class PricelevelDetailComponent implements OnInit {
   ngOnInit() {
     this.form = this.formBuilder.group({
       id: [this.price.id],
-      name : [this.price.name, Validators.required],
+      level : [this.price.level, Validators.required],
+      // levelDescs: 'Level ' + [this.price.level],
       lowerPrice  : [this.price.lowerPrice, Validators.required],
       topPrice  : [this.price.topPrice, Validators.required]
       // product : [this.price.product]
@@ -59,6 +70,8 @@ export class PricelevelDetailComponent implements OnInit {
   {
     if (this.form.valid)
     {
+      pricelvl.levelDescs = 'Level ' + this.form.controls['level'].value;
+      console.log(pricelvl);
       this.dialogRef.close(pricelvl);
     }
   }
@@ -85,6 +98,10 @@ export class PricelevelDetailComponent implements OnInit {
       }
   }
 
+  onDividerChange(dividerVal: string) {
+    this.divVal = true;
+    this.price.levelDescs = 'Level ' + dividerVal;
+  }
   onCancelClick() {
     this.dialogRef.close();
   }

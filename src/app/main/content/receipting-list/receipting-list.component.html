@@ -1,0 +1,61 @@
+<div id="ngx-datatable" class="page-layout simple fullwidth" fusePerfectScrollbar>
+  <!-- HEADER -->
+  <div class="header mat-accent-bg p-24 h-160" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="space-between center">
+      <div fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="column" fxLayoutAlign.gt-xs="center start">
+          <div class="black-fg" fxLayout="row" fxLayoutAlign="start center">
+              <mat-icon class="secondary-text s-16">home</mat-icon>
+              <!-- <mat-icon class="secondary-text s-16">chevron_right</mat-icon> -->
+              <span class="secondary-text">Master</span>
+              <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
+              <span class="secondary-text">Receipting</span>
+          </div>
+          <div class="h2 mt-16">Receipting</div>
+      </div>
+  </div>
+  <!-- / HEADER -->
+  <!-- CONTENT -->
+  <div class="content p-24">
+    <div class="button-row">
+      <a mat-raised-button color="accent" [routerLink]="'/receipting'">
+        Add New
+      </a>
+      <!-- <a mat-raised-button color="accent" ([routerLink]="['msitem-detail', {{item.id}}]")>
+        Edit
+      </a> -->
+      <!-- <button mat-raised-button color="warn" (click)="toastr()">
+        Delete
+      </button> -->
+    </div>
+    <ngx-datatable class="material"
+      [rows]="rows"
+      [selected]="selected"
+      [selectionType]="'single'"
+      [columnMode]="'force'"
+      [rowHeight]="'auto'"
+      [scrollbarH]="true"
+      (select)='onSelect($event)'
+      [loadingIndicator]="loadingIndicator">
+      <ngx-datatable-column name="#" [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
+        <ng-template let-rowIndex="rowIndex" ngx-datatable-cell-template>
+          {{rowIndex + 1}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Receipt No" prop="receiptNo"></ngx-datatable-column>
+      <ngx-datatable-column name="Receipt Date" prop="receiptDate"></ngx-datatable-column>
+      <ngx-datatable-column name="Customer Name" prop="customerName"></ngx-datatable-column>
+      <ngx-datatable-column name="Remarks"></ngx-datatable-column>
+      <ngx-datatable-column name="Action" [width]="150" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          <div class="button-row">
+            <button mat-icon-button color="primary" [routerLink]="'/receipting-detail/' + row.id">
+              <mat-icon aria-label="Edit">edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="deleteRow(row)">
+              <mat-icon aria-label="Delete">delete</mat-icon>
+            </button>
+          </div>
+        </ng-template>
+      </ngx-datatable-column>
+    </ngx-datatable>
+  </div>
+</div>

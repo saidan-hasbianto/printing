@@ -50,6 +50,60 @@ export class NavigationModel
                       'title': 'Product',
                       'type' : 'item',
                       'url'  : '/msproduct'
+                  },
+                  {
+                    'id'   : 'users',
+                    'title': 'Users',
+                    'type' : 'item',
+                    'url'  : '/users'
+                  },
+                  {
+                    'id'   : 'groups',
+                    'title': 'Groups',
+                    'type' : 'item',
+                    'url'  : '/group'
+                  },
+                  {
+                    'id'   : 'msactivity',
+                    'title': 'Activity',
+                    'type' : 'item',
+                    'url'  : '/msactivity'
+                  },
+                  {
+                    'id'   : 'msmarketing',
+                    'title': 'Marketing',
+                    'type' : 'item',
+                    'url'  : '/msmarketing'
+                  },
+                  {
+                    'id'   : 'msoperator',
+                    'title': 'Operator',
+                    'type' : 'item',
+                    'url'  : '/msoperator'
+                  },
+                  {
+                    'id'   : 'mscustomer',
+                    'title': 'Customer',
+                    'type' : 'item',
+                    'url'  : '/mscustomer'
+                  },
+                  {
+                    'id'   : 'joborders',
+                    'title': 'Job Orders',
+                    'type' : 'item',
+                    'url'  : '/joborders'
+                  },
+                  {
+                    'id'   : 'receipts',
+                    'title': 'Receipts',
+                    'type' : 'item',
+                    'url'  : '/receipts'
+                  },
+                  {
+                    'id'   : 'markupreleases',
+                    'title': 'Markup Release',
+                    'type' : 'item',
+                    'url'  : '/markupreleases'
                   }
                 ]
             }
