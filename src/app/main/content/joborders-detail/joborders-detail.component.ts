@@ -18,7 +18,6 @@ import { FileUploaDService } from '../../services/file-uploa-d.service';
 import { MsproductService } from '../../services/msproduct.service';
 import { DatePipe } from '@angular/common';
 import { MatDatepickerModule, MatNativeDateModule, DateAdapter } from '@angular/material';
-import { MatFileUploadModule } from 'angular-material-fileupload';
 import { FileUploadModule } from 'primeng/primeng';
 
 @Component({
