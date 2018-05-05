@@ -46,7 +46,7 @@ const appRoutes: Routes = [
         MatNativeDateModule,
         DateValueAccessorModule
         , MatDatepickerModule
-        , MatFileUploadModule
+
     ],
     providers   : [
         FuseSplashScreenService,

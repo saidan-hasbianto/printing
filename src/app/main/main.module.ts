@@ -68,7 +68,7 @@ import { MarkupreleasesService } from './services/markupreleases.service';
 import { MarkupreleasejobordersService } from './services/markupreleasejoborders.service';
 import { MarkupreleaseDetailComponent } from './content/markuprelease-detail/markuprelease-detail.component';
 import { ReceiptingDetailComponent } from './content/receipting-detail/receipting-detail.component';
-import { MatFileUploadModule } from 'angular-material-fileupload';
+
 
 @NgModule({
     declarations: [
@@ -90,8 +90,7 @@ import { MatFileUploadModule } from 'angular-material-fileupload';
         FuseSearchBarModule,
         AppRoutingModule,
         PageRoutingModule,
-        NgxDatatableModule,
-        MatFileUploadModule
+        NgxDatatableModule
     ],
     exports     : [
         FuseMainComponent
