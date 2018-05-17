@@ -1,3 +1,132 @@
-<p>
-  markuprelease-detail works!
-</p>
+<div id="forms" class="page-layout simple fullwidth" fxLayout="column" fusePerfectScrollbar>
+
+    <!-- HEADER -->
+    <div class="header mat-accent-bg p-24 h-160" fxLayout="row" fxLayoutAlign="start center">
+      <div fxLayout="column" fxLayoutAlign="center start">
+        <div class="h1 mt-16">Markup Release</div>
+      </div>
+    </div>
+
+      <div class="content p-24">
+      <div fxLayout="column" fxLayoutAlign="start start" fxLayout.gt-md="row">
+        <form class="mat-white-bg mat-elevation-z4 p-24 mr-24 mb-24" fxLayout="column" fxLayoutAlign="start"
+              fxFlex="1 0 auto" (ngSubmit)="newOnSubmit(form.value)" name="form" [formGroup]="form" style="width: 100%;">
+
+            <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto" fxLayoutWrap>
+              <mat-form-field fxFlex="20">
+                <input matInput placeholder="Markup No" formControlName="markupNo" required>
+                  <mat-error *ngIf="formErrors.markupNo.required">
+                      Required
+                  </mat-error>
+              </mat-form-field>
+
+              <mat-form-field fxFlex="20">
+                <input matInput [matDatepicker]="receiptDate" placeholder="Release Date" formControlName ="releaseDate" >
+                <mat-datepicker-toggle matSuffix [for]="receiptDate"></mat-datepicker-toggle>
+                <mat-datepicker #receiptDate ></mat-datepicker>
+              </mat-form-field>
+
+              <mat-form-field fxFlex="60">
+                <mat-select placeholder="Customer" formControlName="customer" required>
+                  <mat-option *ngFor="let item of custOption" [value]="item.id">
+                    {{ item.name }}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="formErrors.customer.required">
+                  Required
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto" fxLayoutWrap>
+                <mat-form-field fxFlex="100">
+                  <input matInput placeholder="Remarks" formControlName="remarks">
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto" fxLayoutWrap>
+                <mat-form-field fxFlex="50">
+                  <input matInput placeholder="Pay To" formControlName="payTo">
+                </mat-form-field>
+                <mat-error *ngIf="formErrors.payTo.required">
+                  Required
+                </mat-error>
+            </div>
+
+            <div class="content p-24">
+              <div class="button-row">
+                <a mat-raised-button color="accent" (click)="addDetail()">
+                  Add Job Order
+                </a>
+              </div>
+
+              <ngx-datatable class="material"
+                [rows]="jo"
+                [columnMode]="'force'"
+                [rowHeight]="'auto'"
+                [scrollbarH]="true"
+                [footerHeight]="50"
+                [selected]="selected"
+                [selectionType]="'single'">
+                <ngx-datatable-column name="#" [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
+                  <ng-template let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                    {{rowIndex + 1}}
+                  </ng-template>
+                </ngx-datatable-column>
+                <!-- <ngx-datatable-column
+                  [width]="30"
+                  [sortable]="false"
+                  [canAutoResize]="false"
+                  [draggable]="false"
+                  [resizeable]="false"
+                  [headerCheckboxable]="true"
+                  [checkboxable]="true">
+                </ngx-datatable-column> -->
+                <ngx-datatable-column name="Job Order No" prop="jobOrderNo"></ngx-datatable-column>
+                <ngx-datatable-column name="Order Date" prop="orderDate"></ngx-datatable-column>
+                <ngx-datatable-column name="Remarks"></ngx-datatable-column>
+                <ngx-datatable-column name="Amount JO" prop="price"></ngx-datatable-column>
+                <ngx-datatable-column name="Markup Amount"></ngx-datatable-column>
+                <ngx-datatable-column name="Release Amount" prop="receipt">
+                  <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+                    <span
+                      title="Double click to edit"
+                      (dblclick)="editing[rowIndex + '-receipt'] = true"
+                      *ngIf="!editing[rowIndex + '-receipt']">
+                      {{value}}
+                    </span>
+                    <input
+                    autofocus
+                    (blur)="updateValue($event, 'receipt', rowIndex)"
+                    *ngIf="editing[rowIndex+ '-receipt']"
+                    type="text"
+                    [value]="value"
+                    />
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Action" [width]="150" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    <div class="button-row">
+                      <button mat-icon-button color="warn" type="button" (click)="deleteJo(row)">
+                        <mat-icon aria-label="Delete">delete</mat-icon>
+                      </button>
+                    </div>
+                  </ng-template>
+                </ngx-datatable-column>
+              </ngx-datatable>
+              </div>
+
+              <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+                <div class="button-row">
+                  <button mat-raised-button class="mat-accent" type="submit">
+                    Submit
+                  </button>
+                  <a mat-raised-button (click)="goback()">
+                    Back
+                  </a>
+                </div>
+              </div>
+              </form>
+      </div>
+      </div>
+  </div>

@@ -109,11 +109,9 @@ export class JobordersDetailComponent implements OnInit {
 
     this.form = this.formBuilder.group({
     id : [this.jo.id],
-    // customerName : [this.jo.customerName],
     addressOfDelivery : [this.jo.addressOfDelivery],
     operatorName : [this.jo.operatorName], productName: [this.jo.productName],
     jobOrderNo : [this.jo.jobOrderNo, Validators.required], refNo : [this.jo.refNo, Validators.required],
-    //orderDate : [moment(), Validators.required],
     orderDate : [this.jo.orderDate, Validators.required],
     completionDate : [this.jo.completionDate, Validators.required],
     remarks: [this.jo.remarks],

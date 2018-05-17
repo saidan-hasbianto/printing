@@ -7,7 +7,7 @@ import { LogErrorHandleService } from './log-error-handle.service';
 import { catchError, tap } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 import { Router } from '@angular/router';
-import { Markupreleases } from '../models/markupreleases';
+import { Markupreleases, Markupreleases2 } from '../models/markupreleases';
 
 const httpOptions = {
   headers: new HttpHeaders(
@@ -34,33 +34,33 @@ export class MarkupreleasesService {
     );
   }
 
-  getItem(id: number): Observable<Markupreleases> {
-    return this.http.get<Markupreleases>(`${this.url}${id}`, httpOptions).pipe(
-      catchError(this.logErrorHandle.handleError<Markupreleases>('getItem'))
+  getItem(id: number): Observable<Markupreleases2> {
+    return this.http.get<Markupreleases2>(`${this.url}${id}`, httpOptions).pipe(
+      catchError(this.logErrorHandle.handleError<Markupreleases2>('getItem'))
     );
   }
 
     /** POST: add a new hero to the server */
-  add (item: Markupreleases): Observable<Markupreleases> {
-    return this.http.post<Markupreleases>(this.url, item, httpOptions).pipe(
-      tap((item: Markupreleases) => {
+  add (item: Markupreleases2): Observable<Markupreleases2> {
+    return this.http.post<Markupreleases2>(this.url, item, httpOptions).pipe(
+      tap((item: Markupreleases2) => {
         this.logErrorHandle.log('Item ID =', + item.id + ' successfully added', 0);
       }),
     );
   }
 
-  update (item: Markupreleases) {
-    return this.http.put<Markupreleases>(this.url + item.id + '/', item, httpOptions).pipe(
-      tap((item: Markupreleases) => {
+  update (item: Markupreleases2) {
+    return this.http.put<Markupreleases2>(this.url + item.id + '/', item, httpOptions).pipe(
+      tap((item: Markupreleases2) => {
         this.logErrorHandle.log('Markup No =', + item.markupNo + ' successfully updated', 0);
       }),
     );
   }
 
-  delete (item: Markupreleases): Observable<Markupreleases> {
-    return this.http.delete<Markupreleases>(`${this.url}${item.id}/`, httpOptions).pipe(
+  delete (item: Markupreleases2): Observable<Markupreleases2> {
+    return this.http.delete<Markupreleases2>(`${this.url}${item.id}/`, httpOptions).pipe(
     tap(_ => this.logErrorHandle.log('Markupreleases', item + ' successfully deleted', 0)),
-    catchError(this.logErrorHandle.handleError<Markupreleases>('delete'))
+    catchError(this.logErrorHandle.handleError<Markupreleases2>('delete'))
     );
   }
 }

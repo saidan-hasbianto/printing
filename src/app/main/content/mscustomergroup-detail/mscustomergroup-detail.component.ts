@@ -86,7 +86,7 @@ export class MscustomergroupDetailComponent implements OnInit {
         this.custservice.getProd(id)
         .subscribe(res => {
           this.cust = res;
-console.log(res.deliveryAddresses);
+
           this.form.setValue({
             id: this.cust.id,
             customerCd: this.cust.customerCd,

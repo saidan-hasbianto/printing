@@ -68,6 +68,18 @@ import { MarkupreleasesService } from './services/markupreleases.service';
 import { MarkupreleasejobordersService } from './services/markupreleasejoborders.service';
 import { MarkupreleaseDetailComponent } from './content/markuprelease-detail/markuprelease-detail.component';
 import { ReceiptingDetailComponent } from './content/receipting-detail/receipting-detail.component';
+import { VendorComponent } from './content/vendor/vendor.component';
+import { PurchItemComponent } from './content/purch-item/purch-item.component';
+import { PurchItemDetailComponent } from './content/purch-item-detail/purch-item-detail.component';
+import { VendorDetailComponent } from './content/vendor-detail/vendor-detail.component';
+import { PaymPurchListComponent } from './content/paym-purch-list/paym-purch-list.component';
+import { PaymPurchListDetailComponent } from './content/paym-purch-list-detail/paym-purch-list-detail.component';
+import { CashbookComponent } from './content/cashbook/cashbook.component';
+import { CashbookDetailComponent } from './content/cashbook-detail/cashbook-detail.component';
+import { VendorService } from './services/vendor.service';
+import { PurchItemService } from './services/purch-item.service';
+import { CashbookService } from './services/cashbook.service';
+import { PaymPurchListService } from './services/paym-purch-list.service';
 
 
 @NgModule({
@@ -117,9 +129,13 @@ import { ReceiptingDetailComponent } from './content/receipting-detail/receiptin
         ReceiptingListService,
         ReceiptJobOrdersService,
         MarkupreleasesService,
-        MarkupreleasejobordersService
-        // { provide: MatDialogRef, useValue: {} },
-        // { provide: MAT_DIALOG_DATA, useValue: [] },
+        MarkupreleasejobordersService,
+        VendorService,
+        PurchItemService,
+        PaymPurchListService,
+        CashbookService,
+        { provide: MatDialogRef, useValue: {} },
+        { provide: MAT_DIALOG_DATA, useValue: [] }
     ],
 })
 

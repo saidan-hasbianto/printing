@@ -1,0 +1,63 @@
+<div id="ngx-datatable" class="page-layout simple fullwidth" fusePerfectScrollbar>
+  <!-- HEADER -->
+  <div class="header mat-accent-bg p-24 h-160" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="space-between center">
+      <div fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="column" fxLayoutAlign.gt-xs="center start">
+          <div class="black-fg" fxLayout="row" fxLayoutAlign="start center">
+              <mat-icon class="secondary-text s-16">home</mat-icon>
+              <!-- <mat-icon class="secondary-text s-16">chevron_right</mat-icon> -->
+              <span class="secondary-text">Master</span>
+              <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
+              <span class="secondary-text">Vendor</span>
+          </div>
+          <div class="h2 mt-16">Vendor</div>
+      </div>
+  </div>
+  <!-- / HEADER -->
+  <!-- CONTENT -->
+  <div class="content p-24">
+    <div>
+        <input
+        type='text'
+        style='padding:8px;margin:15px auto;width:30%;'
+        placeholder='Search Vendor Name...'
+        (keyup)='updateFilter($event)'
+      />
+    </div>
+    <div class="button-row">
+      <a mat-raised-button color="accent" [routerLink]="'/vendor-detail'">
+        Add
+      </a>
+    </div>
+    <ngx-datatable class="material"
+      [rows]="rows"
+      [selectionType]="'single'"
+      [columnMode]="'force'"
+      [rowHeight]="'auto'"
+      [scrollbarH]="true"
+      [loadingIndicator]="loadingIndicator">
+      <ngx-datatable-column name="#" [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
+        <ng-template let-rowIndex="rowIndex" ngx-datatable-cell-template>
+          {{rowIndex + 1}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Vendor ID" prop="vendorCd"></ngx-datatable-column>
+      <ngx-datatable-column name="Vendor Name" prop="name"></ngx-datatable-column>
+      <ngx-datatable-column name="Contact Person" prop="cp"></ngx-datatable-column>
+      <ngx-datatable-column name="Telp"></ngx-datatable-column>
+      <ngx-datatable-column name="Mobile" ></ngx-datatable-column>
+      <ngx-datatable-column name="Email"></ngx-datatable-column>
+      <ngx-datatable-column name="Action" [width]="150" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          <div class="button-row">
+            <button mat-icon-button color="primary" [routerLink]="'/vendor-detail/' + row.id">
+              <mat-icon aria-label="Edit">edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="deleteRow(row)">
+              <mat-icon aria-label="Delete">delete</mat-icon>
+            </button>
+          </div>
+        </ng-template>
+      </ngx-datatable-column>
+    </ngx-datatable>
+  </div>
+</div>

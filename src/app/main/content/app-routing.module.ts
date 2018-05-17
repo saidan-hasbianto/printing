@@ -40,6 +40,15 @@ import { MarkupreleasejobordersComponent } from './markupreleasejoborders/markup
 import { MarkupreleasesService } from '../services/markupreleases.service';
 import { ReceiptingDetailComponent } from './receipting-detail/receipting-detail.component';
 import { MarkupreleaseDetailComponent } from './markuprelease-detail/markuprelease-detail.component';
+import { VendorComponent } from './vendor/vendor.component';
+import { VendorDetailComponent } from './vendor-detail/vendor-detail.component';
+import { PurchItemComponent } from './purch-item/purch-item.component';
+import { PaymPurchListComponent } from './paym-purch-list/paym-purch-list.component';
+import { CashbookComponent } from './cashbook/cashbook.component';
+import { PurchItemDetailComponent } from './purch-item-detail/purch-item-detail.component';
+import { PaymPurchListDetailComponent } from './paym-purch-list-detail/paym-purch-list-detail.component';
+import { CashbookDetailComponent } from './cashbook-detail/cashbook-detail.component';
+import { PurchItem } from '../models/purch-item';
 
 const routes = [
   {
@@ -259,7 +268,61 @@ const routes = [
     path     : 'markupreleasejoborders',
     component: MarkupreleasejobordersComponent,
     canActivate: [AuthGuard]
-  }
+  },
+  {
+    path     : 'vendor',
+    component: VendorComponent,
+    canActivate: [AuthGuard],
+    // data: {data: this.selectedData, type: 'edit'}
+  },
+  {
+    path     : 'vendor-detail',
+    component: VendorDetailComponent,
+    canActivate: [AuthGuard]
+    // data: {data: this.selectedData, type: 'edit'}
+  },
+  {
+    path     : 'vendor-detail/:id',
+    component: VendorDetailComponent,
+    canActivate: [AuthGuard],
+    data: {data: this.selectedData, type: 'edit'}
+  },
+  {
+    path     : 'purch-item',
+    component: PurchItemComponent,
+    canActivate: [AuthGuard],
+    // data: {data: this.selectedData, type: 'edit'}
+  },
+  {
+    path     : 'purch-item-detail/:id',
+    component: PurchItemDetailComponent,
+    canActivate: [AuthGuard],
+    data: {data: this.selectedData, type: 'edit'}
+  },
+  {
+    path     : 'paym-purch-list',
+    component: PaymPurchListComponent,
+    canActivate: [AuthGuard],
+    // data: {data: this.selectedData, type: 'edit'}
+  },
+  {
+    path     : 'paym-purch-list-detail/:id',
+    component: PaymPurchListDetailComponent,
+    canActivate: [AuthGuard],
+    data: {data: this.selectedData, type: 'edit'}
+  },
+  {
+    path     : 'cashbook',
+    component: CashbookComponent,
+    canActivate: [AuthGuard],
+    // data: {data: this.selectedData, type: 'edit'}
+  },
+  {
+    path     : 'cashbook-detail/:id',
+    component: CashbookDetailComponent,
+    canActivate: [AuthGuard],
+    data: {data: this.selectedData, type: 'edit'}
+  },
 ];
 
 @NgModule({
@@ -295,7 +358,15 @@ const routes = [
     ReceiptJobOrdersComponent,
     MarkupreleasesComponent,
     MarkupreleaseDetailComponent,
-    MarkupreleasejobordersComponent
+    MarkupreleasejobordersComponent,
+    VendorComponent,
+    VendorDetailComponent,
+    PurchItemComponent,
+    PurchItemDetailComponent,
+    PaymPurchListComponent,
+    PaymPurchListDetailComponent,
+    CashbookComponent,
+    CashbookDetailComponent
   ],
   imports     : [
       SharedModule,

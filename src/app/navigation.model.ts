@@ -104,6 +104,30 @@ export class NavigationModel
                     'title': 'Markup Release',
                     'type' : 'item',
                     'url'  : '/markupreleases'
+                  },
+                  {
+                    'id'   : 'vendor',
+                    'title': 'Vendor',
+                    'type' : 'item',
+                    'url'  : '/vendor'
+                  },
+                  {
+                    'id'   : 'purch-item',
+                    'title': 'Purch Item',
+                    'type' : 'item',
+                    'url'  : '/purch-item'
+                  },
+                  {
+                    'id'   : 'paym-purch-list',
+                    'title': 'Payment Purchase List',
+                    'type' : 'item',
+                    'url'  : '/paym-purch-list'
+                  },
+                  {
+                    'id'   : 'cashbook',
+                    'title': 'Cashbook',
+                    'type' : 'item',
+                    'url'  : '/cashbook'
                   }
                 ]
             }

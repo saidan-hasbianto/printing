@@ -16,6 +16,14 @@
 
   <!-- CONTENT -->
   <div class="content p-24">
+      <div>
+          <input
+          type='text'
+          style='padding:8px;margin:15px auto;width:30%;'
+          placeholder='Search Job Order No...'
+          (keyup)='updateFilter($event)'
+        />
+      </div>
     <div class="button-row">
       <a mat-raised-button color="accent" [routerLink]="'/joborders-detail'">
         Add New

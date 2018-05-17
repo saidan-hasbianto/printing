@@ -7,7 +7,7 @@ import { LogErrorHandleService } from './log-error-handle.service';
 import { catchError, tap } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 import { Router } from '@angular/router';
-import { ReceiptingList } from '../models/receipting-list';
+import { ReceiptingList, Receipting, ReceiptingDtls } from '../models/receipting-list';
 
 const httpOptions = {
   headers: new HttpHeaders(
@@ -27,40 +27,40 @@ export class ReceiptingListService {
     private logErrorHandle: LogErrorHandleService
   ) { }
 
-  getRows(): Observable<ReceiptingList[]> {
-    return this.http.get<ReceiptingList[]>(this.url, httpOptions)
+  getRows(): Observable<Receipting[]> {
+    return this.http.get<Receipting[]>(this.url, httpOptions)
     .pipe(
       catchError(this.logErrorHandle.handleError('getRows', []))
     );
   }
 
-  getItem(id: number): Observable<ReceiptingList> {
-    return this.http.get<ReceiptingList>(`${this.url}${id}`, httpOptions).pipe(
-      catchError(this.logErrorHandle.handleError<ReceiptingList>('getItem'))
+  getReceipt(id: number): Observable<Receipting> {
+    return this.http.get<Receipting>(`${this.url}${id}`, httpOptions).pipe(
+      catchError(this.logErrorHandle.handleError<Receipting>('getReceipt'))
     );
   }
 
     /** POST: add a new hero to the server */
-  add (item: ReceiptingList): Observable<ReceiptingList> {
-    return this.http.post<ReceiptingList>(this.url, item, httpOptions).pipe(
-      tap((item: ReceiptingList) => {
+  add (item: Receipting): Observable<Receipting> {
+    return this.http.post<Receipting>(this.url, item, httpOptions).pipe(
+      tap((item: Receipting) => {
         this.logErrorHandle.log('Receipt ID =', + item.id + ' successfully added', 0);
       }),
     );
   }
 
-  update (item: ReceiptingList) {
-    return this.http.put<ReceiptingList>(this.url + item.id + '/', item, httpOptions).pipe(
-      tap((item: ReceiptingList) => {
+  update (item: Receipting) {
+    return this.http.put<Receipting>(this.url + item.id + '/', item, httpOptions).pipe(
+      tap((item: Receipting) => {
         this.logErrorHandle.log('Receipting No =', + item.receiptNo + ' successfully updated', 0);
       }),
     );
   }
 
-  delete (item: ReceiptingList): Observable<ReceiptingList> {
-    return this.http.delete<ReceiptingList>(`${this.url}${item.id}/`, httpOptions).pipe(
+  delete (item: Receipting): Observable<Receipting> {
+    return this.http.delete<Receipting>(`${this.url}${item.id}/`, httpOptions).pipe(
     tap(_ => this.logErrorHandle.log('Receipting', item + ' successfully deleted', 0)),
-    catchError(this.logErrorHandle.handleError<ReceiptingList>('delete'))
+    catchError(this.logErrorHandle.handleError<Receipting>('delete'))
     );
   }
 }

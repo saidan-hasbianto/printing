@@ -10,6 +10,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class MscustomergroupComponent implements OnInit {
   prod: Mscustomer[];
+  temp = [];
   loadingIndicator = true;
   constructor(
     private custservice: MscustomergroupService,
@@ -25,6 +26,7 @@ export class MscustomergroupComponent implements OnInit {
       .subscribe(rows => {
         this.prod = rows;
         this.loadingIndicator = false;
+        this.temp = [...rows];
       });
   }
 
@@ -38,5 +40,25 @@ export class MscustomergroupComponent implements OnInit {
 
   refresh(): void {
     window.location.reload();
+  }
+
+  updateFilter(event) {
+    console.log(event);
+    let name = event.currentTarget.id;
+    const val = event.target.value.toLowerCase();
+
+    // filter our data
+    const temp = this.temp.filter(function(d) {
+      console.log(d);
+      if (d && d.name)
+      {
+        return d.name.toLowerCase().indexOf(val) !== -1 || !val;
+      }
+    });
+
+    // update the rows
+    this.prod = temp;
+    // Whenever the filter changes, always go back to the first page
+    // this.table.offset = 0;
   }
 }

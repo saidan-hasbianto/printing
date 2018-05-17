@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ReceiptingList } from '../../models/receipting-list';
+import { ReceiptingList, Receipting } from '../../models/receipting-list';
 import { ReceiptingListService } from '../../services/receipting-list.service';
 import { ToastrService } from 'ngx-toastr';
 
@@ -9,7 +9,8 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./receipting-list.component.scss']
 })
 export class ReceiptingListComponent implements OnInit {
-  rows: ReceiptingList[];
+  rows: Receipting[];
+  temp = [];
 
   loadingIndicator: boolean = true;
   constructor(
@@ -26,10 +27,11 @@ export class ReceiptingListComponent implements OnInit {
       .subscribe(rows => {
         this.rows = rows;
         this.loadingIndicator = false;
+        this.temp = [...rows];
       });
   }
 
-  deleteRow(msprod: ReceiptingList): void {
+  deleteRow(msprod: Receipting): void {
     if (confirm('Are you sure want to delete?')) {
       this.receiptsvc.delete(msprod).subscribe(res => {
         this.rows.splice(this.rows.indexOf(msprod), 1);
@@ -39,5 +41,24 @@ export class ReceiptingListComponent implements OnInit {
 
   refresh(): void {
     window.location.reload();
+  }
+
+  updateFilter(event) {
+    console.log(event);
+    // let receiptNo = event.currentTarget.id;
+    const val = event.target.value.toLowerCase();
+
+    // filter our data
+    const temp = this.temp.filter(function(d) {
+      if (d && d.receiptNo)
+      {
+        return d.receiptNo.toLowerCase().indexOf(val) !== -1 || !val;
+      }
+    });
+
+    // update the rows
+    this.rows = temp;
+    // Whenever the filter changes, always go back to the first page
+    // this.table.offset = 0;
   }
 }

@@ -25,5 +25,7 @@ export interface Joborders {
   deliveryAddress: Msdeliveryaddr;
   operator: Msoperator;
   product: Msproduct;
+  ischecked?: boolean;
+  receipt?: number;
 }
 

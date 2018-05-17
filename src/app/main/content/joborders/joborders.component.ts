@@ -10,7 +10,7 @@ import { JobordersService } from '../../services/joborders.service';
 export class JobordersComponent implements OnInit {
   jorow: Joborders[];
   loadingIndicator = true;
-
+  temp = [];
   selectedData: Joborders;
 
   statusOption = [
@@ -48,6 +48,7 @@ export class JobordersComponent implements OnInit {
         this.jorow['status'] = 'Done';
       }
         this.loadingIndicator = false;
+        this.temp = [...rows];
       });
 
   }
@@ -58,5 +59,25 @@ export class JobordersComponent implements OnInit {
         this.jorow.splice(this.jorow.indexOf(msitem), 1);
       });
     }
+  }
+
+  updateFilter(event) {
+    console.log(event);
+    let jobOrderNo = event.currentTarget.id;
+    const val = event.target.value.toLowerCase();
+
+    // filter our data
+    const temp = this.temp.filter(function(d) {
+      console.log(d);
+      if (d && d.jobOrderNo)
+      {
+        return d.jobOrderNo.toLowerCase().indexOf(val) !== -1 || !val;
+      }
+    });
+
+    // update the rows
+    this.jorow = temp;
+    // Whenever the filter changes, always go back to the first page
+    // this.table.offset = 0;
   }
 }
