@@ -1,3 +1,141 @@
-<p>
-  purch-item-detail works!
-</p>
+<div id="forms" class="page-layout simple fullwidth" fxLayout="column" fusePerfectScrollbar>
+
+  <!-- HEADER -->
+  <div class="header mat-accent-bg p-24 h-160" fxLayout="row" fxLayoutAlign="start center">
+    <div fxLayout="column" fxLayoutAlign="center start">
+      <div class="h1 mt-16">Purchase Item</div>
+    </div>
+  </div>
+  <!-- / HEADER -->
+  <!-- <div class="content">
+    <mat-progress-bar mode="indeterminate" [hidden]="loadingbar"></mat-progress-bar>
+  </div> -->
+  <!-- CONTENT -->
+<div class="content p-24">
+
+  <div fxLayout="column" fxLayoutAlign="start start" fxLayout.gt-md="row">
+
+      <form class="mat-white-bg mat-elevation-z4 p-24 mr-24 mb-24" fxLayout="column" fxLayoutAlign="start"
+            fxFlex="1 0 auto" (ngSubmit)="onSubmit(form.value)" name="form" [formGroup]="form" style="width: 100%;">
+
+          <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto" fxLayoutWrap>
+            <mat-form-field fxFlex="35">
+              <input matInput placeholder="Purchase No" formControlName="purchNo" required>
+                <mat-error *ngIf="formErrors.purchNo.required">
+                    Required
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field fxFlex="30">
+              <input matInput [matDatepicker]="purchDate" placeholder="Purchase Date" formControlName ="purchDate" >
+              <mat-datepicker-toggle matSuffix [for]="purchDate"></mat-datepicker-toggle>
+              <mat-datepicker #purchDate ></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field fxFlex="35">
+              <mat-select placeholder="Vendor" formControlName="vendor" required>
+                <mat-option *ngFor="let item of vendOption" [value]="item.id">
+                  {{ item.name }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="formErrors.vendor.required">
+                Required
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto" fxLayoutWrap>
+            <mat-form-field fxFlex="100">
+              <input matInput placeholder="Remarks" formControlName="remarks">
+            </mat-form-field>
+          </div>
+
+          <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto" fxLayoutWrap>
+            <mat-form-field fxFlex="100">
+              <input matInput placeholder="PO No." formControlName="poNo" required>
+              <mat-error *ngIf="formErrors.poNo.required">
+                  Required
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field fxFlex="100">
+              <input matInput placeholder="Invoice No." formControlName="invoiceNo" required>
+              <mat-error *ngIf="formErrors.invoiceNo.required">
+                  Required
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field fxFlex="100">
+              <input matInput placeholder="Ref. No." formControlName="refNo" required>
+              <mat-error *ngIf="formErrors.refNo.required">
+                  Required
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="content p-24">
+            <div class="button-row">
+              <a mat-raised-button color="accent" (click)="addDtls()">
+                Add New
+              </a>
+            </div>
+            <ngx-datatable class="material"
+              [rows]="purchitemDtls"
+              [selected]="selected"
+              [selectionType]="'cell'"
+              [columnMode]="'force'"
+              [rowHeight]="'auto'"
+              [scrollbarH]="true"
+              [footerHeight]="50">
+              <ngx-datatable-column name="#" [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
+                <ng-template let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                  {{rowIndex + 1}}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Item ID" prop="id"></ngx-datatable-column>
+              <ngx-datatable-column name="Item Name" prop="itemName"></ngx-datatable-column>
+              <ngx-datatable-column name="Qty"></ngx-datatable-column>
+              <ngx-datatable-column name="Item Price" prop="amount">
+                <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+                    <span
+                      title="Double click to edit"
+                      (dblclick)="editing[rowIndex + '-amount'] = true"
+                      *ngIf="!editing[rowIndex + '-amount']">
+                      {{value}}
+                    </span>
+                    <input
+                    autofocus
+                    (blur)="updateValue($event, 'amount', rowIndex)"
+                    *ngIf="editing[rowIndex+ '-amount']"
+                    type="text"
+                    [value]="value"
+                    />
+                  </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Action" [width]="150" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  <div class="button-row">
+                    <button mat-icon-button color="warn" type="button" (click)="deleteDtls(row)">
+                      <mat-icon aria-label="Delete">delete</mat-icon>
+                    </button>
+                  </div>
+                </ng-template>
+              </ngx-datatable-column>
+            </ngx-datatable>
+          </div>
+
+          <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <div class="button-row">
+              <button mat-raised-button class="mat-accent" type="submit">
+                Submit
+              </button>
+              <a mat-raised-button (click)="goback()">
+                Back
+              </a>
+            </div>
+          </div>
+      </form>
+  </div>
+  <!-- / CONTENT -->
+</div>
+

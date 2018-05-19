@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { JobordersService } from '../../services/joborders.service';
-import { Joborders } from '../../models/joborders';
+import { Joborders, Joborders2 } from '../../models/joborders';
 import { MscustomergroupService } from '../../services/mscustomergroup.service';
 import { MsdeliveryaddrService } from '../../services/msdeliveryaddr.service';
 import { MsoperatorService } from '../../services/msoperator.service';
@@ -21,7 +21,7 @@ import { MatDatepickerModule, MatNativeDateModule, DateAdapter } from '@angular/
 import { FileUploadModule } from 'primeng/primeng';
 
 @Component({
-  selector: 'app-joborders-detail',
+  selector: 'fuse-joborders-detail',
   templateUrl: './joborders-detail.component.html',
   styleUrls: ['./joborders-detail.component.scss']
 })
@@ -31,10 +31,9 @@ export class JobordersDetailComponent implements OnInit {
   formErrors: any;
   type: string;
   isDelete: boolean;
-  jo: Joborders = {id : 0, customerName : null,    addressOfDelivery : null,    operatorName : null, productName: null,
-    jobOrderNo : null, refNo : null,    orderDate : null,    completionDate : null, remarks: null,
-    status : null, qty : 0,    price : 0,    markup : 0, fileSource: null,
-    fileName : null, customer : null,    deliveryAddress : null,    operator : null, product: null };
+  jo: Joborders2 = {id : 0, jobOrderNo : '',  refNo : null,    orderDate : null,    completionDate : null, remarks: null,
+    status : null, customer : null,    deliveryAddress : null,    operator : null, product : [],
+    type : [], qty : [], price : [], markup : [], fileSource : [], fileName : []};
 
   custOption: Mscustomer[] = [];
   cust: Mscustomer = {id: 0 , customerCd: null,    name: null,    level: null,    marketing: null,     address: null,
@@ -55,12 +54,25 @@ export class JobordersDetailComponent implements OnInit {
   fileToUpload: File = null;
   public someDate: Date;
   paramId: number;
+  rows: number[] = [1];
+  products: number[] = [];
+  qties: number[] = [];
+  types: string[] = [];
+  prices: number[] = [];
+  markups: number[] = [];
+  fileSources: string[] = [];
+  fileNames: File[] = [];
 
   statusOption = [
     {value: 'C', display_name: 'Create'},
     {value: 'W', display_name: 'Waiting'},
     {value: 'P', display_name: 'Pending'},
     {value: 'D', display_name: 'Done'}
+  ];
+
+  typesOption = [
+    {value: 'BW', display_name: 'BW'},
+    {value: 'S', display_name: 'Sparasi'}
   ];
 
   filesourceOption = [
@@ -81,7 +93,7 @@ export class JobordersDetailComponent implements OnInit {
     private toastr: ToastrService,
     private dialog: MatDialog,
     private fileUploadService: FileUploaDService,
-    private dateAdapter:DateAdapter<Date>
+    private dateAdapter: DateAdapter<Date>
   ) {
     this.formErrors = {
       jobOrderNo : {},
@@ -107,22 +119,26 @@ export class JobordersDetailComponent implements OnInit {
     this.dlvaddrsvc.getRows().subscribe(res => this.dlvaddrOption = res);
     this.opssvc.getRows().subscribe(res => this.opsOption = res);
 
+    /*
     this.form = this.formBuilder.group({
     id : [this.jo.id],
-    addressOfDelivery : [this.jo.addressOfDelivery],
-    operatorName : [this.jo.operatorName], productName: [this.jo.productName],
     jobOrderNo : [this.jo.jobOrderNo, Validators.required], refNo : [this.jo.refNo, Validators.required],
     orderDate : [this.jo.orderDate, Validators.required],
     completionDate : [this.jo.completionDate, Validators.required],
     remarks: [this.jo.remarks],
-    status : [this.jo.status, Validators.required], qty : [this.jo.qty, Validators.required],    price : [this.jo.price, Validators.required],
-    markup : [this.jo.markup, Validators.required],
-    fileSource: [this.jo.fileSource, Validators.required],  fileName : [this.jo.fileName],
+    status : [this.jo.status, Validators.required],
     customer : [this.jo.customer, Validators.required],
     deliveryAddress : [this.jo.deliveryAddress, Validators.required],
      operator : [this.jo.operator, Validators.required],
-     product: [this.jo.product, Validators.required]
+     product : ['', Validators.required],
+     type : ['', Validators.required],
+     qty : ['', Validators.required],
+     price : ['', Validators.required],
+     markup : ['', Validators.required],
+     fileSource : ['', Validators.required],
+     fileName : ['', Validators.required]
     });
+
 
     this.sub = this.route.params.subscribe(params => {
       this.paramId = Number.parseInt(params['id']);
@@ -136,26 +152,18 @@ export class JobordersDetailComponent implements OnInit {
             this.jo = res;
           this.form.setValue({
             id : this.jo.id,
-            // customerName : this.jo.customerName,
-            addressOfDelivery : this.jo.addressOfDelivery,
-            operatorName : this.jo.operatorName, productName: this.jo.productName,
+
             jobOrderNo : this.jo.jobOrderNo, refNo : this.jo.refNo,
             orderDate : this.jo.orderDate,    completionDate : this.jo.completionDate,  remarks: this.jo.remarks,
-            status : this.jo.status, qty : this.jo.qty, price : this.jo.price,
-            markup : this.jo.markup,
-            fileSource: this.jo.fileSource,
-            // fileName : this.jo.fileName,
+            status : this.jo.status,
             customer : this.jo.customer,
             deliveryAddress : this.jo.deliveryAddress,
-            operator : this.jo.operator,
-            product: this.jo.product
+            operator : this.jo.operator
           });
 
-          // this.cust = res.customer;
-          // this.form.controls['customer'].disable();
           this.dlvaddr = res.deliveryAddress;
           this.ops = res.operator;
-          this.prod = res.product;
+          // this.prod = res.OrderDetails['product'];
 
 
 
@@ -168,6 +176,7 @@ export class JobordersDetailComponent implements OnInit {
       this.onFormValuesChanged();
     });
     this.loadingbar = false;
+    */
   }
 
   onFormValuesChanged()
@@ -197,6 +206,7 @@ export class JobordersDetailComponent implements OnInit {
   }
 
   onDividerChange(dividerVal: string) {
+    /*
     this.divVal = true;
     if (dividerVal === 'C') {
       this.jo.status = 'Create';
@@ -213,58 +223,59 @@ export class JobordersDetailComponent implements OnInit {
     {
       this.jo.status = 'Done';
     }
+    */
   }
 
   onSubmit(item: Joborders) {
 
-    let datestring = item.orderDate;
-    let newDate = new Date(datestring);
-    item.orderDate = newDate.getFullYear() + '-' + (newDate.getMonth() + 1) + '-' + newDate.getDate();
+    // const datestring = item.orderDate;
+    // const newDate = new Date(datestring);
+    // item.orderDate = newDate.getFullYear() + '-' + (newDate.getMonth() + 1) + '-' + newDate.getDate();
 
-    let completion = new Date(item.completionDate);
-    item.completionDate = completion.getFullYear() + '-' + (completion.getMonth() + 1) + '-' + completion.getDate();
+    // const completion = new Date(item.completionDate);
+    // item.completionDate = completion.getFullYear() + '-' + (completion.getMonth() + 1) + '-' + completion.getDate();
 
-    // const formModel = this.prepareSave();
-    console.log(item);
-    console.log(this.form.get('fileName').value);
-    if (this.form.valid)
-    {
-      this.loadingbar = false;
-      if (item.id === 0)
-        {
-          /*
-          this.josvc.add(item).subscribe(
-            success => {
-              this.goback();
-            },
-            error => {
-              this.toastr.error(error.error.error_message, 'Error');
-            }
-          );
-          */
-          this.josvc.postFile(item, this.form.get('fileName').value).subscribe(
-            success => {
-              this.goback();
-            },
-            error => {
-              this.toastr.error(error.error.error_message, 'Error');
-            }
-          );
-        }
-        else
-        {
+    // // const formModel = this.prepareSave();
+    // console.log(item);
+    // console.log(this.form.get('fileName').value);
+    // if (this.form.valid)
+    // {
+    //   this.loadingbar = false;
+    //   if (item.id === 0)
+    //     {
+    //       /*
+    //       this.josvc.add(item).subscribe(
+    //         success => {
+    //           this.goback();
+    //         },
+    //         error => {
+    //           this.toastr.error(error.error.error_message, 'Error');
+    //         }
+    //       );
+    //       */
+    //       this.josvc.postFile(item, this.form.get('fileName').value).subscribe(
+    //         success => {
+    //           this.goback();
+    //         },
+    //         error => {
+    //           this.toastr.error(error.error.error_message, 'Error');
+    //         }
+    //       );
+    //     }
+    //     else
+    //     {
 
-          this.josvc.update(item).subscribe(
-           success => {
-              this.goback();
-            },
-           error => {
-              console.log(error.error);
-              this.toastr.error(error.error.error_message, 'Error');
-            }
-          );
-        }
-    }
+    //       this.josvc.update(item).subscribe(
+    //        success => {
+    //           this.goback();
+    //         },
+    //        error => {
+    //           console.log(error.error);
+    //           this.toastr.error(error.error.error_message, 'Error');
+    //         }
+    //       );
+    //     }
+    // }
   }
 
   addAddr() {
@@ -275,10 +286,10 @@ export class JobordersDetailComponent implements OnInit {
     });
   }
 
-  // handleFileInput(files: FileList) {
-  //   this.fileToUpload = files.item[0];
-  //   // this.jo.fileName = files.item[0];
-  // }
+  addOrderItem() {
+    this.rows.push(this.rows.length + 1);
+
+  }
 
   onFileChange(event) {
     if (event.target.files.length > 0) {
@@ -288,12 +299,13 @@ export class JobordersDetailComponent implements OnInit {
     }
   }
 
-  private prepareSave(): any {
-    let input = new FormData();
-    // This can be done a lot prettier; for example automatically assigning values by looping through `this.form.controls`, but we'll keep it as simple as possible here
-
-    input.append('file', this.form.get('file').value);
-    return input;
+  handleFileInput(fileInput: FileList, i) {
+    const file = fileInput[0];
+    if ((i + 1) < this.fileNames.length) {
+      this.fileNames[i] = file;
+    }else {
+      this.fileNames.push(file);
+    }
   }
 
 // regroupDetail() {
@@ -309,4 +321,41 @@ export class JobordersDetailComponent implements OnInit {
 //       this.toastr.error(error.error.error_message, 'Error');
 //     });
 // }
+
+NewOnSubmit() {
+  if (this.products.length > 0)
+  {
+    const datestring = this.jo.orderDate;
+    const newDate = new Date(datestring);
+    this.jo.orderDate = newDate.getFullYear() + '-' + (newDate.getMonth() + 1) + '-' + newDate.getDate();
+
+    const completion = new Date(this.jo.completionDate);
+    this.jo.completionDate = completion.getFullYear() + '-' + (completion.getMonth() + 1) + '-' + completion.getDate();
+
+    this.jo.product = this.products;
+    this.jo.qty = this.qties;
+    this.jo.type = this.types;
+    this.jo.price = this.prices;
+    this.jo.markup = this.markups;
+    this.jo.fileSource = this.fileSources;
+    this.jo.fileName = this.fileNames;
+    console.log(this.jo);
+    this.josvc.postFile(this.jo).subscribe(
+      // console.log(data));
+        success => {
+          this.toastr.success('Success');
+          this.goback();
+        },
+        error => {
+          // console.log(error.error);
+          this.toastr.error(error.error.error_message, 'Error');
+        });
+  }
+  else
+  {
+    alert('Please fill Order Item');
+  }
+
+}
+
 }

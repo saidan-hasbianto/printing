@@ -80,6 +80,11 @@ import { VendorService } from './services/vendor.service';
 import { PurchItemService } from './services/purch-item.service';
 import { CashbookService } from './services/cashbook.service';
 import { PaymPurchListService } from './services/paym-purch-list.service';
+import { PurchItemFormComponent } from './content/purch-item-form/purch-item-form.component';
+import { PaymPurchFormComponent } from './content/paym-purch-form/paym-purch-form.component';
+import { DeliveryorderComponent } from './content/deliveryorder/deliveryorder.component';
+import { DeliveryorderDetailComponent } from './content/deliveryorder-detail/deliveryorder-detail.component';
+import { DeliveryorderService } from './services/deliveryorder.service';
 
 
 @NgModule({
@@ -134,6 +139,7 @@ import { PaymPurchListService } from './services/paym-purch-list.service';
         PurchItemService,
         PaymPurchListService,
         CashbookService,
+        DeliveryorderService,
         { provide: MatDialogRef, useValue: {} },
         { provide: MAT_DIALOG_DATA, useValue: [] }
     ],

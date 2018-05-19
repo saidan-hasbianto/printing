@@ -49,6 +49,11 @@ import { PurchItemDetailComponent } from './purch-item-detail/purch-item-detail.
 import { PaymPurchListDetailComponent } from './paym-purch-list-detail/paym-purch-list-detail.component';
 import { CashbookDetailComponent } from './cashbook-detail/cashbook-detail.component';
 import { PurchItem } from '../models/purch-item';
+import { PurchItemFormComponent } from './purch-item-form/purch-item-form.component';
+import { PaymPurchFormComponent } from './paym-purch-form/paym-purch-form.component';
+import { Deliveryorder } from '../models/deliveryorder';
+import { DeliveryorderDetailComponent } from './deliveryorder-detail/deliveryorder-detail.component';
+import { DeliveryorderComponent } from './deliveryorder/deliveryorder.component';
 
 const routes = [
   {
@@ -294,6 +299,11 @@ const routes = [
     // data: {data: this.selectedData, type: 'edit'}
   },
   {
+    path     : 'purch-item-detail',
+    component: PurchItemDetailComponent,
+    canActivate: [AuthGuard]
+  },
+  {
     path     : 'purch-item-detail/:id',
     component: PurchItemDetailComponent,
     canActivate: [AuthGuard],
@@ -302,7 +312,13 @@ const routes = [
   {
     path     : 'paym-purch-list',
     component: PaymPurchListComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard]
+    // data: {data: this.selectedData, type: 'edit'}
+  },
+  {
+    path     : 'paym-purch-list-detail',
+    component: PaymPurchListDetailComponent,
+    canActivate: [AuthGuard]
     // data: {data: this.selectedData, type: 'edit'}
   },
   {
@@ -310,6 +326,12 @@ const routes = [
     component: PaymPurchListDetailComponent,
     canActivate: [AuthGuard],
     data: {data: this.selectedData, type: 'edit'}
+  },
+  {
+    path     : 'paym-purch-form',
+    component: PaymPurchFormComponent,
+    canActivate: [AuthGuard]
+    // data: {data: this.selectedData, type: 'edit'}
   },
   {
     path     : 'cashbook',
@@ -323,6 +345,35 @@ const routes = [
     canActivate: [AuthGuard],
     data: {data: this.selectedData, type: 'edit'}
   },
+  {
+    path     : 'cashbook-detail/',
+    component: CashbookDetailComponent,
+    canActivate: [AuthGuard],
+    // data: {data: this.selectedData, type: 'edit'}
+  },
+  {
+    path     : 'deliveryorder',
+    component: DeliveryorderComponent,
+    canActivate: [AuthGuard],
+    // data: {data: this.selectedData, type: 'edit'}
+  },
+  {
+    path     : 'deliveryorder-detail/:id',
+    component: DeliveryorderDetailComponent,
+    canActivate: [AuthGuard],
+    data: {data: this.selectedData, type: 'edit'}
+  },
+  {
+    path     : 'deliveryorder-detail/',
+    component: DeliveryorderDetailComponent,
+    canActivate: [AuthGuard],
+    // data: {data: this.selectedData, type: 'edit'}
+  },
+  {
+    path     : 'purch-item-form',
+    component: PurchItemFormComponent,
+    canActivate: [AuthGuard]
+  }
 ];
 
 @NgModule({
@@ -366,7 +417,11 @@ const routes = [
     PaymPurchListComponent,
     PaymPurchListDetailComponent,
     CashbookComponent,
-    CashbookDetailComponent
+    CashbookDetailComponent,
+    PurchItemFormComponent,
+    PaymPurchFormComponent,
+    DeliveryorderComponent,
+    DeliveryorderDetailComponent
   ],
   imports     : [
       SharedModule,

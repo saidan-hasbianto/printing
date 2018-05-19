@@ -54,11 +54,11 @@ export class JobordersComponent implements OnInit {
   }
 
   deleteRow(msitem: Joborders): void {
-    if (confirm('Are you sure want to delete?')) {
-      this.josvc.delete(msitem).subscribe(res => {
-        this.jorow.splice(this.jorow.indexOf(msitem), 1);
-      });
-    }
+    // if (confirm('Are you sure want to delete?')) {
+    //   this.josvc.delete(msitem).subscribe(res => {
+    //     this.jorow.splice(this.jorow.indexOf(msitem), 1);
+    //   });
+    // }
   }
 
   updateFilter(event) {

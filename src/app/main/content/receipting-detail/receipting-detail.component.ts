@@ -34,10 +34,6 @@ export class ReceiptingDetailComponent implements OnInit {
   rjo: any [] = [];
 
   jo: Joborders[];
-  joEdit: Joborders = {id : 0, customerName : null,    addressOfDelivery : null,    operatorName : null, productName: null,
-    jobOrderNo : null, refNo : null,    orderDate : null,    completionDate : null, remarks: null,
-    status : null, qty : 0,    price : 0,    markup : 0, fileSource: null,
-    fileName : null, customer : null,    deliveryAddress : null,    operator : null, product: null };
   jotmp: Joborders;
   receipt: Receipting;
   receiptDtls: ReceiptingDtls;
@@ -151,9 +147,10 @@ export class ReceiptingDetailComponent implements OnInit {
 
   newOnSubmit(prod: Receipting)
   {
+    console.log(prod);
     if (this.form.valid === true)
     {
-      if (prod.id === '0')
+      if (prod.id === '')
       {
         if (this.jo.length > 0)
         {
@@ -163,6 +160,7 @@ export class ReceiptingDetailComponent implements OnInit {
 
           const oReceipting = new Receipting();
           let oReceiptingDtls: ReceiptingDtls;
+          oReceipting.id = '0';
           oReceipting.receiptDate = prod.receiptDate;
           oReceipting.receiptNo = prod.receiptNo;
           oReceipting.remarks = prod.remarks;
@@ -231,7 +229,7 @@ export class ReceiptingDetailComponent implements OnInit {
     }
   }
 
-  onSubmit(prod: ReceiptingList) {
+  onSubmit(prod: Receipting) {
 
       // console.log(this.pricelevel1);
       // prod.receiptJobOrders = this.jolist;
@@ -239,8 +237,8 @@ export class ReceiptingDetailComponent implements OnInit {
     // console.log(prod);
     // console.log(this.lengthreceiptjo);
 
-    let datestring = prod.receiptDate;
-      let newDate = new Date(datestring);
+    const datestring = prod.receiptDate;
+      const newDate = new Date(datestring);
       prod.receiptDate = newDate.getFullYear() + '-' + (newDate.getMonth() + 1) + '-' + newDate.getDate();
 
 
@@ -284,7 +282,7 @@ export class ReceiptingDetailComponent implements OnInit {
         // rjo.jobOrder = arr;
 
         this.jolist['id'] = this.jo[i].id;
-        this.jolist['amount'] = this.jo[i].price;
+        // this.jolist['amount'] = this.jo[i].OrderDetails['price'];
         this.jolist['jobOrder'] = this.jo[i];
         console.log(this.jolist);
         arr.push(this.jolist);
@@ -296,15 +294,15 @@ export class ReceiptingDetailComponent implements OnInit {
 
       // console.log(prod);
 
-      // this.receiptsvc.add(prod).subscribe(
-      //   success => {
-      //     this.goback();
-      //   },
-      //   error => {
-      //     // console.log(error.error);
-      //     this.toastr.error(error.error.error_message, 'Error');
-      //   }
-      // );
+      this.receiptsvc.add(prod).subscribe(
+        success => {
+          this.goback();
+        },
+        error => {
+          // console.log(error.error);
+          this.toastr.error(error.error.error_message, 'Error');
+        }
+      );
 
     // if (this.form.valid === true)  {
     //   let datestring = prod.receiptDate;

@@ -30,12 +30,12 @@ export class ReceiptJobOrdersComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private dialogRef: MatDialogRef<ReceiptJobOrdersComponent>,
-  @Inject(MAT_DIALOG_DATA) public data: any
+    private dialogRef: MatDialogRef<ReceiptJobOrdersComponent>
+  // @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-      if (data) {
-        this.receipt = data;
-      }
+      // if (data) {
+      //   this.receipt = data;
+      // }
   }
 
   ngOnInit() {

@@ -11,20 +11,20 @@
 
     <div fxLayout="column" fxLayoutAlign="start start" fxLayout.gt-md="row">
 
-        <form class="mat-white-bg mat-elevation-z4 p-24 mr-24 mb-24" fxLayout="column" fxLayoutAlign="start"
-              fxFlex="1 0 auto" (ngSubmit)="onSubmit(form.value)" name="form" [formGroup]="form" style="width: 100%;">
+        <div class="mat-white-bg mat-elevation-z4 p-24 mr-24 mb-24" fxLayout="column" fxLayoutAlign="start"
+              fxFlex="1 0 auto" name="form" style="width: 100%;">
 
             <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto" fxLayoutWrap>
 
                 <mat-form-field fxFlex="25">
-                  <input matInput placeholder="Job Order No" formControlName="jobOrderNo" required>
+                  <input  matInput placeholder="Job Order No" [(ngModel)]="jo.jobOrderNo" required>
                     <mat-error *ngIf="formErrors.jobOrderNo.required">
                         Required
                     </mat-error>
                 </mat-form-field>
 
               <mat-form-field fxFlex="25">
-                <mat-select placeholder="Customer" formControlName="customer" required>
+                <mat-select placeholder="Customer" [(ngModel)]="jo.customer" required>
                   <mat-option *ngFor="let item of custOption" [value]="item.id">
                     {{ item.name }}
                   </mat-option>
@@ -35,7 +35,7 @@
                 </mat-form-field>
 
                 <mat-form-field fxFlex="25">
-                  <input matInput placeholder="Ref. No" formControlName="refNo" required>
+                  <input matInput placeholder="Ref. No" [(ngModel)]="jo.refNo" required>
                   <mat-error *ngIf="formErrors.refNo.required">
                       Required
                   </mat-error>
@@ -44,19 +44,19 @@
 
             <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
                 <mat-form-field fxFlex="20">
-                    <input matInput [matDatepicker]="orderDate" placeholder="Order Date" formControlName ="orderDate" >
+                    <input matInput [matDatepicker]="orderDate" placeholder="Order Date" [(ngModel)]="jo.orderDate" >
                     <mat-datepicker-toggle matSuffix [for]="orderDate"></mat-datepicker-toggle>
                     <mat-datepicker #orderDate ></mat-datepicker>
               </mat-form-field>
 
                 <mat-form-field fxFlex="20">
-                    <input matInput [matDatepicker]="completionDate"  placeholder="Completion Date" formControlName ="completionDate" >
+                    <input matInput [matDatepicker]="completionDate" [(ngModel)]="jo.completionDate" placeholder="Completion Date" >
                     <mat-datepicker-toggle matSuffix [for]="completionDate"></mat-datepicker-toggle>
                     <mat-datepicker #completionDate></mat-datepicker>
               </mat-form-field>
 
                 <mat-form-field fxFlex="20">
-                  <mat-select placeholder="Delivery Address" formControlName="deliveryAddress" required>
+                  <mat-select placeholder="Delivery Address" [(ngModel)]="jo.deliveryAddress" required>
                     <mat-option *ngFor="let item of dlvaddrOption" [value]="item.id">
                       {{ item.name }}
                     </mat-option>
@@ -73,13 +73,13 @@
 
             <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
               <mat-form-field fxFlex="25">
-                <input matInput placeholder="Remarks" formControlName="remarks">
+                <input matInput placeholder="Remarks" [(ngModel)]="jo.remarks">
               </mat-form-field>
           </div>
 
           <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
             <mat-form-field fxFlex="25">
-              <mat-select placeholder="Operator" formControlName="operator" required>
+              <mat-select placeholder="Operator" [(ngModel)]="jo.operator" required>
                 <mat-option *ngFor="let item of opsOption" [value]="item.id">
                   {{ item.name }}
                 </mat-option>
@@ -91,7 +91,7 @@
 
 
         <mat-form-field fxFlex="30">
-          <mat-select placeholder="Status" formControlName="status" required>
+          <mat-select placeholder="Status" [(ngModel)]="jo.status" required>
             <mat-option *ngFor="let item of statusOption" [value]="item.value">
               {{ item.display_name }}
             </mat-option>
@@ -102,50 +102,61 @@
           </mat-form-field>
     </div>
 
-    <h1>Order Item</h1>
     <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+        <h1>Order Item</h1>
+
+        <a mat-raised-button color="accent" (click)="addOrderItem()">
+            New Order Item
+         </a>
+
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto" *ngFor="let row of rows; let i = index">
+
       <mat-form-field fxFlex="30">
-        <mat-select placeholder="Product" formControlName="product" required>
+        <mat-select placeholder="Product" [(ngModel)]="products[i]" required>
           <mat-option *ngFor="let item of prodOption" [value]="item.id">
             {{ item.name }}
           </mat-option>
         </mat-select>
         <mat-error *ngIf="formErrors.product.required">
           Required
-      </mat-error>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field fxFlex="30">
+          <mat-select placeholder="Types" [(ngModel)]="types[i]" required>
+            <mat-option *ngFor="let item of typesOption" [value]="item.value">
+              {{ item.display_name }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="formErrors.product.required">
+            Required
+          </mat-error>
         </mat-form-field>
-        </div>
 
-        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
-            <mat-form-field fxFlex="10">
-                <input matInput placeholder="Qty" formControlName="qty" required>
-                  <mat-error *ngIf="formErrors.qty.required">
-                      Required
-                  </mat-error>
-              </mat-form-field>
-      </div>
+      <mat-form-field fxFlex="10">
+        <input matInput placeholder="Qty" [(ngModel)]="qties[i]" required>
+          <mat-error *ngIf="formErrors.qty.required">
+              Required
+          </mat-error>
+      </mat-form-field>
 
-      <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
-          <mat-form-field fxFlex="25">
-              <input matInput placeholder="Price" formControlName="price" required>
-                <mat-error *ngIf="formErrors.price.required">
-                    Required
-                </mat-error>
-            </mat-form-field>
-    </div>
-
-    <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+      <mat-form-field fxFlex="25">
+          <input matInput placeholder="Price" [(ngModel)]="prices[i]" required>
+            <mat-error *ngIf="formErrors.price.required">
+                Required
+            </mat-error>
+        </mat-form-field>
         <mat-form-field fxFlex="25">
-            <input matInput placeholder="Markup Amount" formControlName="markup" required>
+            <input matInput placeholder="Markup Amount" [(ngModel)]="markups[i]" required>
               <mat-error *ngIf="formErrors.markup.required">
                   Required
               </mat-error>
           </mat-form-field>
-  </div>
 
-  <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
     <mat-form-field fxFlex="25">
-      <mat-select placeholder="File Source" formControlName="fileSource" required>
+      <mat-select placeholder="File Source" [(ngModel)]="fileSources[i]" required>
         <mat-option *ngFor="let item of filesourceOption" [value]="item.value">
           {{ item.display_name }}
         </mat-option>
@@ -157,7 +168,7 @@
 
 
         <label for="file"></label>
-        <input #fileInput type="file" id="file" formControlName="fileName"  />
+        <input #fileInput type="file" id="file" (change)="handleFileInput($event.target.files, i)">
         <!-- <button mat-button (click)="inputFile.click()">Browse</button>  -->
         <!-- {{ inputFile.value }} -->
         <input #inputFile type="file" [style.display]="'none'">
@@ -166,7 +177,7 @@
             <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
                     <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
                       <div class="button-row">
-                        <button mat-raised-button class="mat-accent" type="submit">
+                        <button mat-raised-button class="mat-accent" (click)="NewOnSubmit()">
                           Submit
                         </button>
                         <a mat-raised-button (click)="goback()">
@@ -175,5 +186,5 @@
                       </div>
                     </div>
             </div>
-  </form>
+          </div>
 </div>

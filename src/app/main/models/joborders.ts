@@ -4,28 +4,57 @@ import { Msoperator } from './msoperator';
 import { Msproduct } from './msproduct';
 import { FileUpload } from 'primeng/primeng';
 
-export interface Joborders {
-  id: number;
-  customerName: string;
-  addressOfDelivery: string;
-  operatorName: string;
-  productName: string;
-  jobOrderNo: string;
-  refNo: string;
-  orderDate: string;
-  completionDate: string;
-  remarks: string;
-  status: string;
-  qty: number;
-  price: number;
-  markup: number;
-  fileSource: string;
-  fileName: any;
-  customer: Mscustomer;
-  deliveryAddress: Msdeliveryaddr;
-  operator: Msoperator;
-  product: Msproduct;
-  ischecked?: boolean;
-  receipt?: number;
+export class Joborders2 {
+  constructor(
+    public id: number,
+    public jobOrderNo: string,
+    public customer: string,
+    public refNo?: string,
+    public orderDate?: string,
+    public completionDate?: string,
+    public deliveryAddress?: string,
+    public remarks?: string,
+    public operator?: string,
+    public status?: string,
+    public ischecked?: boolean,
+    public receipt?: number,
+    // OrderDetails: JobOrderDtls[];
+    public product: number[] = [],
+    public type: string[] = [],
+    public qty: number[] = [],
+    public price: number[] = [],
+    public markup: number[] = [],
+    public fileSource: string[] = [],
+    public fileName: File[] = [],
+  ) {}
 }
 
+export class JobOrderDtls {
+  id: number;
+  type: string;
+  qty: number;
+  price: number;
+  markupAmt: number;
+  fileSource: string;
+  fileName: any;
+  product: Msproduct;
+}
+
+export interface Joborders {
+
+    id?: number;
+    jobOrderNo?: string;
+    customer?: Mscustomer;
+    refNo?: string;
+    orderDate?: string;
+    completionDate?: string;
+    deliveryAddress?: Msdeliveryaddr;
+    remarks?: string;
+    operator?: Msoperator;
+    status?: string;
+    ischecked?: boolean;
+    receipt?: number;
+    OrderDetails: JobOrderDtls[];
+
+
+}

@@ -49,7 +49,7 @@ export class MarkupreleaseDetailComponent implements OnInit {
     private dialog: MatDialog
   ) {
     this.formErrors = {
-      markupReleaseJobOrders : {},
+      // markupReleaseJobOrders : {},
       customer : {},
       markupNo : {},
       releaseDate : {},
@@ -147,7 +147,7 @@ export class MarkupreleaseDetailComponent implements OnInit {
 
   goback() {
     // this._location.back();
-    this._location.prepareExternalUrl('/markupreleases-detail');
+    this._location.prepareExternalUrl('/markupreleases');
   }
 
   ngOnDestroy() {

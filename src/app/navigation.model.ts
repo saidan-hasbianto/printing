@@ -6,10 +6,10 @@ export class NavigationModel
     {
         this.model = [
             {
-                'id'      : 'applications',
-                'title'   : 'Applications',
-                'type'    : 'group',
-                'children': [
+              'id'      : 'applications',
+              'title'   : 'Applications',
+              'type'    : 'group',
+              'children': [
                     // {
                     //     'id'   : 'sample',
                     //     'title': 'Home',
@@ -86,12 +86,26 @@ export class NavigationModel
                     'title': 'Customer',
                     'type' : 'item',
                     'url'  : '/mscustomer'
-                  },
+                  }
+                ]
+              },
+              {
+                'id'      : 'applications',
+                'title'   : 'Transaction',
+                'type'    : 'collapse',
+                'icon'    : 'home',
+                'children': [
                   {
                     'id'   : 'joborders',
                     'title': 'Job Orders',
                     'type' : 'item',
                     'url'  : '/joborders'
+                  },
+                  {
+                    'id'   : 'deliveryorder',
+                    'title': 'Delivery Order',
+                    'type' : 'item',
+                    'url'  : '/deliveryorder'
                   },
                   {
                     'id'   : 'receipts',

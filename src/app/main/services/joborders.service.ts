@@ -4,7 +4,7 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { LogErrorHandleService } from './log-error-handle.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Joborders } from '../models/joborders';
+import { Joborders, Joborders2 } from '../models/joborders';
 import { Observable } from 'rxjs/Observable';
 import { catchError, tap } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
@@ -51,45 +51,56 @@ export class JobordersService {
     /** POST: add a new hero to the server */
   add (item: Joborders): Observable<Joborders> {
     return this.http.post<Joborders>(this.url, item, httpOptions).pipe(
+      // tslint:disable-next-line:no-shadowed-variable
       tap((item: Joborders) => {
-        this.logErrorHandle.log('Job Order ID =', + item.id + ' successfully added', 0);
+        // this.logErrorHandle.log('Job Order ID =', + item.id + ' successfully added', 0);
       }),
     );
   }
 
-  update (item: Joborders) {
-    return this.http.put<Joborders>(this.url + item.id + '/', item, httpOptions).pipe(
-      tap((item: Joborders) => {
-        this.logErrorHandle.log('Job Order ID =', + item.id + ' successfully updated', 0);
-      }),
-    );
-  }
+  // update (item: Joborders) {
+  //   return this.http.put<Joborders>(this.url + item.id + '/', item, httpOptions).pipe(
+  //     tap((item: Joborders) => {
+  //       this.logErrorHandle.log('Job Order ID =', + item.id + ' successfully updated', 0);
+  //     }),
+  //   );
+  // }
 
-  delete (item: Joborders): Observable<Joborders> {
-    return this.http.delete<Joborders>(`${this.url}${item.id}/`, httpOptions).pipe(
-    tap(_ => this.logErrorHandle.log('Job Order ID ', item.id + ' successfully deleted', 0)),
-    catchError(this.logErrorHandle.handleError<Joborders>('delete'))
-    );
-  }
+  // delete (item: Joborders): Observable<Joborders> {
+  //   return this.http.delete<Joborders>(`${this.url}${item.id}/`, httpOptions).pipe(
+  //   tap(_ => this.logErrorHandle.log('Job Order ID ', item.id + ' successfully deleted', 0)),
+  //   catchError(this.logErrorHandle.handleError<Joborders>('delete'))
+  //   );
+  // }
 
-  postFile(item: Joborders, fileToUpload: File): Observable<Boolean> {
+  postFile(item: Joborders2): Observable<any> {
+    console.log(item);
     const endpoint = this.url;
     const formData: FormData = new FormData();
-    // tslint:disable-next-line:forin
-    for (const key in item) {
-      if (key !== 'fileName') {
-         formData.append(key, item[key]);
+      formData.append('jobOrderNo', item.jobOrderNo);
+      formData.append('customer', item.customer);
+      formData.append('refNo', item.refNo);
+      formData.append('orderDate', item.orderDate);
+      formData.append('completionDate', item.completionDate);
+      formData.append('deliveryAddress', item.deliveryAddress);
+      formData.append('remarks', item.remarks);
+      formData.append('operator', item.operator);
+      formData.append('status', item.status);
+
+      for (let i = 0; i < item['product'].length; i++)
+      {
+        formData.append('product', item.product[i].toString());
+        formData.append('qty', item.qty[i].toString());
+        formData.append('type', item.type[i]);
+        formData.append('price', item.price[i].toString());
+        formData.append('markup', item.markup[i].toString());
+        formData.append('fileSource', item.fileSource[i]);
+        formData.append('fileName', item.fileName[i]);
       }
-
-      console.log(key + ' ' + item[key]);
-    }
-
-    formData.append('fileName', fileToUpload);
-    return this.http.post(endpoint, formData, httpOptions2)
-      .map(() => true);
-      // catchError(this.logErrorHandle.handleError<Joborders>('delete'));
-      // .map(() => { return true; })
-      // .catch(this.handleError('POST'));
+      return this.http
+        .post(endpoint, formData);
+        // .map(() => {
+        //   return true; });
   }
 
   /**
