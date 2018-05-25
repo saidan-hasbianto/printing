@@ -85,6 +85,7 @@ import { PaymPurchFormComponent } from './content/paym-purch-form/paym-purch-for
 import { DeliveryorderComponent } from './content/deliveryorder/deliveryorder.component';
 import { DeliveryorderDetailComponent } from './content/deliveryorder-detail/deliveryorder-detail.component';
 import { DeliveryorderService } from './services/deliveryorder.service';
+import { JoborderViewComponent } from './content/joborder-view/joborder-view.component';
 
 
 @NgModule({

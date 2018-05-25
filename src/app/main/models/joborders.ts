@@ -38,6 +38,7 @@ export class JobOrderDtls {
   fileSource: string;
   fileName: any;
   product: Msproduct;
+  productName: string;
 }
 
 export interface Joborders {

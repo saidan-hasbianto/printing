@@ -109,14 +109,12 @@ export class MarkupreleaseDetailComponent implements OnInit {
   addDetail() {
     const dialogRef = this.dialog.open(ReceiptJobOrdersComponent);
     dialogRef.afterClosed().subscribe(result => {
+      this.jo = result;
       let i;
       for (i = 0; i < result.length; i++)
       {
-
-
-        this.jo.push(result[i]);
         this.jo[i].receipt = 0;
-        console.log(this.jo[i]);
+
       }
       // this.jo.push(result[0]);
 
@@ -146,8 +144,8 @@ export class MarkupreleaseDetailComponent implements OnInit {
   }
 
   goback() {
-    // this._location.back();
-    this._location.prepareExternalUrl('/markupreleases');
+    this._location.back();
+    // this._location.prepareExternalUrl('/markupreleases');
   }
 
   ngOnDestroy() {
@@ -230,7 +228,7 @@ export class MarkupreleaseDetailComponent implements OnInit {
   {
     if (this.form.valid === true)
     {
-      if (mu.id === '0')
+      if (mu.id === '')
       {
         if (this.jo.length > 0)
         {
@@ -240,6 +238,7 @@ export class MarkupreleaseDetailComponent implements OnInit {
 
           const _Markupreleases2 = new Markupreleases2();
           let _MarkupreleaseDtls: MarkupreleaseDtls;
+          _Markupreleases2.id = '0';
           _Markupreleases2.releaseDate = mu.releaseDate;
           _Markupreleases2.markupNo = mu.markupNo;
           _Markupreleases2.remarks = mu.remarks;

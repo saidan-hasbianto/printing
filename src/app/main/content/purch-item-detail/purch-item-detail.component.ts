@@ -14,7 +14,7 @@ import { Msitem } from '../../models/msitem';
 import { VendorService } from '../../services/vendor.service';
 
 @Component({
-  selector: 'app-purch-item-detail',
+  selector: 'fuse-purch-item-detail',
   templateUrl: './purch-item-detail.component.html',
   styleUrls: ['./purch-item-detail.component.scss']
 })
@@ -23,7 +23,7 @@ export class PurchItemDetailComponent implements OnInit {
   formErrors: any;
   purchitem: PurchItem;
   purchitemDtls: PurchItemDetail[] = [];
-  purchitemDtlsTmp: PurchItemDetail[] = [];
+  purchitemDtlsTmp: PurchItemDetail[];
   sub: any;
   loadingbar= true;
   vendOption: Vendor[];
@@ -114,37 +114,43 @@ export class PurchItemDetailComponent implements OnInit {
   }
 
   goback() {
-    // this._location.back();
-    this._location.prepareExternalUrl('/purch-item');
+    this._location.back();
+    // this._location.prepareExternalUrl('/purch-item');
   }
 
   addDtls() {
     const dialogRef = this.dialog.open(PurchItemFormComponent);
     dialogRef.afterClosed().subscribe(result => {
-      this.purchitemDtlsTmp.length = 0;
-      this.purchitemDtlsTmp.push(result);
+      this.purchitemDtlsTmp = result;
 
-      // console.log(this.purchitemDtlsTmp);
-      const _PurchItem = new PurchItem();
-      let _PurchItemDetail: PurchItemDetail;
+
+      // this.purchitemDtlsTmp.length = 0;
+      // this.purchitemDtlsTmp.push(result);
+
+      // // console.log(this.purchitemDtlsTmp);
+      // const _PurchItem = new PurchItem();
+      // let _PurchItemDetail: PurchItemDetail;
 
       let i;
       for (i = 0; i < this.purchitemDtlsTmp.length;)
       {
-        console.log(this.purchitemDtlsTmp[i][i]['itemCd']);
-        console.log(this.purchitemDtlsTmp[i][i]['name']);
-        _PurchItemDetail = new PurchItemDetail();
-        _PurchItemDetail.id = this.purchitemDtlsTmp[i][i]['itemCd'];
-        _PurchItemDetail.itemName = this.purchitemDtlsTmp[i][i]['name'];
-        _PurchItemDetail.item = this.purchitemDtlsTmp[i][i]['id'];
-        _PurchItemDetail.amount = 0;
-        _PurchItemDetail.qty = 0;
-        this.purchitemDtls.push(_PurchItemDetail);
+        // console.log(this.purchitemDtlsTmp[i][i]['itemCd']);
+        // console.log(this.purchitemDtlsTmp[i][i]['name']);
+        // _PurchItemDetail = new PurchItemDetail();
+        // _PurchItemDetail.id = this.purchitemDtlsTmp[i][i]['itemCd'];
+        // _PurchItemDetail.itemName = this.purchitemDtlsTmp[i][i]['name'];
+        // _PurchItemDetail.item = this.purchitemDtlsTmp[i][i]['id'];
+        // _PurchItemDetail.amount = 0;
+        // _PurchItemDetail.qty = 0;
+        // this.purchitemDtls.push(_PurchItemDetail);
+
+        this.purchitemDtlsTmp[i]['amount'] = 0;
+        this.purchitemDtlsTmp[i]['qty'] = 0;
+        this.purchitemDtlsTmp[i]['item'] = this.purchitemDtlsTmp[i]['id'].toString();
+
         i++;
       }
-
-      console.log(this.purchitemDtls);
-
+      console.log(this.purchitemDtlsTmp);
     });
   }
 
@@ -179,9 +185,9 @@ export class PurchItemDetailComponent implements OnInit {
       const newDate = new Date(datestring);
       prod.purchDate = newDate.getFullYear() + '-' + (newDate.getMonth() + 1) + '-' + newDate.getDate();
 
-      if (this.purchitemDtls.length > 0 )
+      if (this.purchitemDtlsTmp.length > 0 )
         {
-          prod.purchaseItems = this.purchitemDtls;
+          prod.purchaseItems = this.purchitemDtlsTmp;
         }
         else
         {

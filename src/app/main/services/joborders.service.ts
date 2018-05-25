@@ -42,7 +42,13 @@ export class JobordersService {
     );
   }
 
-  getJO(id: number): Observable<Joborders> {
+  getJO(id: number): Observable<Joborders2> {
+    return this.http.get<Joborders2>(`${this.url}${id}`, httpOptions).pipe(
+      catchError(this.logErrorHandle.handleError<Joborders2>('getJO'))
+    );
+  }
+
+  getJO1(id: number): Observable<Joborders> {
     return this.http.get<Joborders>(`${this.url}${id}`, httpOptions).pipe(
       catchError(this.logErrorHandle.handleError<Joborders>('getJO'))
     );
@@ -89,13 +95,14 @@ export class JobordersService {
 
       for (let i = 0; i < item['product'].length; i++)
       {
+        // console.log(item.product);
         formData.append('product', item.product[i].toString());
         formData.append('qty', item.qty[i].toString());
         formData.append('type', item.type[i]);
         formData.append('price', item.price[i].toString());
         formData.append('markup', item.markup[i].toString());
         formData.append('fileSource', item.fileSource[i]);
-        formData.append('fileName', item.fileName[i]);
+        formData.append('fileName', item.fileName[i], item.fileName[i].name);
       }
       return this.http
         .post(endpoint, formData);

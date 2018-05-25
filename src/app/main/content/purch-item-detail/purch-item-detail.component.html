@@ -80,7 +80,7 @@
               </a>
             </div>
             <ngx-datatable class="material"
-              [rows]="purchitemDtls"
+              [rows]="purchitemDtlsTmp"
               [selected]="selected"
               [selectionType]="'cell'"
               [columnMode]="'force'"
@@ -93,7 +93,7 @@
                 </ng-template>
               </ngx-datatable-column>
               <ngx-datatable-column name="Item ID" prop="id"></ngx-datatable-column>
-              <ngx-datatable-column name="Item Name" prop="itemName"></ngx-datatable-column>
+              <ngx-datatable-column name="Item Name" prop="name"></ngx-datatable-column>
               <ngx-datatable-column name="Qty"></ngx-datatable-column>
               <ngx-datatable-column name="Item Price" prop="amount">
                 <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">

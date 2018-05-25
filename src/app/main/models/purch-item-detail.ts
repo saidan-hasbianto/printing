@@ -5,5 +5,5 @@ export class PurchItemDetail {
   itemName: string;
   qty: number;
   amount: number;
-  item: Msitem;
+  item: string;
 }

@@ -86,6 +86,12 @@ export class NavigationModel
                     'title': 'Customer',
                     'type' : 'item',
                     'url'  : '/mscustomer'
+                  },
+                  {
+                    'id'   : 'vendor',
+                    'title': 'Vendor',
+                    'type' : 'item',
+                    'url'  : '/vendor'
                   }
                 ]
               },
@@ -120,14 +126,8 @@ export class NavigationModel
                     'url'  : '/markupreleases'
                   },
                   {
-                    'id'   : 'vendor',
-                    'title': 'Vendor',
-                    'type' : 'item',
-                    'url'  : '/vendor'
-                  },
-                  {
                     'id'   : 'purch-item',
-                    'title': 'Purch Item',
+                    'title': 'Purchase Item',
                     'type' : 'item',
                     'url'  : '/purch-item'
                   },

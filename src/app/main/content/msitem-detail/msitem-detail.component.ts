@@ -10,7 +10,7 @@ import { of } from 'rxjs/observable/of';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-msitem-detail',
+  selector: 'fuse-msitem-detail',
   templateUrl: './msitem-detail.component.html',
   styleUrls: ['./msitem-detail.component.scss']
 })

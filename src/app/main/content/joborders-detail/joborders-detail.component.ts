@@ -323,15 +323,15 @@ export class JobordersDetailComponent implements OnInit {
 // }
 
 NewOnSubmit() {
-  if (this.products.length > 0)
-  {
-    const datestring = this.jo.orderDate;
+  const datestring = this.jo.orderDate;
     const newDate = new Date(datestring);
     this.jo.orderDate = newDate.getFullYear() + '-' + (newDate.getMonth() + 1) + '-' + newDate.getDate();
 
     const completion = new Date(this.jo.completionDate);
     this.jo.completionDate = completion.getFullYear() + '-' + (completion.getMonth() + 1) + '-' + completion.getDate();
 
+    if (this.products.length > 0)
+  {
     this.jo.product = this.products;
     this.jo.qty = this.qties;
     this.jo.type = this.types;
@@ -339,12 +339,13 @@ NewOnSubmit() {
     this.jo.markup = this.markups;
     this.jo.fileSource = this.fileSources;
     this.jo.fileName = this.fileNames;
-    console.log(this.jo);
+    // console.log(this.jo);
     this.josvc.postFile(this.jo).subscribe(
       // console.log(data));
         success => {
           this.toastr.success('Success');
-          this.goback();
+          console.log(success);
+          // this.goback();
         },
         error => {
           // console.log(error.error);

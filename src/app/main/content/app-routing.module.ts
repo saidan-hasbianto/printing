@@ -33,6 +33,7 @@ import { MscustomergroupDetailComponent } from './mscustomergroup-detail/mscusto
 import { MsdeliveryaddrDetailComponent } from './msdeliveryaddr-detail/msdeliveryaddr-detail.component';
 import { JobordersComponent } from './joborders/joborders.component';
 import { JobordersDetailComponent } from './joborders-detail/joborders-detail.component';
+import { JoborderViewComponent } from './joborder-view/joborder-view.component';
 import { ReceiptingListComponent } from './receipting-list/receipting-list.component';
 import { ReceiptJobOrdersComponent } from './receipt-job-orders/receipt-job-orders.component';
 import { MarkupreleasesComponent } from './markupreleases/markupreleases.component';
@@ -346,7 +347,7 @@ const routes = [
     data: {data: this.selectedData, type: 'edit'}
   },
   {
-    path     : 'cashbook-detail/',
+    path     : 'cashbook-detail',
     component: CashbookDetailComponent,
     canActivate: [AuthGuard],
     // data: {data: this.selectedData, type: 'edit'}
@@ -364,7 +365,7 @@ const routes = [
     data: {data: this.selectedData, type: 'edit'}
   },
   {
-    path     : 'deliveryorder-detail/',
+    path     : 'deliveryorder-detail',
     component: DeliveryorderDetailComponent,
     canActivate: [AuthGuard],
     // data: {data: this.selectedData, type: 'edit'}
@@ -373,6 +374,12 @@ const routes = [
     path     : 'purch-item-form',
     component: PurchItemFormComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path     : 'joborder-view/:id',
+    component: JoborderViewComponent,
+    canActivate: [AuthGuard],
+    data: {data: this.selectedData}
   }
 ];
 
@@ -404,6 +411,7 @@ const routes = [
     MsdeliveryaddrDetailComponent,
     JobordersComponent,
     JobordersDetailComponent,
+    JoborderViewComponent,
     ReceiptingListComponent,
     ReceiptingDetailComponent,
     ReceiptJobOrdersComponent,

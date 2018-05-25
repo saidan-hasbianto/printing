@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 // import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-msitem',
+  selector: 'fuse-msitem',
   templateUrl: './msitem.component.html',
   styleUrls: ['./msitem.component.scss']
 })

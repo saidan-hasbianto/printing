@@ -151,10 +151,11 @@ export class PaymPurchListDetailComponent implements OnInit {
   addDtls() {
     const dialogRef = this.dialog.open(PaymPurchFormComponent);
     dialogRef.afterClosed().subscribe(result => {
+      this._PaymPurchDtls = result;
       let i;
       for (i = 0; i < result.length; i++)
       {
-        this._PaymPurchDtls.push(result[i]);
+        // this._PaymPurchDtls.push(result[i]);
         this._PaymPurchDtls[i].amount = 0;
         console.log(this._PaymPurchDtls[i]);
       }
