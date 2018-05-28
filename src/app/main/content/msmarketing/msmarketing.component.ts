@@ -3,7 +3,7 @@ import { Msmarketing } from '../../models/msmarketing';
 import { MsmarketingService } from '../../services/msmarketing.service';
 
 @Component({
-  selector: 'app-msmarketing',
+  selector: 'fuse-msmarketing',
   templateUrl: './msmarketing.component.html',
   styleUrls: ['./msmarketing.component.scss']
 })

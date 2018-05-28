@@ -7,7 +7,7 @@ import { PurchItem } from '../../models/purch-item';
 import { Location } from '@angular/common';
 
 @Component({
-  selector: 'app-paym-purch-form',
+  selector: 'fuse-paym-purch-form',
   templateUrl: './paym-purch-form.component.html',
   styleUrls: ['./paym-purch-form.component.scss']
 })

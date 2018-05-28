@@ -50,7 +50,7 @@ export class JobordersService {
 
   getJO1(id: number): Observable<Joborders> {
     return this.http.get<Joborders>(`${this.url}${id}`, httpOptions).pipe(
-      catchError(this.logErrorHandle.handleError<Joborders>('getJO'))
+      catchError(this.logErrorHandle.handleError<Joborders>('getJO1'))
     );
   }
 
@@ -72,12 +72,12 @@ export class JobordersService {
   //   );
   // }
 
-  // delete (item: Joborders): Observable<Joborders> {
-  //   return this.http.delete<Joborders>(`${this.url}${item.id}/`, httpOptions).pipe(
-  //   tap(_ => this.logErrorHandle.log('Job Order ID ', item.id + ' successfully deleted', 0)),
-  //   catchError(this.logErrorHandle.handleError<Joborders>('delete'))
-  //   );
-  // }
+  delete (item: Joborders): Observable<Joborders> {
+    return this.http.delete<Joborders>(`${this.url}${item.id}/`, httpOptions).pipe(
+    tap(_ => this.logErrorHandle.log('Job Order ID ', item.id + ' successfully deleted', 0)),
+    catchError(this.logErrorHandle.handleError<Joborders>('delete'))
+    );
+  }
 
   postFile(item: Joborders2): Observable<any> {
     console.log(item);

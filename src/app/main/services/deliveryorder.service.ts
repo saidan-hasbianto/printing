@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { LogErrorHandleService } from './log-error-handle.service';
 import { catchError, tap } from 'rxjs/operators';
-import { Deliveryorder } from '../models/deliveryorder';
+import { Deliveryorder, Deliveryorder2 } from '../models/deliveryorder';
 import { Observable } from 'rxjs/Observable';
 
 const httpOptions = {
@@ -40,9 +40,9 @@ export class DeliveryorderService {
   }
 
     /** POST: add a new hero to the server */
-  add (item: Deliveryorder): Observable<Deliveryorder> {
-    return this.http.post<Deliveryorder>(this.url, item, httpOptions).pipe(
-      tap((item: Deliveryorder) => {
+  add (item: Deliveryorder2): Observable<Deliveryorder2> {
+    return this.http.post<Deliveryorder2>(this.url, item, httpOptions).pipe(
+      tap((item: Deliveryorder2) => {
         this.logErrorHandle.log('Item ID =', + item.id + ' successfully added', 0);
       }),
     );

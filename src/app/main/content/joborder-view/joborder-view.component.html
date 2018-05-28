@@ -16,33 +16,33 @@
         <form [formGroup]="joform">
           <div fxLayout="column" fxLayoutAlign="start start" fxLayout.gt-md="row">
             <mat-form-field fxFlex="25">
-              <input  matInput placeholder="Job Order No" formControlName="jobOrderNo" >
+              <input  matInput placeholder="Job Order No" formControlName="jobOrderNo" readonly="true" >
             </mat-form-field>
             <mat-form-field fxFlex="25">
-                <input  matInput placeholder="Ref No" formControlName="refNo" >
+                <input  matInput placeholder="Ref No" formControlName="refNo" readonly="true" >
             </mat-form-field>
             <mat-form-field fxFlex="25">
-                <input  matInput placeholder="Order Date" formControlName="orderDate" >
+                <input  matInput placeholder="Order Date" formControlName="orderDate" readonly="true">
               </mat-form-field>
               <mat-form-field fxFlex="25">
-                  <input  matInput placeholder="Completion Date" formControlName="completionDate" >
+                  <input  matInput placeholder="Completion Date" formControlName="completionDate" readonly="true" >
               </mat-form-field>
           </div>
 
           <div fxLayout="column" fxLayoutAlign="start start" fxLayout.gt-md="row">
             <mat-form-field fxFlex="25">
-              <input  matInput placeholder="Remarks" formControlName="remarks" >
+              <input  matInput placeholder="Remarks" formControlName="remarks" readonly="true" >
             </mat-form-field>
             <mat-form-field fxFlex="25">
-                <input  matInput placeholder="Status" formControlName="status" >
-            </mat-form-field>
-
-            <mat-form-field fxFlex="25">
-                <input  matInput placeholder="operator" formControlName="operator" >
+                <input  matInput placeholder="Status" formControlName="status" readonly="true" >
             </mat-form-field>
 
             <mat-form-field fxFlex="25">
-                <input  matInput placeholder="customer" formControlName="customer" >
+                <input  matInput placeholder="operator" formControlName="operator" readonly="true">
+            </mat-form-field>
+
+            <mat-form-field fxFlex="25">
+                <input  matInput placeholder="customer" formControlName="customer" readonly="true">
             </mat-form-field>
 
             <!-- <mat-form-field fxFlex="25">
@@ -77,11 +77,13 @@
             <ngx-datatable-column name="Price"></ngx-datatable-column>
             <ngx-datatable-column name="File Source" prop="fileSource"></ngx-datatable-column>
             <ngx-datatable-column name="Markup Amt" prop="markup"></ngx-datatable-column>
-            <ngx-datatable-column name="File" [width]="150" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
+            <ngx-datatable-column name="File" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
               <ng-template let-row="row" ngx-datatable-cell-template>
-                <div class="button-row">
-                  <a href="{{row.fileName}}">Download</a>
-                </div>
+                <button mat-icon-button color="primary">
+                  <mat-icon aria-label="Download">
+                    <a href="{{row.fileName}}">vertical_align_bottom</a>
+                  </mat-icon>
+                </button>
               </ng-template>
             </ngx-datatable-column>
           </ngx-datatable>

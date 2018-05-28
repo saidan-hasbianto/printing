@@ -11,5 +11,6 @@ export class PurchItem {
   refNo: string;
   vendor: Vendor;
   amount?: number;
-  purchaseItems: PurchItemDetail[];
+  totalamt?: number;
+  public purchaseItems: PurchItemDetail[];
 }

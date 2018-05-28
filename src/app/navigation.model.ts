@@ -37,7 +37,7 @@ export class NavigationModel
               'id'      : 'applications',
               'title'   : 'Master',
               'type'    : 'collapse',
-              'icon'    : 'home',
+              'icon'    : 'work',
               'children': [
                   {
                       'id'   : 'item',
@@ -99,7 +99,7 @@ export class NavigationModel
                 'id'      : 'applications',
                 'title'   : 'Transaction',
                 'type'    : 'collapse',
-                'icon'    : 'home',
+                'icon'    : 'swap_horiz',
                 'children': [
                   {
                     'id'   : 'joborders',

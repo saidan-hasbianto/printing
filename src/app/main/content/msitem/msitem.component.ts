@@ -18,7 +18,7 @@ export class MsitemComponent implements OnInit {
     descs : 'Screen Printing',
     minQty : 10
   };
-  loadingIndicator: boolean = true;
+  loadingIndicator = true;
 
   selected = [];
   selectedData: Msitem;

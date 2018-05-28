@@ -39,6 +39,7 @@ export class JobOrderDtls {
   fileName: any;
   product: Msproduct;
   productName: string;
+  qtyDO?: number;
 }
 
 export interface Joborders {

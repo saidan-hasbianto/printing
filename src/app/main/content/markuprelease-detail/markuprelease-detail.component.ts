@@ -19,7 +19,7 @@ import { id } from '@swimlane/ngx-datatable/release/utils';
 import { ngModuleJitUrl } from '@angular/compiler';
 
 @Component({
-  selector: 'app-markuprelease-detail',
+  selector: 'fuse-markuprelease-detail',
   templateUrl: './markuprelease-detail.component.html',
   styleUrls: ['./markuprelease-detail.component.scss']
 })

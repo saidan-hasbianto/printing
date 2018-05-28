@@ -68,7 +68,7 @@
               </a>
             </div>
             <ngx-datatable class="material"
-              [rows]="_PaymPurchDtls"
+              [rows]="_purchItem"
               [selected]="selected"
               [selectionType]="'cell'"
               [columnMode]="'force'"
@@ -80,10 +80,10 @@
                   {{rowIndex + 1}}
                 </ng-template>
               </ngx-datatable-column>
-              <ngx-datatable-column name="Purchase No" prop="payNo"></ngx-datatable-column>
-              <ngx-datatable-column name="Purchase Date" prop="payDate"></ngx-datatable-column>
+              <ngx-datatable-column name="Purchase No" prop="purchNo"></ngx-datatable-column>
+              <ngx-datatable-column name="Purchase Date" prop="purchDate"></ngx-datatable-column>
               <ngx-datatable-column name="Remarks"></ngx-datatable-column>
-              <ngx-datatable-column name="Amount" prop="purchItemAmt"></ngx-datatable-column>
+              <ngx-datatable-column name="Amount" prop="totalamt"></ngx-datatable-column>
               <ngx-datatable-column name="Payment Amount" prop="amount">
                 <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
                     <span

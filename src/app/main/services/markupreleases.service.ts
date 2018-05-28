@@ -44,7 +44,7 @@ export class MarkupreleasesService {
   add (item: Markupreleases2): Observable<Markupreleases2> {
     return this.http.post<Markupreleases2>(this.url, item, httpOptions).pipe(
       tap((item: Markupreleases2) => {
-        this.logErrorHandle.log('Item ID =', + item.id + ' successfully added', 0);
+        this.logErrorHandle.log('Markup ID =', + item.id + ' successfully added', 0);
       }),
     );
   }

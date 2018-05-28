@@ -8,7 +8,7 @@ import { MsactivityService } from '../../services/msactivity.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-markupreleases',
+  selector: 'fuse-markupreleases',
   templateUrl: './markupreleases.component.html',
   styleUrls: ['./markupreleases.component.scss']
 })
@@ -22,7 +22,7 @@ export class MarkupreleasesComponent implements OnInit {
   mu: Markupreleases[];
   mu2: Markupreleases2[];
 
-  loadingIndicator: boolean = true;
+  loadingIndicator = true;
   temp = [];
 
   constructor(

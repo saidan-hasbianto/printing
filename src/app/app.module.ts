@@ -18,7 +18,7 @@ import { MyHttpInterceptor } from './httpinterceptor';
 // import { MatNativeDateModule } from '@angular/material';
 import { DateValueAccessorModule } from 'angular-date-value-accessor';
 import { MatDatepickerModule, MatNativeDateModule, DateAdapter } from '@angular/material';
-import { DateFormat } from './date-format';
+// import { DateFormat } from './date-format';
 
 
 const appRoutes: Routes = [
@@ -57,9 +57,9 @@ const appRoutes: Routes = [
             useClass: MyHttpInterceptor,
             multi: true
         }
-        ,{
-            provide: DateAdapter, useClass: DateFormat
-        }
+        // ,{
+        //     provide: DateAdapter, useClass: DateFormat
+        // }
     ],
     bootstrap   : [
         AppComponent

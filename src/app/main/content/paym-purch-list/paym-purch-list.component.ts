@@ -17,7 +17,7 @@ import { PurchItemDetail } from '../../models/purch-item-detail';
 import { PurchItemService } from '../../services/purch-item.service';
 
 @Component({
-  selector: 'app-paym-purch-list',
+  selector: 'fuse-paym-purch-list',
   templateUrl: './paym-purch-list.component.html',
   styleUrls: ['./paym-purch-list.component.scss']
 })

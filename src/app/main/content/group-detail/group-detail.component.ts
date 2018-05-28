@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-group-detail',
+  selector: 'fuse-group-detail',
   templateUrl: './group-detail.component.html',
   styleUrls: ['./group-detail.component.scss']
 })

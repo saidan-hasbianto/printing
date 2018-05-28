@@ -4,7 +4,7 @@ import { MscustomergroupService } from '../../services/mscustomergroup.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-mscustomergroup',
+  selector: 'fuse-mscustomergroup',
   templateUrl: './mscustomergroup.component.html',
   styleUrls: ['./mscustomergroup.component.scss']
 })

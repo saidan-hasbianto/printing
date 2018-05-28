@@ -4,13 +4,13 @@ import { MsproductService } from '../../services/msproduct.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-msproduct',
+  selector: 'fuse-msproduct',
   templateUrl: './msproduct.component.html',
   styleUrls: ['./msproduct.component.scss']
 })
 export class MsproductComponent implements OnInit {
   prod: Msproduct[];
-  loadingIndicator: boolean = true;
+  loadingIndicator = true;
   constructor(
     private prodservice: MsproductService,
     private toastrSvc: ToastrService

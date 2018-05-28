@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Deliveryorder, DeliveryorderDtls } from '../../models/deliveryorder';
+import { Deliveryorder, DeliveryorderDtls, DeliveryorderDtls2, Deliveryorder2 } from '../../models/deliveryorder';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DeliveryorderService } from '../../services/deliveryorder.service';
 import { ToastrService } from 'ngx-toastr';
@@ -27,6 +27,9 @@ export class DeliveryorderDetailComponent implements OnInit {
   sub: any;
   loadingbar = true;
   divVal = true;
+  editing = {};
+  selected = [];
+  selectedData: DeliveryorderDtls[] = [];
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -62,12 +65,20 @@ export class DeliveryorderDetailComponent implements OnInit {
         this.dosvc.getDO(id)
         .subscribe(res => {
           this.DO = res;
-
+          console.log(res);
+          console.log(res.jobOrder);
+          const joid = Number (res.jobOrder);
           this.form.setValue({
             id: this.DO.id,
             doNo: this.DO.doNo,
-            doDate: this.DO.doDate
+            doDate: this.DO.doDate,
+            jobOrder: this.DO.jobOrder
             });
+            this.josvc.getJO1(joid).subscribe(hasil =>
+              {
+                this.joDtls = hasil.OrderDetails;
+              }
+            );
         this.loadingbar = false;
         });
       }});
@@ -103,70 +114,104 @@ export class DeliveryorderDetailComponent implements OnInit {
   }
 
   onSubmit(item: Deliveryorder) {
-  const datestring = item.doDate;
+    const datestring = item.doDate;
     const newDate = new Date(datestring);
     item.doDate = newDate.getFullYear() + '-' + (newDate.getMonth() + 1) + '-' + newDate.getDate();
 
-    if (this.doDtls.length > 0)
+    if (this.selected.length > 0)
     {
-        item.deliveryOrderDetails = this.doDtls;
+      if (this.form.valid) {
+        if (item.id === '') {
+          console.log(item);
+          this.loadingbar = false;
+          const _do = new Deliveryorder2();
+          _do.doNo = item.doNo;
+          _do.doDate = item.doDate;
+          _do.jobOrder = item.jobOrder;
+          // _do.jobOrder_data.push(this.jo);
+          _do.id = '0';
+          console.log(_do);
+
+          let _doDtls: DeliveryorderDtls2;
+          let i;
+          for (i = 0; i < this.selected.length; i++)
+          {
+            _doDtls = new DeliveryorderDtls2();
+            _doDtls.qty = this.selected[i]['qtyDO'];
+            _doDtls.joDtl = this.selected[i]['id'];
+            console.log(_doDtls);
+            _do.deliveryOrderDetails.push(_doDtls);
+
+          }
+
+          this.dosvc.add(_do).subscribe(
+            success => {
+              this.goback();
+            },
+            error => {
+              console.log(error.error);
+              this.toastr.error(error.error.error_message, 'Error');
+            }
+          );
+
+        } else {
+          // this.dosvc.update(item).subscribe(
+          //    success =>
+          //    {
+          //      this.goback();
+          //    },
+          //   error =>
+          //   {
+          //     console.log(error.error);
+          //     this.toastr.error(error.error.error_message, 'Error');
+          //   }
+          // );
+        }
+      }
     }
     else
     {
       alert('Please Fill Delivery Order Detail');
     }
-    if (this.form.valid) {
-      if (item.id === 0) {
-        this.loadingbar = false;
 
-        // this.dosvc.add(item).subscribe(
-        //   success => {
-        //     this.goback();
-        //   },
-        //   error => {
-        //     console.log(error.error);
-        //     this.toastr.error(error.error.error_message, 'Error');
-        //   }
-        // );
-
-      } else {
-        this.dosvc.update(item).subscribe(
-           success =>
-           {
-             this.goback();
-           },
-          error =>
-          {
-            console.log(error.error);
-            this.toastr.error(error.error.error_message, 'Error');
-          }
-        );
-      }
-    }
   }
 
-  onDividerChange(dividerVal: string) {
+  onChooseJODtls(dividerVal: string) {
     this.divVal = true;
 
     this.josvc.getJO1(this.form.value.jobOrder).subscribe(res =>
       {
-
+        this.jo = res;
         this.joDtls = res['jobOrderDetails'];
-        console.log(this.joDtls);
-        let _doDtls: DeliveryorderDtls;
         let i;
         for (i = 0; i < this.joDtls.length; i++)
         {
-          const _doDtls = new  DeliveryorderDtls;
-          _doDtls.qty = 0;
-          _doDtls.joDtl = this.joDtls[i].id.toString();
-          this.DO.deliveryOrderDetails.push(_doDtls);
-
+          this.joDtls[i].qtyDO = 0;
         }
-        console.log(this.DO);
-        console.log(this.doDtls);
       }
     );
 
+  }
+
+  updateValue(event, cell, rowIndex) {
+    // console.log('inline editing rowIndex', rowIndex);
+    if (event.target.value > this.joDtls[rowIndex].qty)
+    {
+      this.joDtls[rowIndex][cell] = 0;
+      alert('Qty Delivery tidak boleh melebihi Quantity');
+    }
+    else
+    {
+      this.editing[rowIndex + '-' + cell] = false;
+      this.joDtls[rowIndex][cell] = event.target.value;
+      this.joDtls = [...this.joDtls];
+      // console.log('UPDATED!', this.joDtls[rowIndex][cell]);
+      // console.log(this.joDtls);
+    }
+
+  }
+
+  onSelect({ selected }) {
+    this.selectedData.push(selected);
   }
 }

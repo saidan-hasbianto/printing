@@ -4,7 +4,7 @@ import { PurchItemService } from '../../services/purch-item.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-purch-item',
+  selector: 'fuse-purch-item',
   templateUrl: './purch-item.component.html',
   styleUrls: ['./purch-item.component.scss']
 })

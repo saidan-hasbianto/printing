@@ -5,5 +5,6 @@ export class PurchItemDetail {
   itemName: string;
   qty: number;
   amount: number;
+  amountDariPurchItem?: number;
   item: string;
 }

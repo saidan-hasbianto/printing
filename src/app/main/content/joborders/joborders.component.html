@@ -3,9 +3,9 @@
   <div class="header mat-accent-bg p-24 h-160" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="space-between center">
       <div fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="column" fxLayoutAlign.gt-xs="center start">
           <div class="black-fg" fxLayout="row" fxLayoutAlign="start center">
-              <mat-icon class="secondary-text s-16">home</mat-icon>
+              <mat-icon class="secondary-text s-16">swap_horiz</mat-icon>
               <!-- <mat-icon class="secondary-text s-16">chevron_right</mat-icon> -->
-              <span class="secondary-text">Master</span>
+              <span class="secondary-text">Transaction</span>
               <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
               <span class="secondary-text">Job Orders</span>
           </div>
@@ -52,15 +52,11 @@
       <ngx-datatable-column name="Job Order No" prop="jobOrderNo"></ngx-datatable-column>
       <ngx-datatable-column name="Operator" prop="operatorName"></ngx-datatable-column>
       <ngx-datatable-column name="Customer" prop="customerName"></ngx-datatable-column>
-      <ngx-datatable-column name="Nama File" prop="fileName"></ngx-datatable-column>
-      <ngx-datatable-column name="Product" prop="productName"></ngx-datatable-column>
-      <ngx-datatable-column name="Qty"></ngx-datatable-column>
-
       <ngx-datatable-column name="Action" [width]="150" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
         <ng-template let-row="row" ngx-datatable-cell-template>
           <div class="button-row">
             <button mat-icon-button color="primary" [routerLink]="'/joborder-view/' + row.id">
-              <mat-icon aria-label="Edit">edit</mat-icon>
+              <mat-icon aria-label="View">visibility</mat-icon>
             </button>
             <button mat-icon-button color="warn" (click)="deleteRow(row)">
               <mat-icon aria-label="Delete">delete</mat-icon>

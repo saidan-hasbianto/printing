@@ -71,7 +71,7 @@ export class JobordersDetailComponent implements OnInit {
   ];
 
   typesOption = [
-    {value: 'BW', display_name: 'BW'},
+    {value: 'B', display_name: 'BW'},
     {value: 'S', display_name: 'Sparasi'}
   ];
 

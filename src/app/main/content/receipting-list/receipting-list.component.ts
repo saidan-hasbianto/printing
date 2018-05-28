@@ -4,7 +4,7 @@ import { ReceiptingListService } from '../../services/receipting-list.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-receipting-list',
+  selector: 'fuse-receipting-list',
   templateUrl: './receipting-list.component.html',
   styleUrls: ['./receipting-list.component.scss']
 })
@@ -12,7 +12,7 @@ export class ReceiptingListComponent implements OnInit {
   rows: Receipting[];
   temp = [];
 
-  loadingIndicator: boolean = true;
+  loadingIndicator = true;
   constructor(
     private receiptsvc: ReceiptingListService,
     private toastrSvc: ToastrService

@@ -34,7 +34,7 @@
               </mat-form-field>
 
               <mat-form-field fxFlex="25">
-                <mat-select placeholder="Job Order" formControlName="jobOrder" required (change)="onDividerChange($event.value)">
+                <mat-select placeholder="Job Order" formControlName="jobOrder" required (change)="onChooseJODtls($event.value)">
                   <mat-option *ngFor="let item of joOption" [value]="item.id">
                     {{ item.jobOrderNo }}
                   </mat-option>
@@ -44,14 +44,24 @@
                 </mat-error>
               </mat-form-field>
           </div>
-          <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto" fxLayoutWrap>
+          <div class="content p-24">
               <ngx-datatable class="material"
-              [rows]="doDtls"
-              [selectionType]="'single'"
+              [rows]="joDtls"
               [columnMode]="'force'"
               [rowHeight]="'auto'"
-              [scrollbarH]="true">
-              <ngx-datatable-column name="#" [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
+              [scrollbarH]="true"
+              [selected]="selected"
+              [selectionType]="'checkbox'"
+              (select)='onSelect($event)'>
+              <ngx-datatable-column
+              [width]="15"
+              [sortable]="false"
+              [canAutoResize]="false"
+              [draggable]="false"
+              [resizeable]="false"
+              [checkboxable]="true">
+            </ngx-datatable-column>
+              <ngx-datatable-column name="#" [width]="15" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
                 <ng-template let-rowIndex="rowIndex" ngx-datatable-cell-template>
                   {{rowIndex + 1}}
                 </ng-template>
@@ -59,8 +69,25 @@
               <ngx-datatable-column name="ID"></ngx-datatable-column>
               <ngx-datatable-column name="Qty"></ngx-datatable-column>
               <ngx-datatable-column name="Product Name" prop="productName"></ngx-datatable-column>
-
+              <ngx-datatable-column name="Qty Delivery" prop="qtyDO">
+                  <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+                    <span
+                      title="Double click to edit"
+                      (dblclick)="editing[rowIndex + '-qtyDO'] = true"
+                      *ngIf="!editing[rowIndex + '-qtyDO']">
+                      {{value}}
+                    </span>
+                    <input
+                    autofocus
+                    (blur)="updateValue($event, 'qtyDO', rowIndex)"
+                    *ngIf="editing[rowIndex+ '-qtyDO']"
+                    type="text"
+                    [value]="value"
+                    />
+                  </ng-template>
+                </ngx-datatable-column>
             </ngx-datatable>
+            </div>
 
             <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
               <div class="button-row">
@@ -72,7 +99,7 @@
                 </a>
               </div>
             </div>
-          </div>
+
       </form>
   </div>
   <!-- / CONTENT -->

@@ -3,7 +3,7 @@ import { Msoperator } from '../../models/msoperator';
 import { MsoperatorService } from '../../services/msoperator.service';
 
 @Component({
-  selector: 'app-msoperator',
+  selector: 'fuse-msoperator',
   templateUrl: './msoperator.component.html',
   styleUrls: ['./msoperator.component.scss']
 })

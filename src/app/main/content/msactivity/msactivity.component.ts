@@ -4,7 +4,7 @@ import { MsactivityService } from '../../services/msactivity.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-msactivity',
+  selector: 'fuse-msactivity',
   templateUrl: './msactivity.component.html',
   styleUrls: ['./msactivity.component.scss']
 })

@@ -9,6 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 import { group } from '@angular/animations';
 import { Mscustomer } from '../../models/mscustomergroup';
 import { MscustomergroupService } from '../../services/mscustomergroup.service';
+import { MsoperatorService } from '../../services/msoperator.service';
 
 @Component({
   selector: 'fuse-joborder-view',
@@ -50,6 +51,7 @@ export class JoborderViewComponent implements OnInit {
     private formBuilder: FormBuilder,
     private josvc: JobordersService,
     private custsvc: MscustomergroupService,
+    private opsSvc: MsoperatorService,
     private _location: Location,
     private route: ActivatedRoute,
   ) {
@@ -72,15 +74,34 @@ export class JoborderViewComponent implements OnInit {
            // console.log(res);
            this.jo2 = res;
            this.joDtls = this.jo2['jobOrderDetails'];
-           console.log(this.jo2['jobOrderDetails']);
+            console.log(this.jo2);
+           if (this.jo2.status === 'C')
+           {
+             this.jo2.status = 'Create';
+           }
+           else if (this.jo2.status === 'W')
+            {
+              this.jo2.status = 'Working';
+            }
+            else if (this.jo2.status === 'P')
+            {
+              this.jo2.status = 'Pending';
+            }
+            else
+            {
+              this.jo2.status = 'Done';
+            }
+            const num = Number (this.jo2.operator);
+            this.opsSvc.getItem(num).subscribe(result => this.jo2.operator = result.name);
+
             this.joform = this.formBuilder.group({
             // id : this.jo2.id,
             jobOrderNo : [this.jo2.jobOrderNo], refNo : this.jo2.refNo,
             orderDate : this.jo2.orderDate,    completionDate : this.jo2.completionDate,  remarks: this.jo2.remarks,
             status : this.jo2.status,
-            customer : this.jo2.customer,
+            customer : this.jo2['customerName'],
             deliveryAddress : this.jo2.deliveryAddress,
-            operator : this.jo2.operator
+            operator : this.jo2['operatorName']
             });
 
 

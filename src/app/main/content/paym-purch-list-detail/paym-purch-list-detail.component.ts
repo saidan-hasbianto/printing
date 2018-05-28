@@ -15,7 +15,7 @@ import { PurchItem } from '../../models/purch-item';
 import { PaymPurchFormComponent } from '../paym-purch-form/paym-purch-form.component';
 
 @Component({
-  selector: 'app-paym-purch-list-detail',
+  selector: 'fuse-paym-purch-list-detail',
   templateUrl: './paym-purch-list-detail.component.html',
   styleUrls: ['./paym-purch-list-detail.component.scss']
 })
@@ -30,6 +30,7 @@ export class PaymPurchListDetailComponent implements OnInit {
   loadingbar= true;
   _PaymPurchList: PaymPurchList;
   _PaymPurchDtls: PaymPurchDtls[];
+  _purchItem: PurchItem[];
   constructor(
     private toastrSvc: ToastrService,
     private formBuilder: FormBuilder,
@@ -122,8 +123,8 @@ export class PaymPurchListDetailComponent implements OnInit {
   }
 
   goback() {
-    // this._location.back();
-    this._location.prepareExternalUrl('/paym-purch-list');
+    this._location.back();
+    // this._location.prepareExternalUrl('/paym-purch-list');
   }
 
   ngOnDestroy() {
@@ -142,22 +143,28 @@ export class PaymPurchListDetailComponent implements OnInit {
   updateValue(event, cell, rowIndex) {
     console.log('inline editing rowIndex', rowIndex);
     this.editing[rowIndex + '-' + cell] = false;
-    this._PaymPurchDtls[rowIndex][cell] = event.target.value;
-    this._PaymPurchDtls = [...this._PaymPurchDtls];
-    console.log('UPDATED!', this._PaymPurchDtls[rowIndex][cell]);
-    console.log(this._PaymPurchDtls);
+    this._purchItem[rowIndex][cell] = event.target.value;
+    this._purchItem = [...this._purchItem];
+    console.log('UPDATED!', this._purchItem[rowIndex][cell]);
+    console.log(this._purchItem);
   }
 
   addDtls() {
     const dialogRef = this.dialog.open(PaymPurchFormComponent);
     dialogRef.afterClosed().subscribe(result => {
-      this._PaymPurchDtls = result;
+      console.log(result);
+      this._purchItem = result;
       let i;
       for (i = 0; i < result.length; i++)
       {
-        // this._PaymPurchDtls.push(result[i]);
-        this._PaymPurchDtls[i].amount = 0;
-        console.log(this._PaymPurchDtls[i]);
+        this._purchItem[i].amount = 0;
+        let panjangPI;
+        let j;
+        panjangPI = this._purchItem[i].purchaseItems.length;
+        for (j = 0; j < panjangPI; j++)
+        {
+          this._purchItem[j].totalamt = this._purchItem[j].purchaseItems[j].amount;
+        }
       }
     });
   }
@@ -166,44 +173,85 @@ export class PaymPurchListDetailComponent implements OnInit {
   {
     if (this.form.valid === true)
     {
-      const datestring = ppl.payDate;
-      const newDate = new Date(datestring);
-      ppl.payDate = newDate.getFullYear() + '-' + (newDate.getMonth() + 1) + '-' + newDate.getDate();
-
       if (this._PaymPurchDtls.length > 0)
       {
-        this._PaymPurchList.paymentDtls = this._PaymPurchDtls;
+        const datestring = ppl.payDate;
+        const newDate = new Date(datestring);
+        ppl.payDate = newDate.getFullYear() + '-' + (newDate.getMonth() + 1) + '-' + newDate.getDate();
+
+        const newppl = new PaymPurchList();
+        newppl.payNo = ppl.payNo;
+        newppl.payDate = ppl.payDate;
+        newppl.vendor = ppl.vendor;
+        newppl.activityCd = ppl.activityCd;
+
+        let pplDtls: PaymPurchDtls;
+        let i;
+        for (i = 0; i < this._purchItem.length; i++)
+        {
+          pplDtls = new PaymPurchDtls();
+          pplDtls.amount = this._purchItem[i].amount;
+          pplDtls.purch = this._purchItem[i].id.toString();
+          newppl.paymentDtls.push(pplDtls);
+        }
+        console.log(newppl);
+        this.paympurchsvc.add(newppl).subscribe(
+          success => {
+            this.goback();
+          },
+          error => {
+            // console.log(error.error);
+            this.toastrSvc.error(error.error.error_message, 'Error');
+          }
+        );
       }
       else
       {
         alert('Please Add Payment Item');
       }
     }
-
-    if (ppl.id === 0)
-    {
-      this.paympurchsvc.add(ppl).subscribe(
-        success => {
-          this.goback();
-        },
-        error => {
-          // console.log(error.error);
-          this.toastrSvc.error(error.error.error_message, 'Error');
-        }
-      );
-    }
-    else
-    {
-      this.paympurchsvc.update(ppl).subscribe(
-        success => {
-          this.goback();
-        },
-        error => {
-          console.log(error.error);
-          this.toastrSvc.error(error.error.error_message, 'Error');
-        }
-      );
-    }
   }
+
+  //   if (this.form.valid === true)
+  //   {
+  //     // const datestring = ppl.payDate;
+  //     // const newDate = new Date(datestring);
+  //     // ppl.payDate = newDate.getFullYear() + '-' + (newDate.getMonth() + 1) + '-' + newDate.getDate();
+
+  //     if (this._PaymPurchDtls.length > 0)
+  //     {
+  //       ppl.paymentDtls = this._PaymPurchDtls;
+  //     }
+  //     else
+  //     {
+  //       alert('Please Add Payment Item');
+  //     }
+  //   }
+
+  //   if (ppl.id === 0)
+  //   {
+  //     this.paympurchsvc.add(ppl).subscribe(
+  //       success => {
+  //         this.goback();
+  //       },
+  //       error => {
+  //         // console.log(error.error);
+  //         this.toastrSvc.error(error.error.error_message, 'Error');
+  //       }
+  //     );
+  //   }
+  //   else
+  //   {
+  //     this.paympurchsvc.update(ppl).subscribe(
+  //       success => {
+  //         this.goback();
+  //       },
+  //       error => {
+  //         console.log(error.error);
+  //         this.toastrSvc.error(error.error.error_message, 'Error');
+  //       }
+  //     );
+  //   }
+  // }
 
 }

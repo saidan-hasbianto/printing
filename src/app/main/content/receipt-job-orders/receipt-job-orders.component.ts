@@ -10,7 +10,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { forEach } from '@angular/router/src/utils/collection';
 
 @Component({
-  selector: 'app-receipt-job-orders',
+  selector: 'fuse-receipt-job-orders',
   templateUrl: './receipt-job-orders.component.html',
   styleUrls: ['./receipt-job-orders.component.scss']
 })
