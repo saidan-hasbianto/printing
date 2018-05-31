@@ -5,7 +5,7 @@ import { MsitemService } from '../../services/msitem.service';
 import { MatDialogRef } from '@angular/material';
 
 @Component({
-  selector: 'app-purch-item-form',
+  selector: 'fuse-purch-item-form',
   templateUrl: './purch-item-form.component.html',
   styleUrls: ['./purch-item-form.component.scss']
 })

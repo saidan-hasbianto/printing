@@ -5,27 +5,19 @@
           <div class="black-fg" fxLayout="row" fxLayoutAlign="start center">
               <mat-icon class="secondary-text s-16">swap_horiz</mat-icon>
               <!-- <mat-icon class="secondary-text s-16">chevron_right</mat-icon> -->
-              <span class="secondary-text">Receivable</span>
+              <span class="secondary-text">Master</span>
               <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
-              <span class="secondary-text">Job Orders</span>
+              <span class="secondary-text">Doc Prefix</span>
           </div>
-          <div class="h2 mt-16">Job Orders</div>
+          <div class="h2 mt-16">Doc Prefix</div>
       </div>
   </div>
   <!-- / HEADER -->
 
   <!-- CONTENT -->
   <div class="content p-24">
-      <div>
-          <input
-          type='text'
-          style='padding:8px;margin:15px auto;width:30%;'
-          placeholder='Search Job Order No...'
-          (keyup)='updateFilter($event)'
-        />
-      </div>
     <div class="button-row">
-      <a mat-raised-button color="accent" [routerLink]="'/joborders-detail'">
+      <a mat-raised-button color="accent" [routerLink]="'/docprefix-detail'">
         Add New
       </a>
       <!-- <a mat-raised-button color="accent" ([routerLink]="['msitem-detail', {{item.id}}]")>
@@ -36,27 +28,28 @@
       </button> -->
     </div>
     <ngx-datatable class="material"
-      [rows]="jorow"
-      [selected]="selectedData"
+      [rows]="rows"
+      [selected]="selected"
       [selectionType]="'single'"
       [columnMode]="'force'"
       [rowHeight]="'auto'"
       [scrollbarH]="true"
+      (select)='onSelect($event)'
       [loadingIndicator]="loadingIndicator">
       <ngx-datatable-column name="#" [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
         <ng-template let-rowIndex="rowIndex" ngx-datatable-cell-template>
           {{rowIndex + 1}}
         </ng-template>
       </ngx-datatable-column>
-      <ngx-datatable-column name="Status"></ngx-datatable-column>
-      <ngx-datatable-column name="Job Order No" prop="jobOrderNo"></ngx-datatable-column>
-      <ngx-datatable-column name="Operator" prop="operatorName"></ngx-datatable-column>
-      <ngx-datatable-column name="Customer" prop="customerName"></ngx-datatable-column>
+      <ngx-datatable-column name="Prefix"></ngx-datatable-column>
+      <ngx-datatable-column name="Description" prop="descs"></ngx-datatable-column>
+      <ngx-datatable-column name="Doc Format" prop="docFormat"></ngx-datatable-column>
+
       <ngx-datatable-column name="Action" [width]="150" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
         <ng-template let-row="row" ngx-datatable-cell-template>
           <div class="button-row">
-            <button mat-icon-button color="primary" [routerLink]="'/joborder-view/' + row.id">
-              <mat-icon aria-label="View">visibility</mat-icon>
+            <button mat-icon-button color="primary" [routerLink]="'/docprefix-detail/' + row.id">
+              <mat-icon aria-label="Edit">edit</mat-icon>
             </button>
             <button mat-icon-button color="warn" (click)="deleteRow(row)">
               <mat-icon aria-label="Delete">delete</mat-icon>

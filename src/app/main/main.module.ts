@@ -86,6 +86,10 @@ import { DeliveryorderComponent } from './content/deliveryorder/deliveryorder.co
 import { DeliveryorderDetailComponent } from './content/deliveryorder-detail/deliveryorder-detail.component';
 import { DeliveryorderService } from './services/deliveryorder.service';
 import { JoborderViewComponent } from './content/joborder-view/joborder-view.component';
+import { MainformComponent } from './content/mainform/mainform.component';
+import { DocprefixComponent } from './content/docprefix/docprefix.component';
+import { DocprefixDetailComponent } from './content/docprefix-detail/docprefix-detail.component';
+import { DocprefixService } from './services/docprefix.service';
 
 
 @NgModule({
@@ -141,6 +145,7 @@ import { JoborderViewComponent } from './content/joborder-view/joborder-view.com
         PaymPurchListService,
         CashbookService,
         DeliveryorderService,
+        DocprefixService,
         { provide: MatDialogRef, useValue: {} },
         { provide: MAT_DIALOG_DATA, useValue: [] }
     ],

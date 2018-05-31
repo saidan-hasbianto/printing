@@ -55,6 +55,9 @@ import { PaymPurchFormComponent } from './paym-purch-form/paym-purch-form.compon
 import { Deliveryorder } from '../models/deliveryorder';
 import { DeliveryorderDetailComponent } from './deliveryorder-detail/deliveryorder-detail.component';
 import { DeliveryorderComponent } from './deliveryorder/deliveryorder.component';
+import { MainformComponent } from './mainform/mainform.component';
+import { DocprefixComponent } from './docprefix/docprefix.component';
+import { DocprefixDetailComponent } from './docprefix-detail/docprefix-detail.component';
 
 const routes = [
   {
@@ -380,6 +383,22 @@ const routes = [
     component: JoborderViewComponent,
     canActivate: [AuthGuard],
     data: {data: this.selectedData}
+  },
+  {
+    path     : 'mainform',
+    component: MainformComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path     : 'docprefix',
+    component: DocprefixComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path     : 'docprefix-detail',
+    component: DocprefixDetailComponent,
+    canActivate: [AuthGuard],
+    data: {data: this.selectedData}
   }
 ];
 
@@ -429,7 +448,10 @@ const routes = [
     PurchItemFormComponent,
     PaymPurchFormComponent,
     DeliveryorderComponent,
-    DeliveryorderDetailComponent
+    DeliveryorderDetailComponent,
+    MainformComponent,
+    DocprefixComponent,
+    DocprefixDetailComponent
   ],
   imports     : [
       SharedModule,

@@ -1,0 +1,92 @@
+<div id="ngx-datatable" class="page-layout simple fullwidth" fusePerfectScrollbar>
+  <!-- HEADER -->
+  <div class="header mat-accent-bg p-24 h-160" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="space-between center">
+      <div fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="column" fxLayoutAlign.gt-xs="center start">
+          <div class="black-fg" fxLayout="row" fxLayoutAlign="start center">
+              <mat-icon class="secondary-text s-16">home</mat-icon>
+              <!-- <mat-icon class="secondary-text s-16">chevron_right</mat-icon> -->
+              <span class="secondary-text">Home</span>
+              <!-- <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
+              <span class="secondary-text">Home</span> -->
+          </div>
+          <div class="h2 mt-16">Home</div>
+      </div>
+  </div>
+  <!-- / HEADER -->
+
+  <!-- CONTENT -->
+  <div class="content p-24">
+      <div class="label-row">
+          <span class="mat-title">
+            <mat-icon>gauge</mat-icon>
+            Dashboard
+          </span>
+      </div>
+    <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.2%">
+      <div class="fuse-card variable-width">
+        <div class="p-16">
+          <div class="h2">
+            <mat-icon>tune</mat-icon>On Progress Job
+          </div>
+        </div>
+      </div>
+
+      <div class="fuse-card variable-width">
+        <div class="p-16">
+          <div class="h2">
+            <mat-icon>info</mat-icon>Overdue Job
+          </div>
+        </div>
+      </div>
+
+      <div class="fuse-card variable-width">
+        <div class="p-16">
+          <div class="h2">
+            <mat-icon>info</mat-icon>Waiting Payment
+          </div>
+        </div>
+      </div>
+
+      <div class="fuse-card variable-width">
+        <div class="p-16">
+          <div class="h2">
+            <mat-icon>warning</mat-icon>Low Quantity Item
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="label-row">
+        <span class="mat-title">
+          <mat-icon>business_center</mat-icon>
+          Job Orders
+        </span>
+    </div>
+      <ngx-datatable class="material"
+      [rows]="jorow"
+      [selectionType]="'single'"
+      [columnMode]="'force'"
+      [rowHeight]="'auto'"
+      [scrollbarH]="true"
+      [limit]="5"
+      [headerHeight]="50"
+      [footerHeight]="50"
+      [loadingIndicator]="loadingIndicator">
+      <ngx-datatable-column name="Operator" prop="operatorName"></ngx-datatable-column>
+      <ngx-datatable-column name="Customer" prop="customerName"></ngx-datatable-column>
+      <ngx-datatable-column name="Product" prop="" [width]="15"></ngx-datatable-column>
+      <ngx-datatable-column name="Qty" [width]="15"></ngx-datatable-column>
+      <ngx-datatable-column
+      [width]="15"
+      [sortable]="false"
+      [canAutoResize]="false"
+      [draggable]="false"
+      [resizeable]="false"
+      [checkboxable]="true"
+      name="Overdue">
+    </ngx-datatable-column>
+    </ngx-datatable>
+  </div>
+
+  <!-- / CONTENT -->
+</div>

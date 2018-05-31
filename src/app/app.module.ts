@@ -24,7 +24,7 @@ import { MatDatepickerModule, MatNativeDateModule, DateAdapter } from '@angular/
 const appRoutes: Routes = [
     {
         path      : '**',
-        redirectTo: 'sample'
+        redirectTo: 'mainform'
     }
 ];
 

@@ -44,7 +44,7 @@ export class MscustomergroupComponent implements OnInit {
 
   updateFilter(event) {
     console.log(event);
-    let name = event.currentTarget.id;
+    const name = event.currentTarget.id;
     const val = event.target.value.toLowerCase();
 
     // filter our data
