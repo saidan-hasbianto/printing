@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { UsersService } from '../../services/users.service';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
+import { Users } from '../../models/users';
 
 @Component({
   selector: 'fuse-changepassword',
@@ -48,7 +49,7 @@ export class ChangepasswordComponent implements OnInit {
     };
   }
 
-  save() {
+  save(usr: Users) {
     console.log(this.form.value);
     if (this.form.controls['newPassword'].value !== this.form.controls['confirmPassword'].value) {
       return;
@@ -56,7 +57,7 @@ export class ChangepasswordComponent implements OnInit {
 
     const userId = localStorage.getItem('userid');
     if (userId) {
-      this.userService.changePassword(userId, this.form.value).subscribe(
+      this.userService.changePassword(userId, usr).subscribe(
         success => {
           this.toastService.success('Password berhasil diubah', 'SUCCESS');
           this.goback();
