@@ -11,6 +11,8 @@ import { fuseAnimations } from '../../../../animations';
 })
 export class FuseNavVerticalCollapseComponent implements OnInit
 {
+    public gr = '';
+
     @Input() item: any;
     @HostBinding('class') classes = 'nav-collapse nav-item';
     @HostBinding('class.open') public isOpen = false;
@@ -67,6 +69,19 @@ export class FuseNavVerticalCollapseComponent implements OnInit
                     }
                 }
             );
+        const abc = localStorage.getItem('groupname');
+        if (abc.toLowerCase() === 'group admin')
+        {
+          this.gr = 'admin, user, operator';
+        }
+        else if (abc.toLowerCase() === 'group user')
+        {
+          this.gr = 'user, operator';
+        }
+        else
+        {
+          this.gr = 'operator';
+        }
     }
 
     /**
@@ -179,4 +194,17 @@ export class FuseNavVerticalCollapseComponent implements OnInit
     {
     }
 
+    isAuthorized(currentPriv: any): boolean {
+      // console.log(this.gr);
+      // console.log(currentPriv);
+      // console.log(this.navigationModel);
+      if (currentPriv === undefined) {
+        return true;
+      } else if (this.gr.toLowerCase().includes(currentPriv)) {
+        return true;
+      } else {
+        return false;
+      }
+
+    }
 }

@@ -1,5 +1,4 @@
-export interface Groups {
-  id: number;
-  url: string;
+export class Groups {
+  id: string;
   name: string;
 }

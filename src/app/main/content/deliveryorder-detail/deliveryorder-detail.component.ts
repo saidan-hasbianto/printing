@@ -48,7 +48,7 @@ export class DeliveryorderDetailComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.josvc.getRows().subscribe(res => this.joOption = res);
+    this.josvc.getJOUndlvrd().subscribe(res => this.joOption = res);
     this.form = this.formBuilder.group({
       id: [''],
       doNo : ['', Validators.required],
@@ -179,8 +179,9 @@ export class DeliveryorderDetailComponent implements OnInit {
   onChooseJODtls(dividerVal: string) {
     this.divVal = true;
 
-    this.josvc.getJO1(this.form.value.jobOrder).subscribe(res =>
+    this.josvc.getJO1(this.form.controls['jobOrder'].value).subscribe(res =>
       {
+
         this.jo = res;
         this.joDtls = res['jobOrderDetails'];
         let i;

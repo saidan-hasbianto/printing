@@ -31,23 +31,23 @@
                     class="user-button">
                 <div fxLayout="row" fxLayoutAlign="center center">
                     <img class="avatar" src="assets/images/avatars/profile.jpg">
-                    <span class="username mr-12" fxHide fxShow.gt-sm>Admin</span>
+                    <span class="username mr-12" fxHide fxShow.gt-sm>{{ userName }}</span>
                     <mat-icon class="s-16" fxHide.xs>keyboard_arrow_down</mat-icon>
                 </div>
             </button>
 
             <mat-menu #userMenu="matMenu">
-                <!--
-                <button mat-menu-item>
+
+                <!-- <button mat-menu-item>
                     <mat-icon>account_circle</mat-icon>
                     <span>My Profile</span>
+                </button> -->
+
+                <button mat-menu-item class="" (click)="changePass()">
+                    <mat-icon>lock</mat-icon>
+                    <span>Change Password</span>
                 </button>
 
-                <button mat-menu-item class="">
-                    <mat-icon>mail</mat-icon>
-                    <span>Inbox</span>
-                </button>
-                -->
                 <button mat-menu-item class="" (click)="logOut()">
                     <mat-icon>exit_to_app</mat-icon>
                     <span>Logout</span>

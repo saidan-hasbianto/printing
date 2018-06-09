@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Joborders } from '../../models/joborders';
-import { JobordersService } from '../../services/joborders.service';
+import { MainformService } from '../../services/mainform.service';
 
 @Component({
   selector: 'fuse-mainform',
@@ -10,21 +10,29 @@ import { JobordersService } from '../../services/joborders.service';
 export class MainformComponent implements OnInit {
   jorow: Joborders[];
   loadingIndicator = true;
+  opj: string;
+  odj: string;
+  wpay: string;
+  lqi: string;
   constructor(
-    private josvc: JobordersService
+    private mainsvc: MainformService
   ) { }
 
   ngOnInit() {
     this.getRows();
+    this.loadingIndicator = false;
   }
 
   getRows(): void {
+    this.mainsvc.getRows()
+      .subscribe(res => {
+        console.log(res);
+        this.jorow = res['joUndelivereds'];
 
-    this.josvc.getRows()
-      .subscribe(rows => {
-        this.jorow = rows;
-        this.loadingIndicator = false;
-        console.log(this.jorow);
+        this.opj = res['joUndeliveredCount'];
+        this.odj = res['joOverDueCount'];
+        this.wpay = res['joUnreceiptedCount'];
+        this.lqi = res['lowQtyItem'];
       });
 
   }

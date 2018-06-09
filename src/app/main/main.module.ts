@@ -17,7 +17,7 @@ import { FuseShortcutsModule } from '../core/components/shortcuts/shortcuts.modu
 import { FuseSearchBarModule } from '../core/components/search-bar/search-bar.module';
 
 import { AuthenticationService } from './services/authentication.service';
-import { AuthGuardService } from './services/auth-guard.service';
+import { AuthGuardService, AuthGuardAdminService, AuthGuardUserService } from './services/auth-guard.service';
 import { RwService } from './services/rw.service';
 import { RtService } from './services/rt.service';
 import { AppRoutingModule } from './content/app-routing.module';
@@ -90,6 +90,8 @@ import { MainformComponent } from './content/mainform/mainform.component';
 import { DocprefixComponent } from './content/docprefix/docprefix.component';
 import { DocprefixDetailComponent } from './content/docprefix-detail/docprefix-detail.component';
 import { DocprefixService } from './services/docprefix.service';
+import { MainformService } from './services/mainform.service';
+import { ChangepasswordComponent } from './content/changepassword/changepassword.component';
 
 
 @NgModule({
@@ -122,6 +124,8 @@ import { DocprefixService } from './services/docprefix.service';
         RtService,
         AuthenticationService,
         AuthGuardService,
+        AuthGuardAdminService,
+        AuthGuardUserService,
         MsitemService,
         LogErrorHandleService,
         MsproductService,
@@ -146,6 +150,7 @@ import { DocprefixService } from './services/docprefix.service';
         CashbookService,
         DeliveryorderService,
         DocprefixService,
+        MainformService,
         { provide: MatDialogRef, useValue: {} },
         { provide: MAT_DIALOG_DATA, useValue: [] }
     ],

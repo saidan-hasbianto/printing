@@ -17,12 +17,13 @@ export class FuseToolbarComponent
     selectedLanguage: any;
     showLoadingBar: boolean;
     horizontalNav: boolean;
+    public userName: string;
 
     constructor(
         private router: Router,
         private fuseConfig: FuseConfigService,
         private translate: TranslateService,
-        private authenticationService: AuthenticationService,
+        private authenticationService: AuthenticationService
     )
     {
         this.userStatusOptions = [
@@ -84,6 +85,7 @@ export class FuseToolbarComponent
             this.horizontalNav = settings.layout.navigation === 'top';
         });
 
+        this.userName = localStorage.getItem('username');
     }
 
     search(value)
@@ -104,5 +106,10 @@ export class FuseToolbarComponent
     logOut() {
         this.authenticationService.logout();
         this.router.navigate(['login']);
+    }
+
+    changePass() {
+        console.log(this.authenticationService);
+        this.router.navigate(['changepassword']);
     }
 }

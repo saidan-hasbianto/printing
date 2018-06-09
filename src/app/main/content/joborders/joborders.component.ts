@@ -25,6 +25,7 @@ export class JobordersComponent implements OnInit {
 
   ngOnInit() {
     this.getRows();
+    this.loadingIndicator = false;
   }
 
   getRows(): void {
@@ -47,7 +48,7 @@ export class JobordersComponent implements OnInit {
       {
         this.jorow['status'] = 'Done';
       }
-        this.loadingIndicator = false;
+
         this.temp = [...rows];
       });
 

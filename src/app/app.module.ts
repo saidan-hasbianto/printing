@@ -57,9 +57,6 @@ const appRoutes: Routes = [
             useClass: MyHttpInterceptor,
             multi: true
         }
-        // ,{
-        //     provide: DateAdapter, useClass: DateFormat
-        // }
     ],
     bootstrap   : [
         AppComponent
@@ -67,7 +64,5 @@ const appRoutes: Routes = [
 })
 export class AppModule
 {
-    constructor(private dateAdapter:DateAdapter<Date>) {
-		dateAdapter.setLocale('en-in'); // DD/MM/YYYY
-	}
+
 }

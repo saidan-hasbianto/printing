@@ -1,4 +1,4 @@
-import { Msitem } from "./msitem";
+import { Msitem } from './msitem';
 
 export class PurchItemDetail {
   id: number;

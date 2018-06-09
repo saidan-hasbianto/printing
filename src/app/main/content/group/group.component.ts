@@ -4,18 +4,17 @@ import { GroupService } from '../../services/group.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-group',
+  selector: 'fuse-group',
   templateUrl: './group.component.html',
   styleUrls: ['./group.component.scss']
 })
 export class GroupComponent implements OnInit {
 rows: Groups[];
 group: Groups = {
-  id : 1,
-  url : '',
-  name : ''
+  id : null,
+  name : null
 };
-loadingIndicator: boolean = true;
+loadingIndicator = true;
 
 constructor(
   private groupService: GroupService,
@@ -33,4 +32,12 @@ constructor(
         this.loadingIndicator = false;
       });
     }
+
+  deleteRow(msitem: Groups): void {
+    if (confirm('Are you sure want to delete?')) {
+      this.groupService.delete(msitem).subscribe(res => {
+        this.rows.splice(this.rows.indexOf(msitem), 1);
+      });
+    }
+  }
 }

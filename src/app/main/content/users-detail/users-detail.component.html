@@ -19,39 +19,58 @@
             fxFlex="1 0 auto" (ngSubmit)="onSubmit(form.value)" name="form" [formGroup]="form" style="width: 100%;">
 
           <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto" fxLayoutWrap>
-
-              <mat-form-field fxFlex="100">
+              <mat-form-field fxFlex="33">
                 <input matInput placeholder="Username" formControlName="username" required>
                   <mat-error *ngIf="formErrors.username.required">
                       Required
                   </mat-error>
               </mat-form-field>
 
-              <mat-form-field fxFlex="100">
+              <mat-form-field fxFlex="33">
                 <input matInput placeholder="Email" formControlName="email">
                 <mat-error *ngIf="formErrors.email.required">
                     Required
                 </mat-error>
               </mat-form-field>
 
-              <mat-form-field fxFlex="100">
-                <input matInput placeholder="Password" type="password" formControlName="pass">
+              <mat-form-field fxFlex="33">
+                <input matInput placeholder="Password" type="password" formControlName="password">
                 <mat-error *ngIf="formErrors.password.required">
                     Required
                 </mat-error>
               </mat-form-field>
-
-                  <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
-                    <div class="button-row">
-                      <button mat-raised-button class="mat-accent" type="submit">
-                        Submit
-                      </button>
-                      <a mat-raised-button (click)="goback()">
-                        Back
-                      </a>
-                    </div>
-                  </div>
           </div>
+
+          <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto" fxLayoutWrap>
+              <mat-form-field fxFlex="33">
+                  <input matInput placeholder="First Name" formControlName="first_name">
+                </mat-form-field>
+
+                <mat-form-field fxFlex="33">
+                  <input matInput placeholder="Last Name" formControlName="last_name">
+                </mat-form-field>
+
+                <mat-form-field fxFlex="33">
+                  <mat-select placeholder="User Type" formControlName="groups">
+                      <mat-option *ngFor="let item of groupOption" [value]="item.id">
+                        {{ item.name }}
+                      </mat-option>
+                    </mat-select>
+                </mat-form-field>
+          </div>
+
+          <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <div class="button-row">
+              <button mat-raised-button class="mat-accent" type="submit">
+                Submit
+              </button>
+              <a mat-raised-button (click)="goback()">
+                Back
+              </a>
+            </div>
+          </div>
+
+
       </form>
   </div>
 

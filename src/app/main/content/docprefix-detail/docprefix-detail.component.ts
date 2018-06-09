@@ -25,6 +25,8 @@ export class DocprefixDetailComponent implements OnInit {
     {value: 'M', display_name: 'Month'},
     {value: 'Y', display_name: 'Year'}
   ];
+  paramId: number;
+
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -52,12 +54,13 @@ export class DocprefixDetailComponent implements OnInit {
     });
 
     this.sub = this.route.params.subscribe(params => {
-      const id = Number.parseInt(params['id']);
-      if (id)
+      this.paramId = Number.parseInt(params['id']);
+      console.log(this.paramId);
+      if (this.paramId)
       {
         this.loadingbar = false;
 
-        this.docsvc.getDoc(id)
+        this.docsvc.getDoc(this.paramId)
         .subscribe(res => {
           this.docpre = res;
           console.log(res);

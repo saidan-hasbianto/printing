@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { JobordersService } from '../../services/joborders.service';
-import { Joborders, Joborders2 } from '../../models/joborders';
+import { Joborders, Joborders2, JobOrderDtls } from '../../models/joborders';
 import { MscustomergroupService } from '../../services/mscustomergroup.service';
 import { MsdeliveryaddrService } from '../../services/msdeliveryaddr.service';
 import { MsoperatorService } from '../../services/msoperator.service';
@@ -19,6 +19,7 @@ import { MsproductService } from '../../services/msproduct.service';
 import { DatePipe } from '@angular/common';
 import { MatDatepickerModule, MatNativeDateModule, DateAdapter } from '@angular/material';
 import { FileUploadModule } from 'primeng/primeng';
+import { AuthenticationService } from '../../services/authentication.service';
 
 @Component({
   selector: 'fuse-joborders-detail',
@@ -31,7 +32,15 @@ export class JobordersDetailComponent implements OnInit {
   formErrors: any;
   type: string;
   isDelete: boolean;
-  jo: Joborders2 = {id : 0, jobOrderNo : '',  refNo : null,    orderDate : null,    completionDate : null, remarks: null,
+  public isOperator = false;
+  public isUser = false;
+  public isAdmin = false;
+
+  jo: Joborders = {id : 0, jobOrderNo : '',  refNo : null,    orderDate : null,    completionDate : null, remarks: null,
+    status : null, customer : null,    deliveryAddress : null,    operator : null, OrderDetails : []};
+  jodtls: JobOrderDtls[];
+
+  jo2: Joborders2 = {id : 0, jobOrderNo : '',  refNo : null,    orderDate : null,    completionDate : null, remarks: null,
     status : null, customer : null,    deliveryAddress : null,    operator : null, product : [],
     type : [], qty : [], price : [], markup : [], fileSource : [], fileName : []};
 
@@ -55,7 +64,7 @@ export class JobordersDetailComponent implements OnInit {
   public someDate: Date;
   paramId: number;
   rows: number[] = [1];
-  products: number[] = [];
+  products: string[] = [];
   qties: number[] = [];
   types: string[] = [];
   prices: number[] = [];
@@ -93,6 +102,7 @@ export class JobordersDetailComponent implements OnInit {
     private toastr: ToastrService,
     private dialog: MatDialog,
     private fileUploadService: FileUploaDService,
+    private authenticationService: AuthenticationService,
     private dateAdapter: DateAdapter<Date>
   ) {
     this.formErrors = {
@@ -109,8 +119,11 @@ export class JobordersDetailComponent implements OnInit {
       deliveryAddress : {},
       operator : {},
       product : {},
-       fileName : {}
-      };
+      fileName : {}
+      },
+      this.isOperator = authenticationService.isOperator();
+      this.isUser = authenticationService.isUser();
+      this.isAdmin = authenticationService.isAdmin();
    }
 
   ngOnInit() {
@@ -118,25 +131,23 @@ export class JobordersDetailComponent implements OnInit {
     this.prodsvc.getRows().subscribe(res => this.prodOption = res);
     this.dlvaddrsvc.getRows().subscribe(res => this.dlvaddrOption = res);
     this.opssvc.getRows().subscribe(res => this.opsOption = res);
-
-    /*
     this.form = this.formBuilder.group({
-    id : [this.jo.id],
-    jobOrderNo : [this.jo.jobOrderNo, Validators.required], refNo : [this.jo.refNo, Validators.required],
-    orderDate : [this.jo.orderDate, Validators.required],
-    completionDate : [this.jo.completionDate, Validators.required],
-    remarks: [this.jo.remarks],
-    status : [this.jo.status, Validators.required],
-    customer : [this.jo.customer, Validators.required],
-    deliveryAddress : [this.jo.deliveryAddress, Validators.required],
-     operator : [this.jo.operator, Validators.required],
-     product : ['', Validators.required],
-     type : ['', Validators.required],
-     qty : ['', Validators.required],
-     price : ['', Validators.required],
-     markup : ['', Validators.required],
-     fileSource : ['', Validators.required],
-     fileName : ['', Validators.required]
+      id : 0,
+      jobOrderNo : ['-', Validators.required], refNo : ['', Validators.required],
+      orderDate : ['', Validators.required],
+      completionDate : ['', Validators.required],
+      remarks: [''],
+      status : ['', Validators.required],
+      customer : ['', Validators.required],
+      deliveryAddress : ['', Validators.required],
+      operator : ['', Validators.required]
+      // products : ['', Validators.required],
+      // types : ['', Validators.required],
+      // qty : ['', Validators.required],
+      // price : [0, Validators.required],
+      // markup : [0, Validators.required],
+      // fileSource : ['', Validators.required]
+      // fileName : ['', Validators.required]
     });
 
 
@@ -144,27 +155,47 @@ export class JobordersDetailComponent implements OnInit {
       this.paramId = Number.parseInt(params['id']);
       if (this.paramId) {
         this.loadingbar = false;
-        // this.josvc.getJO(id)
-        // .subscribe(res => {
-        //   this.jo = res;
         this.josvc.getJO(this.paramId)
           .subscribe(res => {
             this.jo = res;
+            this.jo.OrderDetails = this.jo['jobOrderDetails'];
+            console.log(this.jo);
           this.form.setValue({
             id : this.jo.id,
-
             jobOrderNo : this.jo.jobOrderNo, refNo : this.jo.refNo,
             orderDate : this.jo.orderDate,    completionDate : this.jo.completionDate,  remarks: this.jo.remarks,
             status : this.jo.status,
             customer : this.jo.customer,
             deliveryAddress : this.jo.deliveryAddress,
-            operator : this.jo.operator
+            operator : this.jo.operator,
+            // products : this.jo['jobOrderDetails'][0]['product'],
+            // type : this.jo['jobOrderDetails'][0]['type'],
+            // qty : this.jo['jobOrderDetails'][0]['qty'],
+            // price : this.jo['jobOrderDetails'][0]['price'],
+            // markup : this.jo['jobOrderDetails'][0]['markup'],
+            // fileSource : this.jo['jobOrderDetails'][0]['fileSource']
+            // fileName : this.jo['jobOrderDetails'][0]['fileName']
           });
+          let i;
+          if (this.jo.OrderDetails.length > 0)
+          {
+            for (i = 0; i < this.jo.OrderDetails.length; i++)
+            {
+              this.products.push(this.jo.OrderDetails[i].product);
+              this.types.push(this.jo.OrderDetails[i].type);
+              this.qties.push(this.jo.OrderDetails[i].qty);
+              this.prices.push(this.jo.OrderDetails[i].price);
+              this.markups.push(this.jo.OrderDetails[i].markup);
+              this.fileSources.push(this.jo.OrderDetails[i].fileSource);
 
-          this.dlvaddr = res.deliveryAddress;
-          this.ops = res.operator;
-          // this.prod = res.OrderDetails['product'];
+              if (this.rows.length !== this.jo.OrderDetails.length)
+              {
+                this.rows.push(this.rows.length + 1);
+              }
 
+            }
+            console.log(this.products);
+          }
 
 
           // this.regroupDetail();
@@ -176,7 +207,7 @@ export class JobordersDetailComponent implements OnInit {
       this.onFormValuesChanged();
     });
     this.loadingbar = false;
-    */
+
   }
 
   onFormValuesChanged()
@@ -202,7 +233,8 @@ export class JobordersDetailComponent implements OnInit {
   }
 
   goback() {
-    this._location.back();
+    // this._location.back();
+    this.router.navigate(['/joborders']);
   }
 
   onDividerChange(dividerVal: string) {
@@ -282,7 +314,7 @@ export class JobordersDetailComponent implements OnInit {
     const dialogRef = this.dialog.open(MsdeliveryaddrDetailComponent);
     dialogRef.afterClosed().subscribe(result => {
       this.dlvaddrsvc.add(result);
-      this.dlvaddrOption.push(result);
+      // this.dlvaddrOption.push(result);
     });
   }
 
@@ -308,6 +340,12 @@ export class JobordersDetailComponent implements OnInit {
     }
   }
 
+  onChooseCust(event) {
+    console.log(event.value);
+    this.dlvaddrsvc.getRowsForJO(event.value).subscribe(res =>
+      this.dlvaddrOption = res);
+  }
+
 // regroupDetail() {
 //   this.cust = this.jo.customer.filter(x => x.customerCd === 'N');
 //   // this.ovtDtlWeekend = this.ovt.overtimeDtls.filter(x => x.type === 'H');
@@ -323,40 +361,117 @@ export class JobordersDetailComponent implements OnInit {
 // }
 
 NewOnSubmit() {
-  const datestring = this.jo.orderDate;
+  console.log(this.jo);
+  console.log(this.jo2);
+  if (this.jo.id === 0) // new
+  {
+    const datestring = this.jo.orderDate;
     const newDate = new Date(datestring);
-    this.jo.orderDate = newDate.getFullYear() + '-' + (newDate.getMonth() + 1) + '-' + newDate.getDate();
+    this.jo2.orderDate = newDate.getFullYear() + '-' + (newDate.getMonth() + 1) + '-' + newDate.getDate();
 
     const completion = new Date(this.jo.completionDate);
-    this.jo.completionDate = completion.getFullYear() + '-' + (completion.getMonth() + 1) + '-' + completion.getDate();
+    this.jo2.completionDate = completion.getFullYear() + '-' + (completion.getMonth() + 1) + '-' + completion.getDate();
 
     if (this.products.length > 0)
-  {
-    this.jo.product = this.products;
-    this.jo.qty = this.qties;
-    this.jo.type = this.types;
-    this.jo.price = this.prices;
-    this.jo.markup = this.markups;
-    this.jo.fileSource = this.fileSources;
-    this.jo.fileName = this.fileNames;
-    // console.log(this.jo);
-    this.josvc.postFile(this.jo).subscribe(
-      // console.log(data));
-        success => {
-          this.toastr.success('Success');
-          console.log(success);
-          // this.goback();
-        },
-        error => {
-          // console.log(error.error);
-          this.toastr.error(error.error.error_message, 'Error');
-        });
-  }
-  else
-  {
-    alert('Please fill Order Item');
-  }
+    {
+      this.jo2.product = this.products;
+      this.jo2.qty = this.qties;
+      this.jo2.type = this.types;
+      this.jo2.price = this.prices;
+      this.jo2.markup = this.markups;
+      this.jo2.fileSource = this.fileSources;
+      this.jo2.fileName = this.fileNames;
+      this.jo2.status = this.jo.status;
+      this.jo2.customer = this.jo.customer;
+      this.jo2.refNo = this.jo.refNo;
+      this.jo2.deliveryAddress = this.jo.deliveryAddress;
+      this.jo2.remarks = this.jo.remarks;
+      this.jo2.operator = this.jo.operator;
 
+      // console.log(this.jo);
+      this.josvc.postFile(this.jo2).subscribe(
+        // console.log(data));
+          success => {
+            this.toastr.success('Success');
+            console.log(success);
+            this.getFile(success.id);
+            this.goback();
+          },
+          error => {
+            // console.log(error.error);
+            this.toastr.error(error.error.error_message, 'Error');
+          });
+    }
+    else
+    {
+      alert('Please fill Order Item');
+    }
+  }
+  else // update
+  {
+    const datestring = this.jo.orderDate;
+    const newDate = new Date(datestring);
+    this.jo2.orderDate = newDate.getFullYear() + '-' + (newDate.getMonth() + 1) + '-' + newDate.getDate();
+
+    const completion = new Date(this.jo.completionDate);
+    this.jo2.completionDate = completion.getFullYear() + '-' + (completion.getMonth() + 1) + '-' + completion.getDate();
+
+    if (this.products.length > 0)
+    {
+      let i;
+      for (i = 0; i < this.rows.length; i++)
+      {
+        this.jo.OrderDetails[i].price = this.prices[i];
+        this.jo.OrderDetails[i].markup = this.markups[i];
+      }
+      this.jo2.id = this.jo.id;
+      this.jo2.product = this.products;
+      this.jo2.qty = this.qties;
+      this.jo2.type = this.types;
+      this.jo2.price = this.prices;
+      this.jo2.markup = this.markups;
+      this.jo2.fileSource = this.fileSources;
+      this.jo2.fileName = this.fileNames;
+      this.jo2['jobOrderDetails'] = this.jo['jobOrderDetails'];
+      this.jo2['jobOrderNo'] = this.jo['jobOrderNo'];
+      this.jo2['refNo'] = this.jo['refNo'];
+      this.jo2['status'] = this.jo['status'];
+      this.jo2['customer'] = this.jo['customer'];
+      this.jo2['deliveryAddress'] = this.jo['deliveryAddress'];
+      this.jo2['operator'] = this.jo['operator'];
+      this.jo2['remarks'] = this.jo['remarks'];
+
+      // console.log(this.jo);
+      this.josvc.updateForUser(this.jo2).subscribe(
+        // console.log(data));
+          success => {
+            this.toastr.success('Success');
+            console.log(success);
+            this.getFile(success.id);
+            this.goback();
+          },
+          error => {
+            // console.log(error.error);
+            this.toastr.error(error.error.error_message, 'Error');
+          });
+    }
+    else
+    {
+      alert('Please fill Order Item');
+    }
+  }
+}
+
+getFile(id: number): void {
+  this.josvc.getFile(id)
+  .subscribe((res) => {
+    const fileURL = URL.createObjectURL(res);
+    console.log(fileURL);
+    window.open(fileURL);
+  },
+  error => {
+    console.log(error);
+  });
 }
 
 }

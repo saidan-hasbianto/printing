@@ -107,8 +107,10 @@ export class MarkupreleaseDetailComponent implements OnInit {
   }
 
   addDetail() {
-    const dialogRef = this.dialog.open(ReceiptJobOrdersComponent);
-    dialogRef.afterClosed().subscribe(result => {
+    const dialogRef = this.dialog.open(ReceiptJobOrdersComponent, {
+      width : '90%',
+      data: { type: 'update', data: this.form.controls['customer'].value} });
+      dialogRef.afterClosed().subscribe(result => {
       this.jo = result;
       let i;
       for (i = 0; i < result.length; i++)

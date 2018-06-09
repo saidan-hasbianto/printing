@@ -19,6 +19,7 @@ const httpOptions = {
 @Injectable()
 export class MsdeliveryaddrService {
   private url = environment.baseUrl + 'deliveryaddresses/';  // URL to web api
+  private url2 = environment.baseUrl + 'deliveryaddresses/?customer=';  // URL to web api
   constructor(
     private http: HttpClient,
     private toastr: ToastrService,
@@ -29,6 +30,13 @@ export class MsdeliveryaddrService {
     return this.http.get<Msdeliveryaddr[]>(this.url, httpOptions)
     .pipe(
       catchError(this.logErrorHandle.handleError('getRows', []))
+    );
+  }
+
+  getRowsForJO(id: number): Observable<Msdeliveryaddr[]> {
+    return this.http.get<Msdeliveryaddr[]>(this.url2 + id, httpOptions)
+    .pipe(
+      catchError(this.logErrorHandle.handleError('getRowsForJO', []))
     );
   }
 

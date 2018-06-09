@@ -14,6 +14,7 @@ export class FuseNavHorizontalCollapseComponent implements OnDestroy
     onSettingsChanged: Subscription;
     fuseSettings: any;
     isOpen = false;
+    public gr = '';
 
     @HostBinding('class') classes = 'nav-item nav-collapse';
     @Input() item: any;
@@ -41,10 +42,37 @@ export class FuseNavHorizontalCollapseComponent implements OnDestroy
                         this.fuseSettings = newSettings;
                     }
                 );
+        const abc = localStorage.getItem('groupname');
+        if (abc.toLowerCase() === 'group admin')
+        {
+          this.gr = 'admin, user, operator';
+        }
+        else if (abc.toLowerCase() === 'group user')
+        {
+          this.gr = 'user, operator';
+        }
+        else
+        {
+          this.gr = 'operator';
+        }
     }
 
     ngOnDestroy()
     {
         this.onSettingsChanged.unsubscribe();
+    }
+
+    isAuthorized(currentPriv: any): boolean {
+      // console.log(this.gr);
+      // console.log(currentPriv);
+      // console.log(this.navigationModel);
+      if (currentPriv === undefined) {
+        return true;
+      } else if (this.gr.toLowerCase().includes(currentPriv)) {
+        return true;
+      } else {
+        return false;
+      }
+
     }
 }

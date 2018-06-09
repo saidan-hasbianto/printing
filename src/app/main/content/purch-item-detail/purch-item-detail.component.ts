@@ -119,7 +119,9 @@ export class PurchItemDetailComponent implements OnInit {
   }
 
   addDtls() {
-    const dialogRef = this.dialog.open(PurchItemFormComponent);
+    const dialogRef = this.dialog.open(PurchItemFormComponent, {
+      width : '90%'
+    });
     dialogRef.afterClosed().subscribe(result => {
       this.purchitemDtlsTmp = result;
 

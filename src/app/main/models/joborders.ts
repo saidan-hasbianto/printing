@@ -19,7 +19,7 @@ export class Joborders2 {
     public ischecked?: boolean,
     public receipt?: number,
     // OrderDetails: JobOrderDtls[];
-    public product: number[] = [],
+    public product: string[] = [],
     public type: string[] = [],
     public qty: number[] = [],
     public price: number[] = [],
@@ -34,10 +34,10 @@ export class JobOrderDtls {
   type: string;
   qty: number;
   price: number;
-  markupAmt: number;
+  markup: number;
   fileSource: string;
   fileName: any;
-  product: Msproduct;
+  product: string;
   productName: string;
   qtyDO?: number;
 }
@@ -46,13 +46,13 @@ export interface Joborders {
 
     id?: number;
     jobOrderNo?: string;
-    customer?: Mscustomer;
+    customer?: string;
     refNo?: string;
     orderDate?: string;
     completionDate?: string;
-    deliveryAddress?: Msdeliveryaddr;
+    deliveryAddress?: string;
     remarks?: string;
-    operator?: Msoperator;
+    operator?: string;
     status?: string;
     ischecked?: boolean;
     receipt?: number;

@@ -150,7 +150,9 @@ export class PaymPurchListDetailComponent implements OnInit {
   }
 
   addDtls() {
-    const dialogRef = this.dialog.open(PaymPurchFormComponent);
+    const dialogRef = this.dialog.open(PaymPurchFormComponent, {
+      width : '90%'
+    });
     dialogRef.afterClosed().subscribe(result => {
       console.log(result);
       this._purchItem = result;

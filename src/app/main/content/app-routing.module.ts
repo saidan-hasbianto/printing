@@ -7,7 +7,7 @@ import { FuseSampleComponent } from './sample/sample.component';
 import { RwsComponent } from './rws/rws.component';
 import { RwDetailComponent } from './rw-detail/rw-detail.component';
 import { RtsComponent } from './rts/rts.component';
-import { AuthGuardService as AuthGuard } from '../services/auth-guard.service';
+import { AuthGuardService as AuthGuard, AuthGuardAdminService as AuthAdmin, AuthGuardUserService } from '../services/auth-guard.service';
 import { RtDetailComponent } from './rt-detail/rt-detail.component';
 import { MsitemComponent } from './msitem/msitem.component';
 import { MsitemDetailComponent } from './msitem-detail/msitem-detail.component';
@@ -58,6 +58,7 @@ import { DeliveryorderComponent } from './deliveryorder/deliveryorder.component'
 import { MainformComponent } from './mainform/mainform.component';
 import { DocprefixComponent } from './docprefix/docprefix.component';
 import { DocprefixDetailComponent } from './docprefix-detail/docprefix-detail.component';
+import { ChangepasswordComponent } from './changepassword/changepassword.component';
 
 const routes = [
   {
@@ -88,133 +89,148 @@ const routes = [
   {
     path     : 'msitem',
     component: MsitemComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuardUserService]
   },
   {
     path     : 'msitem-detail',
     component: MsitemDetailComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuardUserService]
   },
   {
     path     : 'msproduct',
     component: MsproductComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuardUserService]
   },
   {
     path     : 'msproduct-detail',
     component: MsproductDetailComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuardUserService]
   },
   {
     path     : 'msproduct-detail/:id',
     component: MsproductDetailComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuardUserService]
   },
   {
     path     : 'msitem-detail/:id',
     component: MsitemDetailComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuardUserService],
     data: {data: this.selectedData, type: 'edit'}
   },
   {
     path     : 'pricelevel',
     component: PricelevelDetailComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuardUserService]
   },
   {
     path     : 'users',
     component: UsersComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthAdmin]
   },
   {
     path     : 'users-detail',
     component: UsersDetailComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthAdmin]
+  },
+  {
+    path     : 'users-detail/:id',
+    component: UsersDetailComponent,
+    canActivate: [AuthAdmin],
     data: {data: this.selectedData, type: 'edit'}
   },
   {
     path     : 'group',
     component: GroupComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuardUserService]
   },
   {
     path     : 'group-detail',
     component: GroupDetailComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuardUserService]
+  },
+  {
+    path     : 'group-detail/:id',
+    component: GroupDetailComponent,
+    canActivate: [AuthGuardUserService],
     data: {data: this.selectedData, type: 'edit'}
   },
   {
     path     : 'msactivity',
     component: MsactivityComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuardUserService]
+  },
+  {
+    path     : 'msactivity-detail',
+    component: MsactivityDetailComponent,
+    canActivate: [AuthGuardUserService]
   },
   {
     path     : 'msactivity-detail/:id',
     component: MsactivityDetailComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuardUserService],
     data: {data: this.selectedData, type: 'edit'}
   },
   {
     path     : 'msmarketing',
     component: MsmarketingComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuardUserService]
   },
   {
     path     : 'msmarketing-detail',
     component: MsmarketingDetailComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuardUserService]
     // data: {data: this.selectedData, type: 'edit'}
   },
   {
     path     : 'msmarketing-detail/:id',
     component: MsmarketingDetailComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuardUserService],
     data: {data: this.selectedData, type: 'edit'}
   },
   {
     path     : 'msoperator',
     component: MsoperatorComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuardUserService]
   },
   {
     path     : 'msoperator-detail',
     component: MsoperatorDetailComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuardUserService]
     // data: {data: this.selectedData, type: 'edit'}
   },
   {
     path     : 'msoperator-detail/:id',
     component: MsoperatorDetailComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuardUserService],
     data: {data: this.selectedData, type: 'edit'}
   },
   {
     path     : 'mscustomer',
     component: MscustomergroupComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuardUserService]
   },
   {
     path     : 'mscustomer-detail',
     component: MscustomergroupDetailComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuardUserService]
     // data: {data: this.selectedData, type: 'edit'}
   },
   {
     path     : 'mscustomergroup-detail/:id',
     component: MscustomergroupDetailComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuardUserService],
     data: {data: this.selectedData, type: 'edit'}
   },
   {
     path     : 'msdeliveryaddr-detail',
     component: MsdeliveryaddrDetailComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuardUserService],
     // data: {data: this.selectedData, type: 'edit'}
   },
   {
     path     : 'msdeliveryaddr-detail/:id',
     component: MsdeliveryaddrDetailComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuardUserService],
     data: {data: this.selectedData, type: 'edit'}
   },
   {
@@ -225,8 +241,7 @@ const routes = [
   {
     path     : 'joborders-detail',
     component: JobordersDetailComponent,
-    canActivate: [AuthGuard],
-    // data: {data: this.selectedData, type: 'edit'}
+    canActivate: [AuthGuard]
   },
   {
     path     : 'joborders-detail/:id',
@@ -237,151 +252,151 @@ const routes = [
   {
     path     : 'receipts',
     component: ReceiptingListComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuardUserService]
   },
   {
     path     : 'receipts-detail',
     component: ReceiptingDetailComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuardUserService],
     // data: {data: this.selectedData, type: 'edit'}
   },
   {
     path     : 'receipts-detail/:id',
     component: ReceiptingDetailComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuardUserService],
     data: {data: this.selectedData, type: 'edit'}
   },
   {
     path     : 'receiptjoborders',
     component: ReceiptJobOrdersComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuardUserService]
   },
   {
     path     : 'markupreleases',
     component: MarkupreleasesComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuardUserService]
   },
   {
     path     : 'markupreleases-detail',
     component: MarkupreleaseDetailComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuardUserService],
     // data: {data: this.selectedData, type: 'edit'}
   },
   {
     path     : 'markupreleases-detail/:id',
     component: MarkupreleaseDetailComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuardUserService],
     data: {data: this.selectedData, type: 'edit'}
   },
   {
     path     : 'markupreleasejoborders',
     component: MarkupreleasejobordersComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuardUserService]
   },
   {
     path     : 'vendor',
     component: VendorComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuardUserService],
     // data: {data: this.selectedData, type: 'edit'}
   },
   {
     path     : 'vendor-detail',
     component: VendorDetailComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuardUserService]
     // data: {data: this.selectedData, type: 'edit'}
   },
   {
     path     : 'vendor-detail/:id',
     component: VendorDetailComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuardUserService],
     data: {data: this.selectedData, type: 'edit'}
   },
   {
     path     : 'purch-item',
     component: PurchItemComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuardUserService],
     // data: {data: this.selectedData, type: 'edit'}
   },
   {
     path     : 'purch-item-detail',
     component: PurchItemDetailComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuardUserService]
   },
   {
     path     : 'purch-item-detail/:id',
     component: PurchItemDetailComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuardUserService],
     data: {data: this.selectedData, type: 'edit'}
   },
   {
     path     : 'paym-purch-list',
     component: PaymPurchListComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuardUserService]
     // data: {data: this.selectedData, type: 'edit'}
   },
   {
     path     : 'paym-purch-list-detail',
     component: PaymPurchListDetailComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuardUserService]
     // data: {data: this.selectedData, type: 'edit'}
   },
   {
     path     : 'paym-purch-list-detail/:id',
     component: PaymPurchListDetailComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuardUserService],
     data: {data: this.selectedData, type: 'edit'}
   },
   {
     path     : 'paym-purch-form',
     component: PaymPurchFormComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuardUserService]
     // data: {data: this.selectedData, type: 'edit'}
   },
   {
     path     : 'cashbook',
     component: CashbookComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuardUserService],
     // data: {data: this.selectedData, type: 'edit'}
   },
   {
     path     : 'cashbook-detail/:id',
     component: CashbookDetailComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuardUserService],
     data: {data: this.selectedData, type: 'edit'}
   },
   {
     path     : 'cashbook-detail',
     component: CashbookDetailComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuardUserService],
     // data: {data: this.selectedData, type: 'edit'}
   },
   {
     path     : 'deliveryorder',
     component: DeliveryorderComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuardUserService],
     // data: {data: this.selectedData, type: 'edit'}
   },
   {
     path     : 'deliveryorder-detail/:id',
     component: DeliveryorderDetailComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuardUserService],
     data: {data: this.selectedData, type: 'edit'}
   },
   {
     path     : 'deliveryorder-detail',
     component: DeliveryorderDetailComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuardUserService],
     // data: {data: this.selectedData, type: 'edit'}
   },
   {
     path     : 'purch-item-form',
     component: PurchItemFormComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuardUserService]
   },
   {
     path     : 'joborder-view/:id',
     component: JoborderViewComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuardUserService],
     data: {data: this.selectedData}
   },
   {
@@ -392,13 +407,24 @@ const routes = [
   {
     path     : 'docprefix',
     component: DocprefixComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuardUserService]
   },
   {
     path     : 'docprefix-detail',
     component: DocprefixDetailComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuardUserService],
     data: {data: this.selectedData}
+  },
+  {
+    path     : 'docprefix-detail/:ID',
+    component: DocprefixDetailComponent,
+    canActivate: [AuthGuardUserService],
+    data: {data: this.selectedData, type: 'edit'}
+  },
+  {
+    path     : 'changepassword',
+    component: ChangepasswordComponent,
+    canActivate: [AuthGuard]
   }
 ];
 
@@ -451,7 +477,8 @@ const routes = [
     DeliveryorderDetailComponent,
     MainformComponent,
     DocprefixComponent,
-    DocprefixDetailComponent
+    DocprefixDetailComponent,
+    ChangepasswordComponent
   ],
   imports     : [
       SharedModule,

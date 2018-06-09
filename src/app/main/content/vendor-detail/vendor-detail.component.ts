@@ -8,7 +8,7 @@ import { Vendor } from '../../models/vendor';
 import { Location } from '@angular/common';
 
 @Component({
-  selector: 'app-vendor-detail',
+  selector: 'fuse-vendor-detail',
   templateUrl: './vendor-detail.component.html',
   styleUrls: ['./vendor-detail.component.scss']
 })

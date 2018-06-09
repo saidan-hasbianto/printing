@@ -6,7 +6,7 @@ import { PricelevelService } from '../../services/pricelevel.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-msdeliveryaddr-detail',
+  selector: 'fuse-msdeliveryaddr-detail',
   templateUrl: './msdeliveryaddr-detail.component.html',
   styleUrls: ['./msdeliveryaddr-detail.component.scss']
 })

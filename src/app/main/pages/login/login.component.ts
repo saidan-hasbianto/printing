@@ -10,7 +10,7 @@ import { SessionStorageService } from 'ngx-webstorage';
 import { AuthenticationService } from '../../services/authentication.service';
 
 @Component({
-  selector: 'app-login',
+  selector: 'fuse-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
   animations : fuseAnimations
@@ -82,11 +82,11 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    this.authenticationService.login(this.loginForm.value["username"], this.loginForm.value["password"])
+    this.authenticationService.login(this.loginForm.value['username'], this.loginForm.value['password'])
         .subscribe(result => {
             if (result === true) {
                 // login successful
-                this.router.navigate(['/']);
+                this.router.navigate(['/mainform']);
             } else {
                 // login failed
                 this.toastr.error('Login Failed!', 'Username or password is incorrect');

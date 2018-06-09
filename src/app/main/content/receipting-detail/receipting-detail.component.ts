@@ -19,7 +19,7 @@ import { id } from '@swimlane/ngx-datatable/release/utils';
 import { JobordersService } from '../../services/joborders.service';
 
 @Component({
-  selector: 'app-receipting-detail',
+  selector: 'fuse-receipting-detail',
   templateUrl: './receipting-detail.component.html',
   styleUrls: ['./receipting-detail.component.scss']
 })
@@ -354,7 +354,13 @@ export class ReceiptingDetailComponent implements OnInit {
   }
 
   addreceiptjoborders() {
-    const dialogRef = this.dialog.open(ReceiptJobOrdersComponent);
+    const dialogRef = this.dialog.open(ReceiptJobOrdersComponent, {
+      width : '90%',
+      data: { type: 'update', data: this.form.controls['customer'].value} });
+    // dialogRef.componentInstance.ngOnInit('receipt');
+    // dialogRef.componentInstance.getRows(this.form.controls['customer'].value);
+    // const instance = dialogRef.componentInstance;
+    // instance.form.controls['customer']
     dialogRef.afterClosed().subscribe(result => {
       this.jo = result;
       console.log(this.jo);

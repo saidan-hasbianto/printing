@@ -18,11 +18,13 @@ export class ReceiptJobOrdersComponent implements OnInit {
   rows = [];
   selected = [];
   jorow: Joborders[];
+  JOUnreceipt: any[];
   loadingIndicator = true;
   selectedData: Joborders[] = [];
   form: FormGroup;
   formErrors: any;
   receipt: ReceiptJobOrders = {id: 0,    amount: 0,    jobOrder: null};
+  id: number;
 
   constructor(
     private josvc: JobordersService,
@@ -30,22 +32,24 @@ export class ReceiptJobOrdersComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private dialogRef: MatDialogRef<ReceiptJobOrdersComponent>
-  // @Inject(MAT_DIALOG_DATA) public data: any
+    private dialogRef: MatDialogRef<ReceiptJobOrdersComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-      // if (data) {
-      //   this.receipt = data;
-      // }
+      if (data) {
+        this.id = data;
+      }
   }
 
   ngOnInit() {
-    this.getRows();
+    console.log(this.id['data']);
+    this.getRows(this.id['data']);
   }
 
-  getRows(): void {
-    this.josvc.getRows()
+  getRows(id: number): void {
+    this.josvc.getJOUnreceipt(id)
       .subscribe(rows => {
-        this.jorow = rows;
+        this.JOUnreceipt = rows;
+        console.log(this.JOUnreceipt);
 
         this.loadingIndicator = false;
       });
@@ -76,14 +80,8 @@ export class ReceiptJobOrdersComponent implements OnInit {
   }
 
   onCheckboxChange(event) {
-    //We want to get back what the name of the checkbox represents, so I'm intercepting the event and
-    //manually changing the value from true to the name of what is being checked.
-
-    //check if the value is true first, if it is then change it to the name of the value
-    //this way when it's set to false it will skip over this and make it false, thus unchecking
-    //the box
     if (this.form.get(event.target.id).value) {
-        this.form.patchValue({[event.target.id] : event.target.id}); //make sure to have the square brackets
+        this.form.patchValue({[event.target.id] : event.target.id});
     }
   }
 

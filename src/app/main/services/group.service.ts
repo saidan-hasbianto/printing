@@ -43,7 +43,7 @@ export class GroupService {
   add (item: Groups): Observable<Groups> {
     return this.http.post<Groups>(this.url, item, httpOptions).pipe(
       tap((item: Groups) => {
-        this.logErrorHandle.log('Group ID =', + item.id + ' successfully added', 0);
+        this.logErrorHandle.log('Group =', + item.name + ' successfully added', 0);
       }),
     );
   }

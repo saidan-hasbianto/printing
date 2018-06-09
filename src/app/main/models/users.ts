@@ -1,9 +1,15 @@
 import { Groups } from './groups';
 
-export interface Users {
+export class Users {
+  id: string;
   url: string;
   username: string;
   email: string;
   password: string;
-  groups: Groups[];
+  oldpassword?: string;
+  newpassword?: string;
+  confirmpassword?: string;
+  first_name: string;
+  last_name: string;
+  groups: Groups[] = [];
 }

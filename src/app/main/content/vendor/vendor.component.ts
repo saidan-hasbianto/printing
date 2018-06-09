@@ -4,14 +4,14 @@ import { VendorService } from '../../services/vendor.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-vendor',
+  selector: 'fuse-vendor',
   templateUrl: './vendor.component.html',
   styleUrls: ['./vendor.component.scss']
 })
 export class VendorComponent implements OnInit {
   rows: Vendor[];
   temp = [];
-  loadingIndicator: boolean = true;
+  loadingIndicator = true;
   constructor(
     private vendorsvc: VendorService,
     private toastrSvc: ToastrService

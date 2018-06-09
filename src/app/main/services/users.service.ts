@@ -20,6 +20,8 @@ const httpOptions = {
 @Injectable()
 export class UsersService {
   private urluser = environment.baseUrl + 'users/';  // URL to web api
+  private urluser2 = environment.baseUrl + 'changepassword/';  // URL to web api
+  private urluser3 = environment.baseUrl + 'resetpassword/';  // URL to web api
   constructor(
     private http: HttpClient,
     private toastr: ToastrService,
@@ -44,7 +46,7 @@ export class UsersService {
     add (user: Users): Observable<Users> {
       return this.http.post<Users>(this.urluser, user, httpOptions).pipe(
         tap((user: Users) => {
-          this.logErrorHandle.log('User =', + user.username + ' successfully added', 0);
+          this.logErrorHandle.log('Success', + user.username + ' successfully added', 0);
         }),
       );
     }
@@ -57,18 +59,53 @@ export class UsersService {
       );
     }
 
-    delete (user: Users | number): Observable<Users> {
-      // const id = typeof user === 'number' ? user : user.id;
-      // const url = `${this.urluser}${id}/`;
-      const url = `${this.urluser}/`;
-
-      return this.http.delete<Users>(url, httpOptions).pipe(
-        tap(_ => this.logErrorHandle.log('User =', +'${username}' + ' successfully deleted', 0)),
-        catchError(this.logErrorHandle.handleError<Users>('delete'))
+    delete (item: Users): Observable<Users> {
+      return this.http.delete<Users>(`${this.urluser}${item.id}/`, httpOptions).pipe(
+      tap(_ => this.logErrorHandle.log('Users', item.username + ' successfully deleted', 0)),
+      catchError(this.logErrorHandle.handleError<Users>('delete'))
       );
     }
 
+    // delete (user: Users | number): Observable<Users> {
+    //   // const id = typeof user === 'number' ? user : user.id;
+    //   // const url = `${this.urluser}${id}/`;
+    //   const url = `${this.urluser}/`;
+
+    //   return this.http.delete<Users>(url, httpOptions).pipe(
+    //     tap(_ => this.logErrorHandle.log('User =', +'${username}' + ' successfully deleted', 0)),
+    //     catchError(this.logErrorHandle.handleError<Users>('delete'))
+    //   );
+    // }
+
     // getrowdetail():
+
+    // getLists(): any {
+    //   return this.http.get(this.urluser).map(data => data);
+    // }
+
+    // getById(id: any): any {
+    //   return this.http.get(this.urluser + id + '/').map(data => data);
+    // }
+
+    // update(id: any, object: any): any {
+    //   return this.http.put( this.urluser + id + '/', object);
+    // }
+
+    // delete(id: any): any {
+    //   return this.http.delete(this.urluser + id + '/');
+    // }
+
+    // assignUserBlocks(object: any): any {
+    //   return this.http.post( environment.BASvabbbbEva_URL + '/assignuserblocks/', object);
+    // }
+
+    changePassword(id: any, object: any) {
+      return this.http.put( this.urluser2 + id + '/', object);
+    }
+
+    resetPassword(id: any, object: any) {
+      return this.http.put( this.urluser3 + id + '/', object);
+    }
 
     /**
      * Handle Http operation that failed.

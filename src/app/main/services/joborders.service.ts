@@ -28,6 +28,10 @@ const httpOptions2 = {
 @Injectable()
 export class JobordersService {
   private url = environment.baseUrl + 'joborders/';  // URL to web api
+  private url2 = environment.baseUrl + 'jounreceiptedsbycustomer/?customer=';  // URL to web api
+  private url3 = environment.baseUrl + 'joundelivereds/';  // URL to web api
+  private url4 = environment.baseUrl + 'jopdf/?id=';  // URL to web api
+  private url5 = environment.baseUrl + 'joborderforusers/';  // URL to web api
   constructor(
     private http: HttpClient,
     private toastr: ToastrService,
@@ -42,9 +46,28 @@ export class JobordersService {
     );
   }
 
-  getJO(id: number): Observable<Joborders2> {
+  getJOUnreceipt(id: number): Observable<any> {
+    return this.http.get<any>(`${this.url2}${id}`, httpOptions).pipe(
+      catchError(this.logErrorHandle.handleError<any>('getJOUnreceipt'))
+    );
+  }
+
+  getJO(id: number): Observable<Joborders> {
+    return this.http.get<Joborders>(`${this.url}${id}`, httpOptions).pipe(
+      catchError(this.logErrorHandle.handleError<Joborders>('getJO'))
+    );
+  }
+
+  getJO2(id: number): Observable<Joborders2> {
     return this.http.get<Joborders2>(`${this.url}${id}`, httpOptions).pipe(
       catchError(this.logErrorHandle.handleError<Joborders2>('getJO'))
+    );
+  }
+
+  getJOUndlvrd(): Observable<Joborders[]> {
+    return this.http.get<Joborders[]>(this.url3, httpOptions)
+    .pipe(
+      catchError(this.logErrorHandle.handleError('getRows', []))
     );
   }
 
@@ -64,13 +87,13 @@ export class JobordersService {
     );
   }
 
-  // update (item: Joborders) {
-  //   return this.http.put<Joborders>(this.url + item.id + '/', item, httpOptions).pipe(
-  //     tap((item: Joborders) => {
-  //       this.logErrorHandle.log('Job Order ID =', + item.id + ' successfully updated', 0);
-  //     }),
-  //   );
-  // }
+  updateForUser (item: Joborders2) {
+    return this.http.put<Joborders2>(this.url5 + item.id + '/', item, httpOptions).pipe(
+      tap((item: Joborders2) => {
+        this.logErrorHandle.log('Job Order ID =', + item.id + ' successfully updated', 0);
+      }),
+    );
+  }
 
   delete (item: Joborders): Observable<Joborders> {
     return this.http.delete<Joborders>(`${this.url}${item.id}/`, httpOptions).pipe(
@@ -96,7 +119,7 @@ export class JobordersService {
       for (let i = 0; i < item['product'].length; i++)
       {
         // console.log(item.product);
-        formData.append('product', item.product[i].toString());
+        formData.append('product', item.product[i]);
         formData.append('qty', item.qty[i].toString());
         formData.append('type', item.type[i]);
         formData.append('price', item.price[i].toString());
@@ -108,6 +131,15 @@ export class JobordersService {
         .post(endpoint, formData);
         // .map(() => {
         //   return true; });
+  }
+
+  public getFile(id: number) {
+    return this.http.get(this.url4 + id,
+    {responseType: 'blob', headers: new HttpHeaders({ 'accept': 'application/pdf' })})
+    .map(
+      (res) => {
+        return new Blob([res], {type: 'application/pdf'})
+      });
   }
 
   /**

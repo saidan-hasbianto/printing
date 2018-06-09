@@ -17,14 +17,14 @@
             <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto" fxLayoutWrap>
 
                 <mat-form-field fxFlex="25">
-                  <input  matInput placeholder="Job Order No" [(ngModel)]="jo.jobOrderNo" required>
+                  <input  matInput placeholder="Job Order No" [(ngModel)]="jo.jobOrderNo" readonly="true" required>
                     <mat-error *ngIf="formErrors.jobOrderNo.required">
                         Required
                     </mat-error>
                 </mat-form-field>
 
               <mat-form-field fxFlex="25">
-                <mat-select placeholder="Customer" [(ngModel)]="jo.customer" required>
+                <mat-select placeholder="Customer" [(ngModel)]="jo.customer" (change)="onChooseCust($event)" required>
                   <mat-option *ngFor="let item of custOption" [value]="item.id">
                     {{ item.name }}
                   </mat-option>
@@ -66,7 +66,7 @@
                 </mat-error>
                   </mat-form-field>
 
-                  <a mat-raised-button color="accent" (click)="addAddr()">
+                  <a mat-raised-button color="accent" (click)="addAddr($event)">
                   New
                 </a>
             </div>
@@ -105,7 +105,7 @@
     <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
         <h1>Order Item</h1>
 
-        <a mat-raised-button color="accent" (click)="addOrderItem()">
+        <a mat-raised-button color="accent" *ngIf="isOperator" (click)="addOrderItem()">
             New Order Item
          </a>
 
@@ -124,7 +124,7 @@
         </mat-error>
       </mat-form-field>
 
-      <mat-form-field fxFlex="30">
+      <mat-form-field fxFlex="10">
           <mat-select placeholder="Types" [(ngModel)]="types[i]" required>
             <mat-option *ngFor="let item of typesOption" [value]="item.value">
               {{ item.display_name }}
@@ -135,20 +135,20 @@
           </mat-error>
         </mat-form-field>
 
-      <mat-form-field fxFlex="10">
+      <mat-form-field fxFlex="5">
         <input matInput placeholder="Qty" [(ngModel)]="qties[i]" required>
           <mat-error *ngIf="formErrors.qty.required">
               Required
           </mat-error>
       </mat-form-field>
 
-      <mat-form-field fxFlex="25">
+      <mat-form-field fxFlex="25" *ngIf="isUser">
           <input matInput placeholder="Price" [(ngModel)]="prices[i]" required>
             <mat-error *ngIf="formErrors.price.required">
                 Required
             </mat-error>
         </mat-form-field>
-        <mat-form-field fxFlex="25">
+        <mat-form-field fxFlex="25" *ngIf="isUser">
             <input matInput placeholder="Markup Amount" [(ngModel)]="markups[i]" required>
               <mat-error *ngIf="formErrors.markup.required">
                   Required
@@ -169,8 +169,6 @@
 
         <label for="file"></label>
         <input #fileInput type="file" id="file" (change)="handleFileInput($event.target.files, i)">
-        <!-- <button mat-button (click)="inputFile.click()">Browse</button>  -->
-        <!-- {{ inputFile.value }} -->
         <input #inputFile type="file" [style.display]="'none'">
         </div>
 

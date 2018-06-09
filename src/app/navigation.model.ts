@@ -1,9 +1,13 @@
+import { AuthGuardAdminService } from './main/services/auth-guard.service';
+
 export class NavigationModel
 {
     public model: any[];
+    public gr: string = localStorage.getItem('groupname');
 
     constructor()
     {
+
         this.model = [
             {
               'id'      : 'applications',
@@ -34,104 +38,129 @@ export class NavigationModel
                 ]
             },
             {
-              'id'      : 'applications',
+              'id'      : 'system',
+              'title'   : 'System',
+              'type'    : 'collapse',
+              'icon'    : 'settings',
+              'privileges' : 'admin',
+              'children': [
+                {
+                  'id'   : 'users',
+                  'title': 'Users',
+                  'type' : 'item',
+                  'url'  : '/users',
+                  'privileges' : 'admin'
+                }
+              ]
+            },
+            {
+              'id'      : 'master',
               'title'   : 'Master',
               'type'    : 'collapse',
               'icon'    : 'work',
+              'privileges' : 'user',
               'children': [
                 {
                     'id'   : 'item',
                     'title': 'Item',
                     'type' : 'item',
-                    'url'  : '/msitem'
+                    'url'  : '/msitem',
+                    'privileges' : 'user'
                 },
                 {
                     'id'   : 'product',
                     'title': 'Product',
                     'type' : 'item',
-                    'url'  : '/msproduct'
-                },
-                {
-                  'id'   : 'users',
-                  'title': 'Users',
-                  'type' : 'item',
-                  'url'  : '/users'
+                    'url'  : '/msproduct',
+                    'privileges' : 'user'
                 },
                 {
                   'id'   : 'groups',
                   'title': 'Groups',
                   'type' : 'item',
-                  'url'  : '/group'
+                  'url'  : '/group',
+                  'privileges' : 'user'
+                },
+                {
+                  'id'   : 'mscustomer',
+                  'title': 'Customer',
+                  'type' : 'item',
+                  'url'  : '/mscustomer',
+                  'privileges' : 'user'
                 },
                 {
                   'id'   : 'msactivity',
                   'title': 'Activity',
                   'type' : 'item',
-                  'url'  : '/msactivity'
+                  'url'  : '/msactivity',
+                  'privileges' : 'user'
                 },
                 {
                   'id'   : 'msmarketing',
                   'title': 'Marketing',
                   'type' : 'item',
-                  'url'  : '/msmarketing'
+                  'url'  : '/msmarketing',
+                  'privileges' : 'user'
                 },
                 {
                   'id'   : 'msoperator',
                   'title': 'Operator',
                   'type' : 'item',
-                  'url'  : '/msoperator'
+                  'url'  : '/msoperator',
+                  'privileges' : 'user'
                 },
                 {
                   'id'   : 'docprefix',
                   'title': 'Doc Prefix',
                   'type' : 'item',
-                  'url'  : '/docprefix'
+                  'url'  : '/docprefix',
+                  'privileges' : 'user'
                 }
               ]
             },
             {
-              'id'      : 'applications',
+              'id'      : 'receivable',
               'title'   : 'Receivable',
               'type'    : 'collapse',
               'icon'    : 'compare_arrows',
+              'privileges' : 'operator',
               'children': [
-                {
-                  'id'   : 'mscustomer',
-                  'title': 'Customer',
-                  'type' : 'item',
-                  'url'  : '/mscustomer'
-                },
                 {
                   'id'   : 'joborders',
                   'title': 'Job Orders',
                   'type' : 'item',
-                  'url'  : '/joborders'
+                  'url'  : '/joborders',
+                  'privileges' : 'operator',
                 },
                 {
                   'id'   : 'deliveryorder',
                   'title': 'Delivery Order',
                   'type' : 'item',
-                  'url'  : '/deliveryorder'
+                  'url'  : '/deliveryorder',
+                  'privileges' : 'user',
                 },
                 {
                   'id'   : 'receipts',
                   'title': 'Receipting',
                   'type' : 'item',
-                  'url'  : '/receipts'
+                  'url'  : '/receipts',
+                  'privileges' : 'user',
                 },
                 {
                   'id'   : 'markupreleases',
                   'title': 'Markup Release',
                   'type' : 'item',
-                  'url'  : '/markupreleases'
+                  'url'  : '/markupreleases',
+                  'privileges' : 'user',
                 }
               ]
             },
             {
-              'id'      : 'applications',
+              'id'      : 'payable',
               'title'   : 'Payable',
               'type'    : 'collapse',
               'icon'    : 'compare_arrows',
+              'privileges' : 'user',
               'children': [
                 {
                   'id'   : 'vendor',
@@ -154,5 +183,14 @@ export class NavigationModel
               ]
           }
         ];
+        // if (this.gr !== 'Group Admin')
+        // {
+
+        //   this.model.splice(1, 1);
+        //   // this.model.slic
+        //   console.log(this.model);
+
+        // }
     }
+
 }

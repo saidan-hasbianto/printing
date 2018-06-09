@@ -69,7 +69,7 @@ export class JoborderViewComponent implements OnInit {
       if (this.paramId) {
         this.loadingbar = false;
 
-        this.josvc.getJO(this.paramId)
+        this.josvc.getJO2(this.paramId)
           .subscribe(res => {
            // console.log(res);
            this.jo2 = res;
