@@ -52,6 +52,7 @@ export class ChangepasswordComponent implements OnInit {
   save(usr: Users) {
     console.log(this.form.value);
     if (this.form.controls['newPassword'].value !== this.form.controls['confirmPassword'].value) {
+      this.toastService.warning('New Password dan Confirm Password tidak sama');
       return;
     }
 
