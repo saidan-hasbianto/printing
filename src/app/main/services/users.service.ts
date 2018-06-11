@@ -44,17 +44,18 @@ export class UsersService {
 
     /** POST: add a new hero to the server */
     add (user: Users): Observable<Users> {
-      return this.http.post<Users>(this.urluser, user, httpOptions).pipe(
+      return this.http.post<Users>(this.urluser, user.id, httpOptions).pipe(
         tap((user: Users) => {
-          this.logErrorHandle.log('Success', + user.username + ' successfully added', 0);
+          this.logErrorHandle.log('Success', + user.id + ' successfully added', 0);
         }),
       );
     }
 
     update (user: Users) {
-      return this.http.put<Users>(this.urluser, user, httpOptions).pipe(
+      console.log(user);
+      return this.http.put<Users>(this.urluser + user.id + '/', user, httpOptions).pipe(
         tap((user: Users) => {
-          this.logErrorHandle.log('Updated User =', + user.username + ' successfully updated', 0);
+          this.logErrorHandle.log('Updated User =', + user.id + ' successfully updated', 0);
         }),
       );
     }

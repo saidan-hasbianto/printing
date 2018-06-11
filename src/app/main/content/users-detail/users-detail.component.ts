@@ -59,19 +59,19 @@ export class UsersDetailComponent implements OnInit {
       if (id)
       {
         this.loadingbar = false;
-
+        this.form.controls['password'].disable();
         this.userservice.getUser(id)
         .subscribe(res => {
           this.user = res;
-          console.log(res);
-
+          console.log(this.user);
         this.form.setValue({
           id: this.user.id,
           username: this.user.username,
           email: this.user.email,
           first_name: this.user.first_name,
           last_name: this.user.last_name,
-          password: '-'
+          password: '-',
+          groups: this.user.groups[0]
       });
     this.loadingbar = false;
   });
@@ -110,26 +110,23 @@ export class UsersDetailComponent implements OnInit {
   }
 
   onSubmit(user: Users) {
-  if (this.form.controls['groups'] === null)
+
+  if (this.form.controls['groups'].value === '')
   {
     this.toastr.warning('Please choose groups');
   }
   else {
     let usr: Users;
     usr = new Users();
+    usr.id = user.id;
     usr.email = user.email;
     usr.first_name = user.first_name;
     usr.last_name = user.last_name;
-    usr.password = user.password;
+    usr.password = '-';
     usr.username = user.username;
-    // usr.groups = this.form.controls['groups'].value;
-
-    // let gr = this.form.controls['groups'].value;
     usr.groups = [];
     usr.groups.push(this.form.controls['groups'].value);
 
-
-    console.log(usr);
     if (this.form.valid)
     {
       if (user.id === '')
@@ -147,7 +144,7 @@ export class UsersDetailComponent implements OnInit {
       }
       else
       {
-        this.userservice.update(user).subscribe(
+        this.userservice.update(usr).subscribe(
           success => {
             this.goback();
           },
