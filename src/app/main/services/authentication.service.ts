@@ -41,71 +41,75 @@ export class AuthenticationService {
         return this.http.post(environment.baseUrl + 'api-token-auth/', JSON.stringify({ username: username, password: password }), httpOptions)
         .timeout(4000)
         .map((response: Response) => {
-                // login successful if there's a jwt token in the response
-                const token = response.json() && response.json().token;
-                const id = response.json() && response.json().user.id;
-                const uname = response.json() && response.json().user.username;
-                const tipe = response.json() && response.json().user.groups;
-                const tipe2 = response.json() && response.json().user.userGroups[0].name;
-                const fname = response.json() && response.json().user.first_name;
-                const lname = response.json() && response.json().user.last_name;
-                const mail = response.json() && response.json().user.email;
-                if (token) {
-                    // set token property
-                    this.token = token;
-                    this.userid = id;
-                    this.username = uname;
-                    this.group = tipe;
-                    this.groupname = tipe2;
-                    this.email = mail;
+          console.log(response);
+          if (response.json() && !response.json().user.userGroups[0]) {
+            this.toastr.error('User does not have group', 'Login Failed!');
+          }
+            // login successful if there's a jwt token in the response
+            const token = response.json() && response.json().token;
+            const id = response.json() && response.json().user.id;
+            const uname = response.json() && response.json().user.username;
+            const tipe = response.json() && response.json().user.groups;
+            const tipe2 = response.json() && response.json().user.userGroups[0].name;
+            const fname = response.json() && response.json().user.first_name;
+            const lname = response.json() && response.json().user.last_name;
+            const mail = response.json() && response.json().user.email;
+            if (token) {
+                // set token property
+                this.token = token;
+                this.userid = id;
+                this.username = uname;
+                this.group = tipe;
+                this.groupname = tipe2;
+                this.email = mail;
 
-                    // store username and jwt token in local storage to keep user logged in between page refreshes
-                    this.storage.store('currentUser', JSON.stringify({ username: username, token: token, userid: id, group: tipe, email: mail  }));
-                    localStorage.setItem('token', this.token);
-                    localStorage.setItem('userid', this.userid);
-                    localStorage.setItem('username', this.username);
-                    localStorage.setItem('group', this.group);
-                    localStorage.setItem('groupname', this.groupname);
-                    localStorage.setItem('email', this.email);
+                // store username and jwt token in local storage to keep user logged in between page refreshes
+                this.storage.store('currentUser', JSON.stringify({ username: username, token: token, userid: id, group: tipe, email: mail  }));
+                localStorage.setItem('token', this.token);
+                localStorage.setItem('userid', this.userid);
+                localStorage.setItem('username', this.username);
+                localStorage.setItem('group', this.group);
+                localStorage.setItem('groupname', this.groupname);
+                localStorage.setItem('email', this.email);
 
-                    console.log(this.storage);
-                    console.log(localStorage);
-                    // return true to indicate successful login
-                    return true;
-                } else {
-                    // return false to indicate failed login
-                    return false;
-                }
+                console.log(this.storage);
+                console.log(localStorage);
+                // return true to indicate successful login
+                return true;
+            } else {
+                // return false to indicate failed login
+                return false;
+            }
             }).catch((error, caught) => {
-                  // return the error to the method that called it
-                  // if (error.status && error.status === 400)
-                  // {
-                  //   this.toastr.error('Username or password is incorrect', 'Login Failed!');
-                  // }
-                  // if (error.status && error.status === 408)
-                  // {
-                  //   this.toastr.error('Request Time Out - Cannot comunicate with server', 'Login Failed!');
-                  // }
-                  // if (error.status && error.status === 404)
-                  // {
-                  //   this.toastr.error('Server Not Found', 'Login Failed!');
-                  // }
+              // return the error to the method that called it
+              // if (error.status && error.status === 400)
+              // {
+              //   this.toastr.error('Username or password is incorrect', 'Login Failed!');
+              // }
+              // if (error.status && error.status === 408)
+              // {
+              //   this.toastr.error('Request Time Out - Cannot comunicate with server', 'Login Failed!');
+              // }
+              // if (error.status && error.status === 404)
+              // {
+              //   this.toastr.error('Server Not Found', 'Login Failed!');
+              // }
 
 
-                  if (error.status === 400)
-                  {
-                    this.toastr.error('Username or password is incorrect', 'Login Failed!');
-                  }
-                  if (error.name === 'TimeoutError')
-                  {
-                    this.toastr.error('Request Time Out - Cannot comunicate with server', 'Login Failed!');
-                  }
-                  if (error.status === 0)
-                  {
-                    this.toastr.error('Server Not Found', 'Login Failed!');
-                  }
-                  return Observable.throw(error);
-                }) as any;
+              if (error.status === 400)
+              {
+                this.toastr.error('Username or password is incorrect', 'Login Failed!');
+              }
+              if (error.name === 'TimeoutError')
+              {
+                this.toastr.error('Request Time Out - Cannot comunicate with server', 'Login Failed!');
+              }
+              if (error.status === 0)
+              {
+                this.toastr.error('Server Not Found', 'Login Failed!');
+              }
+              return Observable.throw(error);
+            }) as any;
     }
 
     logout(): void {

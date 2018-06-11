@@ -110,10 +110,11 @@ export class UsersDetailComponent implements OnInit {
   }
 
   onSubmit(user: Users) {
-
-    // let num: number;
-    // num = user.groups['id'];
-
+  if (this.form.controls['groups'] === null)
+  {
+    this.toastr.warning('Please choose groups');
+  }
+  else {
     let usr: Users;
     usr = new Users();
     usr.email = user.email;
@@ -129,32 +130,33 @@ export class UsersDetailComponent implements OnInit {
 
 
     console.log(usr);
-  if (this.form.valid)
-  {
-    if (user.id === '')
+    if (this.form.valid)
     {
+      if (user.id === '')
+      {
 
-      this.userservice.add(usr).subscribe(
-        success => {
-          this.goback();
-        },
-        error => {
-          console.log(error.error);
-          this.toastr.error(error.error.error_message, 'Error');
-        }
-      );
-    }
-    else
-    {
-      this.userservice.update(user).subscribe(
-        success => {
-          this.goback();
-        },
-        error => {
-          console.log(error.error);
-          this.toastr.error(error.error.error_message, 'Error');
-        }
-      );
+        this.userservice.add(usr).subscribe(
+          success => {
+            this.goback();
+          },
+          error => {
+            console.log(error.error);
+            this.toastr.error(error.error.error_message, 'Error');
+          }
+        );
+      }
+      else
+      {
+        this.userservice.update(user).subscribe(
+          success => {
+            this.goback();
+          },
+          error => {
+            console.log(error.error);
+            this.toastr.error(error.error.error_message, 'Error');
+          }
+        );
+      }
     }
   }
   }
