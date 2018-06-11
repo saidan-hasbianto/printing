@@ -63,6 +63,10 @@ export class UsersDetailComponent implements OnInit {
         this.userservice.getUser(id)
         .subscribe(res => {
           this.user = res;
+          if (this.user.groups.length === 0)
+          {
+            this.user.groups.push(this.groupOption[0]);
+          }
           console.log(this.user);
         this.form.setValue({
           id: this.user.id,
@@ -110,7 +114,7 @@ export class UsersDetailComponent implements OnInit {
   }
 
   onSubmit(user: Users) {
-
+  console.log(this.form.controls);
   if (this.form.controls['groups'].value === '')
   {
     this.toastr.warning('Please choose groups');
