@@ -25,7 +25,7 @@ export class ProductItemMaterialService {
   update (prod: ProductItemMaterial) {
     return this.http.put<ProductItemMaterial>(this.urlProd + prod.id + '/', prod, httpOptions).pipe(
       tap((prod: ProductItemMaterial) => {
-        this.logErrorHandle.log('Updated Product Name =', + prod.itemName + ' successfully updated', 0);
+        this.logErrorHandle.log('Updated Product', + prod.id + ' successfully updated', 0);
       }),
       catchError(this.logErrorHandle.handleError<ProductItemMaterial>('update'))
     );

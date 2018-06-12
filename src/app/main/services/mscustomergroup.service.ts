@@ -44,7 +44,7 @@ export class MscustomergroupService {
   add (prod: Mscustomer): Observable<Mscustomer> {
     return this.http.post<Mscustomer>(this.urlProd, prod, httpOptions).pipe(
       tap((prod: Mscustomer) => {
-        this.logErrorHandle.log('Customer ID =', + prod.id + ' successfully added', 0);
+        this.logErrorHandle.log('Customer', + prod.id + ' successfully added', 0);
       }),
     );
   }
@@ -52,7 +52,7 @@ export class MscustomergroupService {
   update (prod: Mscustomer) {
     return this.http.put<Mscustomer>(this.urlProd + prod.id + '/', prod, httpOptions).pipe(
       tap((prod: Mscustomer) => {
-        this.logErrorHandle.log('Updated Customer ID =', + prod.id + ' successfully updated', 0);
+        this.logErrorHandle.log('Updated Customer', + prod.id + ' successfully updated', 0);
       }),
     );
   }
@@ -62,7 +62,7 @@ export class MscustomergroupService {
     const url = `${this.urlProd}${id}/`;
 
     return this.http.delete<Mscustomer>(url, httpOptions).pipe(
-      tap(_ => this.logErrorHandle.log('Customer id=', +'${id}' + ' successfully deleted', 0)),
+      tap(_ => this.logErrorHandle.log('Customer', +'${id}' + ' successfully deleted', 0)),
       catchError(this.logErrorHandle.handleError<Mscustomer>('delete'))
     );
   }

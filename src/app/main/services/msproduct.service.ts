@@ -43,7 +43,7 @@ export class MsproductService {
   add (prod: Msproduct): Observable<Msproduct> {
     return this.http.post<Msproduct>(this.urlProd, prod, httpOptions).pipe(
       tap((prod: Msproduct) => {
-        this.logErrorHandle.log('Product ID =', + prod.id + ' successfully added', 0);
+        this.logErrorHandle.log('Product', + prod.id + ' successfully added', 0);
       }),
     );
   }
@@ -51,7 +51,7 @@ export class MsproductService {
   update (prod: Msproduct) {
     return this.http.put<Msproduct>(this.urlProd + prod.id + '/', prod, httpOptions).pipe(
       tap((prod: Msproduct) => {
-        this.logErrorHandle.log('Updated Product ID =', + prod.id + ' successfully updated', 0);
+        this.logErrorHandle.log('Updated Product', + prod.id + ' successfully updated', 0);
       }),
     );
   }
@@ -61,7 +61,7 @@ export class MsproductService {
     const url = `${this.urlProd}${id}/`;
 
     return this.http.delete<Msproduct>(url, httpOptions).pipe(
-      tap(_ => this.logErrorHandle.log('Product id=', +'${id}' + ' successfully deleted', 0)),
+      tap(_ => this.logErrorHandle.log('Product', +'${id}' + ' successfully deleted', 0)),
       catchError(this.logErrorHandle.handleError<Msproduct>('delete'))
     );
   }

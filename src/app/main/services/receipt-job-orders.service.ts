@@ -40,7 +40,7 @@ export class ReceiptJobOrdersService {
     /** POST: add a new hero to the server */
   add (price: ReceiptJobOrders): Observable<ReceiptJobOrders> {
     return this.http.post<ReceiptJobOrders>(this.url, price, httpOptions).pipe(
-      tap((price: ReceiptJobOrders) => this.logErrorHandle.log('Price ID =', + price.id + ' successfully added', 0)),
+      tap((price: ReceiptJobOrders) => this.logErrorHandle.log('Price ID', + price.id + ' successfully added', 0)),
       catchError(this.logErrorHandle.handleError<ReceiptJobOrders>('add'))
     );
   }
@@ -48,7 +48,7 @@ export class ReceiptJobOrdersService {
   update (price: ReceiptJobOrders) {
     return this.http.put<ReceiptJobOrders>(this.url + price.id + '/', price, httpOptions).pipe(
       tap((price: ReceiptJobOrders) => {
-        this.logErrorHandle.log('Updated Price ID =', + price.id + ' successfully updated', 0);
+        this.logErrorHandle.log('Updated Price ID', + price.id + ' successfully updated', 0);
       }),
       catchError(this.logErrorHandle.handleError<ReceiptJobOrders>('update'))
     );
@@ -59,7 +59,7 @@ export class ReceiptJobOrdersService {
     const url = `${this.url}${id}/`;
 
     return this.http.delete<ReceiptJobOrders>(url, httpOptions).pipe(
-      tap(_ => this.logErrorHandle.log('Price id=', +'${id}' + ' successfully deleted', 0)),
+      tap(_ => this.logErrorHandle.log('Price', +'${id}' + ' successfully deleted', 0)),
       catchError(this.logErrorHandle.handleError<ReceiptJobOrders>('delete'))
     );
   }

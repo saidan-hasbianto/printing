@@ -43,7 +43,7 @@ export class MsoperatorService {
   add (item: Msoperator): Observable<Msoperator> {
     return this.http.post<Msoperator>(this.url, item, httpOptions).pipe(
       tap((item: Msoperator) => {
-        this.logErrorHandle.log('Operator ID =', + item.id + ' successfully added', 0);
+        this.logErrorHandle.log('Operator', + item.id + ' successfully added', 0);
       }),
     );
   }
@@ -51,7 +51,7 @@ export class MsoperatorService {
   update (item: Msoperator) {
     return this.http.put<Msoperator>(this.url + item.id + '/', item, httpOptions).pipe(
       tap((item: Msoperator) => {
-        this.logErrorHandle.log('Updated Item ID =', + item.id + ' successfully updated', 0);
+        this.logErrorHandle.log('Updated Operator', + item.id + ' successfully updated', 0);
       }),
     );
   }

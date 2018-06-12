@@ -44,7 +44,7 @@ export class ReceiptingListService {
   add (item: Receipting): Observable<Receipting> {
     return this.http.post<Receipting>(this.url, item, httpOptions).pipe(
       tap((item: Receipting) => {
-        this.logErrorHandle.log('Receipt ID =', + item.id + ' successfully added', 0);
+        this.logErrorHandle.log('Receipt', + item.id + ' successfully added', 0);
       }),
     );
   }
@@ -52,7 +52,7 @@ export class ReceiptingListService {
   update (item: Receipting) {
     return this.http.put<Receipting>(this.url + item.id + '/', item, httpOptions).pipe(
       tap((item: Receipting) => {
-        this.logErrorHandle.log('Receipting No =', + item.receiptNo + ' successfully updated', 0);
+        this.logErrorHandle.log('Receipting', + item.receiptNo + ' successfully updated', 0);
       }),
     );
   }

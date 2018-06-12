@@ -43,7 +43,7 @@ export class VendorService {
     add (item: Vendor): Observable<Vendor> {
       return this.http.post<Vendor>(this.url, item, httpOptions).pipe(
         tap((item: Vendor) => {
-          this.logErrorHandle.log('Vendor ID =', + item.id + ' successfully added', 0);
+          this.logErrorHandle.log('Vendor', + item.id + ' successfully added', 0);
         }),
       );
     }
@@ -51,7 +51,7 @@ export class VendorService {
   update (item: Vendor) {
     return this.http.put<Vendor>(this.url + item.id + '/', item, httpOptions).pipe(
       tap((item: Vendor) => {
-        this.logErrorHandle.log('Vendor No =', + item.id + ' successfully updated', 0);
+        this.logErrorHandle.log('Vendor', + item.id + ' successfully updated', 0);
       }),
     );
   }

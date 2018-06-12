@@ -40,7 +40,7 @@ export class PricelevelService {
     /** POST: add a new hero to the server */
   add (price: Pricelevel): Observable<Pricelevel> {
     return this.http.post<Pricelevel>(this.url, price, httpOptions).pipe(
-      tap((price: Pricelevel) => this.logErrorHandle.log('Price ID =', + price.id + ' successfully added', 0)),
+      tap((price: Pricelevel) => this.logErrorHandle.log('Price ID', + price.id + ' successfully added', 0)),
       catchError(this.logErrorHandle.handleError<Pricelevel>('add'))
     );
   }
@@ -48,7 +48,7 @@ export class PricelevelService {
   update (price: Pricelevel) {
     return this.http.put<Pricelevel>(this.url + price.id + '/', price, httpOptions).pipe(
       tap((price: Pricelevel) => {
-        this.logErrorHandle.log('Updated Price ID =', + price.id + ' successfully updated', 0);
+        this.logErrorHandle.log('Updated Price Level', + price.id + ' successfully updated', 0);
       }),
       catchError(this.logErrorHandle.handleError<Pricelevel>('update'))
     );
@@ -59,7 +59,7 @@ export class PricelevelService {
     const url = `${this.url}${id}/`;
 
     return this.http.delete<Pricelevel>(url, httpOptions).pipe(
-      tap(_ => this.logErrorHandle.log('Price id=', +'${id}' + ' successfully deleted', 0)),
+      tap(_ => this.logErrorHandle.log('Price Level', +'${id}' + ' successfully deleted', 0)),
       catchError(this.logErrorHandle.handleError<Pricelevel>('delete'))
     );
   }

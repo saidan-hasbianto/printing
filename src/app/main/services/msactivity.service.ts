@@ -43,7 +43,7 @@ export class MsactivityService {
   add (item: Msactivity): Observable<Msactivity> {
     return this.http.post<Msactivity>(this.url, item, httpOptions).pipe(
       tap((item: Msactivity) => {
-        this.logErrorHandle.log('Activity ID =', + item.id + ' successfully added', 0);
+        this.logErrorHandle.log('Activity', + item.id + ' successfully added', 0);
       }),
     );
   }
@@ -51,14 +51,14 @@ export class MsactivityService {
   update (item: Msactivity) {
     return this.http.put<Msactivity>(this.url + item.id + '/', item, httpOptions).pipe(
       tap((item: Msactivity) => {
-        this.logErrorHandle.log('Updated Activity ID =', + item.id + ' successfully updated', 0);
+        this.logErrorHandle.log('Activity', + item.id + ' successfully updated', 0);
       }),
     );
   }
 
   delete (item: Msactivity): Observable<Msactivity> {
     return this.http.delete<Msactivity>(`${this.url}${item.id}/`, httpOptions).pipe(
-    tap(_ => this.logErrorHandle.log('Activity ID ', item.id + ' successfully deleted', 0)),
+    tap(_ => this.logErrorHandle.log('Activity', item.id + ' successfully deleted', 0)),
     catchError(this.logErrorHandle.handleError<Msactivity>('delete'))
     );
   }

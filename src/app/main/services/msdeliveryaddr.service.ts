@@ -49,7 +49,7 @@ export class MsdeliveryaddrService {
     /** POST: add a new hero to the server */
   add (price: Msdeliveryaddr): Observable<Msdeliveryaddr> {
     return this.http.post<Msdeliveryaddr>(this.url, price, httpOptions).pipe(
-      tap((price: Msdeliveryaddr) => this.logErrorHandle.log('Price ID =', + price.id + ' successfully added', 0)),
+      tap((price: Msdeliveryaddr) => this.logErrorHandle.log('Delivery Address', + price.id + ' successfully added', 0)),
       catchError(this.logErrorHandle.handleError<Msdeliveryaddr>('add'))
     );
   }
@@ -57,7 +57,7 @@ export class MsdeliveryaddrService {
   update (price: Msdeliveryaddr) {
     return this.http.put<Msdeliveryaddr>(this.url + price.id + '/', price, httpOptions).pipe(
       tap((price: Msdeliveryaddr) => {
-        this.logErrorHandle.log('Updated Price ID =', + price.id + ' successfully updated', 0);
+        this.logErrorHandle.log('Delivery Address =', + price.id + ' successfully updated', 0);
       }),
       catchError(this.logErrorHandle.handleError<Msdeliveryaddr>('update'))
     );
@@ -68,7 +68,7 @@ export class MsdeliveryaddrService {
     const url = `${this.url}${id}/`;
 
     return this.http.delete<Msdeliveryaddr>(url, httpOptions).pipe(
-      tap(_ => this.logErrorHandle.log('Price id=', +'${id}' + ' successfully deleted', 0)),
+      tap(_ => this.logErrorHandle.log('Delivery Address', +'${id}' + ' successfully deleted', 0)),
       catchError(this.logErrorHandle.handleError<Msdeliveryaddr>('delete'))
     );
   }

@@ -49,7 +49,7 @@ export class MarkupreleasejobordersService {
   update (price: Markupreleasejoborders) {
     return this.http.put<Markupreleasejoborders>(this.url + price.id + '/', price, httpOptions).pipe(
       tap((price: Markupreleasejoborders) => {
-        this.logErrorHandle.log('Updated Price ID =', + price.id + ' successfully updated', 0);
+        this.logErrorHandle.log('Job Order', + price.id + ' successfully updated', 0);
       }),
       catchError(this.logErrorHandle.handleError<Markupreleasejoborders>('update'))
     );
@@ -60,7 +60,7 @@ export class MarkupreleasejobordersService {
     const url = `${this.url}${id}/`;
 
     return this.http.delete<Markupreleasejoborders>(url, httpOptions).pipe(
-      tap(_ => this.logErrorHandle.log('Price id=', +'${id}' + ' successfully deleted', 0)),
+      tap(_ => this.logErrorHandle.log('Job Order', +'${id}' + ' successfully deleted', 0)),
       catchError(this.logErrorHandle.handleError<Markupreleasejoborders>('delete'))
     );
   }

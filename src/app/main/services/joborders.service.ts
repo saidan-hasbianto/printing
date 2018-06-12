@@ -90,14 +90,14 @@ export class JobordersService {
   updateForUser (item: Joborders2) {
     return this.http.put<Joborders2>(this.url5 + item.id + '/', item, httpOptions).pipe(
       tap((item: Joborders2) => {
-        this.logErrorHandle.log('Job Order ID =', + item.id + ' successfully updated', 0);
+        this.logErrorHandle.log('Job Order', + item.id + ' successfully updated', 0);
       }),
     );
   }
 
   delete (item: Joborders): Observable<Joborders> {
     return this.http.delete<Joborders>(`${this.url}${item.id}/`, httpOptions).pipe(
-    tap(_ => this.logErrorHandle.log('Job Order ID ', item.id + ' successfully deleted', 0)),
+    tap(_ => this.logErrorHandle.log('Job Order', item.id + ' successfully deleted', 0)),
     catchError(this.logErrorHandle.handleError<Joborders>('delete'))
     );
   }

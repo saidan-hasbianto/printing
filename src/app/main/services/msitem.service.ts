@@ -44,7 +44,7 @@ export class MsitemService {
   add (item: Msitem): Observable<Msitem> {
     return this.http.post<Msitem>(this.url, item, httpOptions).pipe(
       tap((item: Msitem) => {
-        this.logErrorHandle.log('Item ID =', + item.id + ' successfully added', 0);
+        this.logErrorHandle.log('Item', + item.id + ' successfully added', 0);
       }),
     );
   }
@@ -52,14 +52,14 @@ export class MsitemService {
   update (item: Msitem) {
     return this.http.put<Msitem>(this.url + item.id + '/', item, httpOptions).pipe(
       tap((item: Msitem) => {
-        this.logErrorHandle.log('Updated Item Code =', + item.itemCd + ' successfully updated', 0);
+        this.logErrorHandle.log('Item', + item.itemCd + ' successfully updated', 0);
       }),
     );
   }
 
   delete (item: Msitem): Observable<Msitem> {
     return this.http.delete<Msitem>(`${this.url}${item.id}/`, httpOptions).pipe(
-    tap(_ => this.logErrorHandle.log('Msitem', item + ' successfully deleted', 0)),
+    tap(_ => this.logErrorHandle.log('Item', item + ' successfully deleted', 0)),
     catchError(this.logErrorHandle.handleError<Msitem>('delete'))
     );
   }

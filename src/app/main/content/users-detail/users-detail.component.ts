@@ -114,7 +114,7 @@ export class UsersDetailComponent implements OnInit {
   }
 
   onSubmit(user: Users) {
-  console.log(this.form.controls);
+  console.log(user);
   if (this.form.controls['groups'].value === '')
   {
     this.toastr.warning('Please choose groups');
@@ -126,16 +126,16 @@ export class UsersDetailComponent implements OnInit {
     usr.email = user.email;
     usr.first_name = user.first_name;
     usr.last_name = user.last_name;
-    usr.password = '-';
+    // usr.password = '-';
     usr.username = user.username;
     usr.groups = [];
     usr.groups.push(this.form.controls['groups'].value);
-
+    console.log(usr);
     if (this.form.valid)
     {
       if (user.id === '')
       {
-
+        usr.password = user.password;
         this.userservice.add(usr).subscribe(
           success => {
             this.goback();
@@ -148,6 +148,7 @@ export class UsersDetailComponent implements OnInit {
       }
       else
       {
+        usr.password = '-';
         this.userservice.update(usr).subscribe(
           success => {
             this.goback();

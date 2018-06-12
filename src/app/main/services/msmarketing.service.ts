@@ -44,7 +44,7 @@ export class MsmarketingService {
   add (prod: Msmarketing): Observable<Msmarketing> {
     return this.http.post<Msmarketing>(this.url, prod, httpOptions).pipe(
       tap((prod: Msmarketing) => {
-        this.logErrorHandle.log('Marketing ID =', + prod.id + ' successfully added', 0);
+        this.logErrorHandle.log('Marketing', + prod.id + ' successfully added', 0);
       }),
     );
   }
@@ -52,7 +52,7 @@ export class MsmarketingService {
   update (prod: Msmarketing) {
     return this.http.put<Msmarketing>(this.url + prod.id + '/', prod, httpOptions).pipe(
       tap((prod: Msmarketing) => {
-        this.logErrorHandle.log('Updated Marketing ID =', + prod.id + ' successfully updated', 0);
+        this.logErrorHandle.log('Updated Marketing', + prod.id + ' successfully updated', 0);
       }),
     );
   }
@@ -62,7 +62,7 @@ export class MsmarketingService {
     const url = `${this.url}${id}/`;
 
     return this.http.delete<Msmarketing>(url, httpOptions).pipe(
-      tap(_ => this.logErrorHandle.log('Marketing id=', +'${id}' + ' successfully deleted', 0)),
+      tap(_ => this.logErrorHandle.log('Marketing', +'${id}' + ' successfully deleted', 0)),
       catchError(this.logErrorHandle.handleError<Msmarketing>('delete'))
     );
   }

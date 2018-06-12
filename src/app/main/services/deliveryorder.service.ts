@@ -43,7 +43,7 @@ export class DeliveryorderService {
   add (item: Deliveryorder2): Observable<Deliveryorder2> {
     return this.http.post<Deliveryorder2>(this.url, item, httpOptions).pipe(
       tap((item: Deliveryorder2) => {
-        this.logErrorHandle.log('Item ID =', + item.id + ' successfully added', 0);
+        this.logErrorHandle.log('Delivery Order', + item.id + ' successfully added', 0);
       }),
     );
   }
@@ -51,14 +51,14 @@ export class DeliveryorderService {
   update (item: Deliveryorder) {
     return this.http.put<Deliveryorder>(this.url + item.id + '/', item, httpOptions).pipe(
       tap((item: Deliveryorder) => {
-        this.logErrorHandle.log('Updated Item Code =', + item.id + ' successfully updated', 0);
+        this.logErrorHandle.log('Delivery Order', + item.id + ' successfully updated', 0);
       }),
     );
   }
 
   delete (item: Deliveryorder): Observable<Deliveryorder> {
     return this.http.delete<Deliveryorder>(`${this.url}${item.id}/`, httpOptions).pipe(
-    tap(_ => this.logErrorHandle.log('Deliveryorder', item + ' successfully deleted', 0)),
+    tap(_ => this.logErrorHandle.log('Delivery Order', item + ' successfully deleted', 0)),
     catchError(this.logErrorHandle.handleError<Deliveryorder>('delete'))
     );
   }

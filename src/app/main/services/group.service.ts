@@ -43,7 +43,7 @@ export class GroupService {
   add (item: Groups): Observable<Groups> {
     return this.http.post<Groups>(this.url, item, httpOptions).pipe(
       tap((item: Groups) => {
-        this.logErrorHandle.log('Group =', + item.name + ' successfully added', 0);
+        this.logErrorHandle.log('Group', + item.name + ' successfully added', 0);
       }),
     );
   }
@@ -51,14 +51,14 @@ export class GroupService {
   update (item: Groups) {
     return this.http.put<Groups>(this.url + item.id + '/', item, httpOptions).pipe(
       tap((item: Groups) => {
-        this.logErrorHandle.log('Updated Group =', + item.id + ' successfully updated', 0);
+        this.logErrorHandle.log('Group =', + item.id + ' successfully updated', 0);
       }),
     );
   }
 
   delete (item: Groups): Observable<Groups> {
     return this.http.delete<Groups>(`${this.url}${item.id}/`, httpOptions).pipe(
-    tap(_ => this.logErrorHandle.log('Msitem', item + ' successfully deleted', 0)),
+    tap(_ => this.logErrorHandle.log('Group', item + ' successfully deleted', 0)),
     catchError(this.logErrorHandle.handleError<Groups>('delete'))
     );
   }

@@ -44,7 +44,7 @@ export class PaymPurchListService {
   add (prod: PaymPurchList): Observable<PaymPurchList> {
     return this.http.post<PaymPurchList>(this.url, prod, httpOptions).pipe(
       tap((prod: PaymPurchList) => {
-        this.logErrorHandle.log('Payment Purchase ID =', + prod.id + ' successfully added', 0);
+        this.logErrorHandle.log('Payment Purchase', + prod.id + ' successfully added', 0);
       }),
     );
   }
@@ -52,7 +52,7 @@ export class PaymPurchListService {
   update (prod: PaymPurchList) {
     return this.http.put<PaymPurchList>(this.url + prod.id + '/', prod, httpOptions).pipe(
       tap((prod: PaymPurchList) => {
-        this.logErrorHandle.log('Updated Payment Purchase Item ID =', + prod.id + ' successfully updated', 0);
+        this.logErrorHandle.log('Updated Payment Purchase', + prod.id + ' successfully updated', 0);
       }),
     );
   }
@@ -62,7 +62,7 @@ export class PaymPurchListService {
     const url = `${this.url}${id}/`;
 
     return this.http.delete<PaymPurchList>(url, httpOptions).pipe(
-      tap(_ => this.logErrorHandle.log('Payment Purchase ID=', +'${id}' + ' successfully deleted', 0)),
+      tap(_ => this.logErrorHandle.log('Payment Purchase', +'${id}' + ' successfully deleted', 0)),
       catchError(this.logErrorHandle.handleError<PaymPurchList>('delete'))
     );
   }

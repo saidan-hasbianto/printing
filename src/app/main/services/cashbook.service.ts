@@ -43,7 +43,7 @@ export class CashbookService {
   add (item: Cashbook): Observable<Cashbook> {
     return this.http.post<Cashbook>(this.url, item, httpOptions).pipe(
       tap((item: Cashbook) => {
-        this.logErrorHandle.log('CB ID =', + item.id + ' successfully added', 0);
+        this.logErrorHandle.log('Cash Book', + item.id + ' successfully added', 0);
       }),
     );
   }
@@ -51,14 +51,14 @@ export class CashbookService {
   update (item: Cashbook) {
     return this.http.put<Cashbook>(this.url + item.id + '/', item, httpOptions).pipe(
       tap((item: Cashbook) => {
-        this.logErrorHandle.log('CB No =', + item.id + ' successfully updated', 0);
+        this.logErrorHandle.log('Cash Book', + item.id + ' successfully updated', 0);
       }),
     );
   }
 
   delete (item: Cashbook): Observable<Cashbook> {
     return this.http.delete<Cashbook>(`${this.url}${item.id}/`, httpOptions).pipe(
-    tap(_ => this.logErrorHandle.log('CB', item + ' successfully deleted', 0)),
+    tap(_ => this.logErrorHandle.log('Cash Book', item + ' successfully deleted', 0)),
     catchError(this.logErrorHandle.handleError<Cashbook>('delete'))
     );
   }

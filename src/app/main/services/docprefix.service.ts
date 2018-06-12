@@ -43,7 +43,7 @@ export class DocprefixService {
   add (item: Docprefix): Observable<Docprefix> {
     return this.http.post<Docprefix>(this.url, item, httpOptions).pipe(
       tap((item: Docprefix) => {
-        this.logErrorHandle.log('Docprefix ID =', + item.id + ' successfully added', 0);
+        this.logErrorHandle.log('Docprefix', + item.id + ' successfully added', 0);
       }),
     );
   }
@@ -51,7 +51,7 @@ export class DocprefixService {
   update (item: Docprefix) {
     return this.http.put<Docprefix>(this.url + item.id + '/', item, httpOptions).pipe(
       tap((item: Docprefix) => {
-        this.logErrorHandle.log('Docprefix ID =', + item.id + ' successfully updated', 0);
+        this.logErrorHandle.log('Docprefix', + item.id + ' successfully updated', 0);
       }),
     );
   }
