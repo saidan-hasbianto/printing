@@ -25,7 +25,8 @@ export class Joborders2 {
     public price: number[] = [],
     public markup: number[] = [],
     public fileSource: string[] = [],
-    public fileName: File[] = [],
+    public fileName: string[] = [],
+    public fileUrl: File[] = [],
   ) {}
 }
 
@@ -36,7 +37,7 @@ export class JobOrderDtls {
   price: number;
   markup: number;
   fileSource: string;
-  fileName: any;
+  fileUrl: any;
   product: string;
   productName: string;
   qtyDO?: number;
@@ -48,8 +49,8 @@ export interface Joborders {
     jobOrderNo?: string;
     customer?: string;
     refNo?: string;
-    orderDate?: string;
-    completionDate?: string;
+    orderDate?: Date;
+    completionDate?: Date;
     deliveryAddress?: string;
     remarks?: string;
     operator?: string;

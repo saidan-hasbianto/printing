@@ -1,9 +1,14 @@
 <div id="forms" class="page-layout simple fullwidth" fxLayout="column" fusePerfectScrollbar>
 
   <!-- HEADER -->
-  <div class="header mat-accent-bg p-24 h-160" fxLayout="row" fxLayoutAlign="start center">
-    <div fxLayout="column" fxLayoutAlign="center start">
-      <div class="h1 mt-16">Customer</div>
+  <div class="mat-accent-bg p-24 h-12" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="space-between center">
+    <div fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="column" fxLayoutAlign.gt-xs="center start">
+        <div class="black-fg" fxLayout="row" fxLayoutAlign="start center">
+            <mat-icon class="secondary-text s-16">compare_arrows</mat-icon>
+            <span class="secondary-text pl-4 s-16">Receivable</span>
+            <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
+            <span class="secondary-text">Customers</span>
+        </div>
     </div>
   </div>
 
@@ -16,36 +21,14 @@
 
             <div fxLayout="row" fxLayoutAlign="start center" fxFlex="10 0 auto" fxLayoutWrap>
 
-                <mat-form-field fxFlex="32">
+                <mat-form-field fxFlex="30">
                   <input matInput placeholder="Customer Code" formControlName="customerCd" required>
                     <mat-error *ngIf="formErrors.customerCd.required">
                         Required
                     </mat-error>
                 </mat-form-field>
 
-                <mat-form-field fxFlex="32">
-                  <mat-select placeholder="Price Level" formControlName="level">
-                    <mat-option *ngFor="let item of levelOption" [value]="item.value">
-                      {{ item.display_name }}
-                    </mat-option>
-                  </mat-select>
-                  <mat-error *ngIf="formErrors.level.required">
-                    Required
-                </mat-error>
-                </mat-form-field>
-
-                <mat-form-field fxFlex="32">
-                  <mat-select placeholder="Sales Marketing" formControlName="marketing">
-                    <mat-option *ngFor="let item of mktOption" [value]="item.id">
-                      {{ item.name }}
-                    </mat-option>
-                  </mat-select>
-                  <mat-error *ngIf="formErrors.marketing.required">
-                    Required
-                </mat-error>
-                </mat-form-field>
-
-                <mat-form-field fxFlex="100">
+                <mat-form-field fxFlex="70">
                   <input matInput placeholder="Customer Name" formControlName="name" required>
                   <mat-error *ngIf="formErrors.name.required">
                       Required
@@ -82,57 +65,79 @@
                 </mat-form-field>
 
                 <mat-form-field fxFlex="32">
-                  <input matInput placeholder="Mobile" formControlName="mobile">
+                  <input matInput placeholder="Mobile Phone" formControlName="mobile">
+                </mat-form-field>
+
+                <mat-form-field fxFlex="35">
+                  <mat-select placeholder="Price Level" formControlName="level">
+                    <mat-option *ngFor="let item of levelOption" [value]="item.value">
+                      {{ item.display_name }}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="formErrors.level.required">
+                    Required
+                </mat-error>
+                </mat-form-field>
+
+                <mat-form-field fxFlex="35">
+                  <mat-select placeholder="Sales Marketing" formControlName="marketing">
+                    <mat-option *ngFor="let item of mktOption" [value]="item.id">
+                      {{ item.name }}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="formErrors.marketing.required">
+                    Required
+                </mat-error>
                 </mat-form-field>
             </div>
-                <h1>Delivery Address</h1>
-                <div class="content p-24">
-                <div class="button-row">
-                  <a mat-raised-button color="accent" (click)="adddlvaddr()">
-                    Add New
-                  </a>
-                </div>
-                <ngx-datatable class="material"
-                [rows]="dlvaddr"
-                  [selectionType]="'single'"
-                  [columnMode]="'force'"
-                  [rowHeight]="'auto'"
-                  [scrollbarH]="true"
-                  [footerHeight]="50">
-                  <ngx-datatable-column name="#" [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
-                    <ng-template let-rowIndex="rowIndex" ngx-datatable-cell-template>
-                      {{rowIndex + 1}}
-                    </ng-template>
-                  </ngx-datatable-column>
-                  <ngx-datatable-column name="Address Name" prop="name"></ngx-datatable-column>
-                  <ngx-datatable-column name="Address"></ngx-datatable-column>
-                  <ngx-datatable-column name="Contact Person" prop="cp"></ngx-datatable-column>
-                  <ngx-datatable-column name="Contact Number" prop="contactNumber"></ngx-datatable-column>
-                  <ngx-datatable-column name="Action" [width]="150" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
-                    <ng-template let-row="row" ngx-datatable-cell-template>
-                      <div class="button-row">
-                        <button mat-icon-button color="primary" type="button" (click)="editdlvaddr(row)">
-                          <mat-icon aria-label="Edit">edit</mat-icon>
-                        </button>
-                        <button mat-icon-button color="warn" type="button" (click)="deletedlvaddr(row)">
-                          <mat-icon aria-label="Delete">delete</mat-icon>
-                        </button>
-                      </div>
-                    </ng-template>
-                  </ngx-datatable-column>
-                </ngx-datatable>
-              </div>
+
+            <h3>Delivery Address</h3>            
+            <div class="button-row">
+              <a mat-raised-button color="accent" (click)="adddlvaddr()">
+                Add New
+              </a>
+            </div>
+            <ngx-datatable class="material"
+              [rows]="dlvaddr"
+              [selectionType]="'single'"
+              [columnMode]="'force'"
+              [rowHeight]="'auto'"
+              [scrollbarH]="true"
+              [footerHeight]="50">
+              <ngx-datatable-column name="#" [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
+                <ng-template let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                  {{rowIndex + 1}}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Address Name" prop="name"></ngx-datatable-column>
+              <ngx-datatable-column name="Address"></ngx-datatable-column>
+              <ngx-datatable-column name="Contact Person" prop="cp"></ngx-datatable-column>
+              <ngx-datatable-column name="Contact Number" prop="contactNumber"></ngx-datatable-column>
+              <ngx-datatable-column name="Action" [width]="150" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  <div class="button-row">
+                    <button mat-icon-button color="primary" type="button" (click)="editdlvaddr(row)">
+                      <mat-icon aria-label="Edit">edit</mat-icon>
+                    </button>
+                    <button mat-icon-button color="warn" type="button" (click)="deletedlvaddr(row)">
+                      <mat-icon aria-label="Delete">delete</mat-icon>
+                    </button>
+                  </div>
+                </ng-template>
+              </ngx-datatable-column>
+            </ngx-datatable>
+              
 
             <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
-                      <div class="button-row">
-                        <button mat-raised-button class="mat-accent" type="submit">
-                          Submit
-                        </button>
-                        <a mat-raised-button (click)="goback()">
-                          Back
-                        </a>
-                      </div>
-                    </div>
+              <div class="button-row">
+                <button mat-raised-button class="mat-accent" type="submit">
+                  Submit
+                </button>
+                <a mat-raised-button (click)="goback()">
+                  Back
+                </a>
+              </div>
+            </div>
         </form>
     </div>
   </div>

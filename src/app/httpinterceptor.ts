@@ -50,10 +50,10 @@ export class MyHttpInterceptor implements HttpInterceptor {
                     return Observable.throw('Cannot comunicate with server.');
                     // this.toastr.error("Cannot comunicate with server.", "ERROR");
                   }
-                  else if (error.status === 500) {
-                    return Observable.throw('Error on the server.');
-                      // this.toastr.error("Error on the server.", "ERROR");
-                  }
+                  // else if (error.status === 500) {
+                  //   return Observable.throw('Error on the server.');
+                  //     //this.toastr.error("Error on the server.", "ERROR");
+                  // }
                 }
                 // return the error to the method that called it
                 return Observable.throw(error);

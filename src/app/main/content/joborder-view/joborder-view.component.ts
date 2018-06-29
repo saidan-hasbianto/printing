@@ -20,7 +20,7 @@ export class JoborderViewComponent implements OnInit {
   joform: FormGroup;
   joDtls: JobOrderDtls[];
   type: string;
-  jo: Joborders2 = {id: null, jobOrderNo: null, customer: null, product: null, type: null, qty: null, price: null, markup: null, fileSource: null, fileName: null };
+  jo: Joborders2 = {id: null, jobOrderNo: null, customer: null, product: null, type: null, qty: null, price: null, markup: null, fileSource: null, fileUrl : [], fileName : [] };
   jo2: Joborders2;
   sub: any;
   loadingbar = true;

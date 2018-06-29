@@ -28,6 +28,7 @@ import { AuthenticationService } from '../../services/authentication.service';
 })
 export class JobordersDetailComponent implements OnInit {
   orderDate = new FormControl(new Date());
+  today = new Date();
   form: FormGroup;
   formErrors: any;
   type: string;
@@ -36,13 +37,13 @@ export class JobordersDetailComponent implements OnInit {
   public isUser = false;
   public isAdmin = false;
 
-  jo: Joborders = {id : 0, jobOrderNo : '',  refNo : null,    orderDate : null,    completionDate : null, remarks: null,
+  jo: Joborders = {id : 0, jobOrderNo : '',  refNo : null,    orderDate : this.today,    completionDate : this.today, remarks: null,
     status : null, customer : null,    deliveryAddress : null,    operator : null, OrderDetails : []};
   jodtls: JobOrderDtls[];
 
   jo2: Joborders2 = {id : 0, jobOrderNo : '',  refNo : null,    orderDate : null,    completionDate : null, remarks: null,
     status : null, customer : null,    deliveryAddress : null,    operator : null, product : [],
-    type : [], qty : [], price : [], markup : [], fileSource : [], fileName : []};
+    type : [], qty : [], price : [], markup : [], fileSource : [], fileUrl : [], fileName : []};
 
   custOption: Mscustomer[] = [];
   cust: Mscustomer = {id: 0 , customerCd: null,    name: null,    level: null,    marketing: null,     address: null,
@@ -70,7 +71,9 @@ export class JobordersDetailComponent implements OnInit {
   prices: number[] = [];
   markups: number[] = [];
   fileSources: string[] = [];
-  fileNames: File[] = [];
+  fileUrls: File[] = [];
+  fileNames: string[] = [];
+  txtbtn: string;
 
   statusOption = [
     {value: 'C', display_name: 'Create'},
@@ -119,7 +122,7 @@ export class JobordersDetailComponent implements OnInit {
       deliveryAddress : {},
       operator : {},
       product : {},
-      fileName : {}
+      fileUrl : {}
       },
       this.isOperator = authenticationService.isOperator();
       this.isUser = authenticationService.isUser();
@@ -127,6 +130,7 @@ export class JobordersDetailComponent implements OnInit {
    }
 
   ngOnInit() {
+    
     this.custsvc.getRows().subscribe(res => this.custOption = res);
     this.prodsvc.getRows().subscribe(res => this.prodOption = res);
     this.dlvaddrsvc.getRows().subscribe(res => this.dlvaddrOption = res);
@@ -140,14 +144,14 @@ export class JobordersDetailComponent implements OnInit {
       status : ['', Validators.required],
       customer : ['', Validators.required],
       deliveryAddress : ['', Validators.required],
-      operator : ['', Validators.required]
+      operator : ['', Validators.required],
       // products : ['', Validators.required],
       // types : ['', Validators.required],
       // qty : ['', Validators.required],
       // price : [0, Validators.required],
       // markup : [0, Validators.required],
       // fileSource : ['', Validators.required]
-      // fileName : ['', Validators.required]
+      // fileUrl : ['']
     });
 
 
@@ -176,6 +180,20 @@ export class JobordersDetailComponent implements OnInit {
             // fileSource : this.jo['jobOrderDetails'][0]['fileSource']
             // fileName : this.jo['jobOrderDetails'][0]['fileName']
           });
+          
+          if (this.jo.status == 'C')
+          {
+            this.txtbtn = "Send To Admin";
+          }
+          else if (this.jo.status == 'A')
+          {
+            this.txtbtn = "Send To Working";
+          }
+          else //if (this.jo.status == 'W')
+          {
+            this.txtbtn = "Job Finish";
+          }
+
           let i;
           if (this.jo.OrderDetails.length > 0)
           {
@@ -320,23 +338,22 @@ export class JobordersDetailComponent implements OnInit {
 
   addOrderItem() {
     this.rows.push(this.rows.length + 1);
-
   }
 
   onFileChange(event) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
       console.log(file);
-      this.form.get('fileName').setValue(file);
+      this.form.get('fileUrl').setValue(file);
     }
   }
 
   handleFileInput(fileInput: FileList, i) {
     const file = fileInput[0];
-    if ((i + 1) < this.fileNames.length) {
-      this.fileNames[i] = file;
+    if ((i + 1) < this.fileUrls.length) {
+      this.fileUrls[i] = file;
     }else {
-      this.fileNames.push(file);
+      this.fileUrls.push(file);
     }
   }
 
@@ -380,13 +397,14 @@ NewOnSubmit() {
       this.jo2.price = this.prices;
       this.jo2.markup = this.markups;
       this.jo2.fileSource = this.fileSources;
+      this.jo2.fileUrl = this.fileUrls;
       this.jo2.fileName = this.fileNames;
       this.jo2.status = this.jo.status;
       this.jo2.customer = this.jo.customer;
       this.jo2.refNo = this.jo.refNo;
       this.jo2.deliveryAddress = this.jo.deliveryAddress;
       this.jo2.remarks = this.jo.remarks;
-      this.jo2.operator = this.jo.operator;
+      this.jo2.operator = '1';//this.jo.operator;
 
       // console.log(this.jo);
       this.josvc.postFile(this.jo2).subscribe(
@@ -431,6 +449,7 @@ NewOnSubmit() {
       this.jo2.price = this.prices;
       this.jo2.markup = this.markups;
       this.jo2.fileSource = this.fileSources;
+      this.jo2.fileUrl = this.fileUrls;
       this.jo2.fileName = this.fileNames;
       this.jo2['jobOrderDetails'] = this.jo['jobOrderDetails'];
       this.jo2['jobOrderNo'] = this.jo['jobOrderNo'];
@@ -451,7 +470,7 @@ NewOnSubmit() {
             this.goback();
           },
           error => {
-            // console.log(error.error);
+            console.log(error);
             this.toastr.error(error.error.error_message, 'Error');
           });
     }
@@ -460,6 +479,20 @@ NewOnSubmit() {
       alert('Please fill Order Item');
     }
   }
+}
+
+nextstatus()
+{
+  this.jo2.id = this.jo.id;
+  this.josvc.updateForAdmin(this.jo2).subscribe(
+    success => {
+      this.toastr.success('Success');
+      this.goback();
+    },
+    error => {
+      this.toastr.error(error.error.error_message, 'Error');
+    }
+  )
 }
 
 getFile(id: number): void {

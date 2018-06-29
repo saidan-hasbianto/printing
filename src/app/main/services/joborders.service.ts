@@ -32,6 +32,7 @@ export class JobordersService {
   private url3 = environment.baseUrl + 'joundelivereds/';  // URL to web api
   private url4 = environment.baseUrl + 'jopdf/?id=';  // URL to web api
   private url5 = environment.baseUrl + 'joborderforusers/';  // URL to web api
+  private urlsendtoAdmin = environment.baseUrl + 'joupdatestatusnext/';  // URL to web api
   constructor(
     private http: HttpClient,
     private toastr: ToastrService,
@@ -88,9 +89,13 @@ export class JobordersService {
   }
 
   updateForUser (item: Joborders2) {
-    return this.http.put<Joborders2>(this.url5 + item.id + '/', item, httpOptions).pipe(
+    return this.http.put<Joborders2>(this.url5 + item.id + '/', item, httpOptions);
+  }
+
+  updateForAdmin (item: Joborders2) {
+    return this.http.put<Joborders2>(this.urlsendtoAdmin + item.id + '/', item, httpOptions).pipe(
       tap((item: Joborders2) => {
-        this.logErrorHandle.log('Job Order', + item.id + ' successfully updated', 0);
+        this.logErrorHandle.log('Job Order', + item.jobOrderNo + ' successfully updated', 0);
       }),
     );
   }
@@ -114,18 +119,21 @@ export class JobordersService {
       formData.append('deliveryAddress', item.deliveryAddress);
       formData.append('remarks', item.remarks);
       formData.append('operator', item.operator);
-      formData.append('status', item.status);
+      formData.append('status', 'C'); //formData.append('status', item.status);
 
       for (let i = 0; i < item['product'].length; i++)
       {
+        let x = (i + 1).toString();
+
         // console.log(item.product);
-        formData.append('product', item.product[i]);
-        formData.append('qty', item.qty[i].toString());
-        formData.append('type', item.type[i]);
-        formData.append('price', item.price[i].toString());
-        formData.append('markup', item.markup[i].toString());
-        formData.append('fileSource', item.fileSource[i]);
-        formData.append('fileName', item.fileName[i], item.fileName[i].name);
+        formData.append('product' + x, item.product[i]);
+        formData.append('qty' + x, item.qty[i].toString());
+        formData.append('type' + x, item.type[i]);
+        formData.append('price' + x, '0'); //formData.append('price', item.price[i].toString());
+        formData.append('markup' + x, '0'); //formData.append('markup', item.markup[i].toString());
+        formData.append('fileSource' + x, item.fileSource[i]);
+        formData.append('fileUrl' + x, item.fileUrl[i], item.fileUrl[i].name);
+        formData.append('fileName' + x, item.fileName[i]);
       }
       return this.http
         .post(endpoint, formData);

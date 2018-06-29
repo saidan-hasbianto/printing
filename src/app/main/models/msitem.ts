@@ -4,4 +4,5 @@ export interface Msitem {
   name: string;
   descs: string;
   minQty: number;
+  qty: number;
   }

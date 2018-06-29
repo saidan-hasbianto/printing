@@ -50,6 +50,20 @@ export class NavigationModel
                   'type' : 'item',
                   'url'  : '/users',
                   'privileges' : 'admin'
+                },
+                {
+                  'id'   : 'groups',
+                  'title': 'Groups',
+                  'type' : 'item',
+                  'url'  : '/group',
+                  'privileges' : 'user'
+                },
+                {
+                  'id'   : 'docprefix',
+                  'title': 'Doc Prefix',
+                  'type' : 'item',
+                  'url'  : '/docprefix',
+                  'privileges' : 'user'
                 }
               ]
             },
@@ -62,60 +76,39 @@ export class NavigationModel
               'children': [
                 {
                     'id'   : 'item',
-                    'title': 'Item',
+                    'title': 'Items',
                     'type' : 'item',
                     'url'  : '/msitem',
                     'privileges' : 'user'
                 },
                 {
                     'id'   : 'product',
-                    'title': 'Product',
+                    'title': 'Products',
                     'type' : 'item',
                     'url'  : '/msproduct',
                     'privileges' : 'user'
                 },
                 {
-                  'id'   : 'groups',
-                  'title': 'Groups',
-                  'type' : 'item',
-                  'url'  : '/group',
-                  'privileges' : 'user'
-                },
-                {
-                  'id'   : 'mscustomer',
-                  'title': 'Customer',
-                  'type' : 'item',
-                  'url'  : '/mscustomer',
-                  'privileges' : 'user'
-                },
-                {
                   'id'   : 'msactivity',
-                  'title': 'Activity',
+                  'title': 'Activities',
                   'type' : 'item',
                   'url'  : '/msactivity',
                   'privileges' : 'user'
                 },
                 {
                   'id'   : 'msmarketing',
-                  'title': 'Marketing',
+                  'title': 'Marketings',
                   'type' : 'item',
                   'url'  : '/msmarketing',
                   'privileges' : 'user'
                 },
                 {
                   'id'   : 'msoperator',
-                  'title': 'Operator',
+                  'title': 'Operators',
                   'type' : 'item',
                   'url'  : '/msoperator',
                   'privileges' : 'user'
                 },
-                {
-                  'id'   : 'docprefix',
-                  'title': 'Doc Prefix',
-                  'type' : 'item',
-                  'url'  : '/docprefix',
-                  'privileges' : 'user'
-                }
               ]
             },
             {
@@ -134,24 +127,31 @@ export class NavigationModel
                 },
                 {
                   'id'   : 'deliveryorder',
-                  'title': 'Delivery Order',
+                  'title': 'Delivery Orders',
                   'type' : 'item',
                   'url'  : '/deliveryorder',
                   'privileges' : 'user',
                 },
                 {
                   'id'   : 'receipts',
-                  'title': 'Receipting',
+                  'title': 'Receiptings',
                   'type' : 'item',
                   'url'  : '/receipts',
                   'privileges' : 'user',
                 },
                 {
                   'id'   : 'markupreleases',
-                  'title': 'Markup Release',
+                  'title': 'Markup Releases',
                   'type' : 'item',
                   'url'  : '/markupreleases',
                   'privileges' : 'user',
+                },
+                {
+                  'id'   : 'mscustomer',
+                  'title': 'Customers',
+                  'type' : 'item',
+                  'url'  : '/mscustomer',
+                  'privileges' : 'user'
                 }
               ]
             },
@@ -164,19 +164,19 @@ export class NavigationModel
               'children': [
                 {
                   'id'   : 'vendor',
-                  'title': 'Vendor',
+                  'title': 'Vendors',
                   'type' : 'item',
                   'url'  : '/vendor'
                 },
                 {
                   'id'   : 'purch-item',
-                  'title': 'Purchase Item',
+                  'title': 'Purchase Items',
                   'type' : 'item',
                   'url'  : '/purch-item'
                 },
                 {
                   'id'   : 'paym-purch-list',
-                  'title': 'Payment Purchase List',
+                  'title': 'Payment Purchases',
                   'type' : 'item',
                   'url'  : '/paym-purch-list'
                 }

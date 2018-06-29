@@ -19,7 +19,7 @@ export class MsitemDetailComponent implements OnInit {
   formErrors: any;
   type: string;
   isDelete: boolean;
-  item: Msitem = { id: 0, itemCd : '', name : '', descs : '', minQty : 0 };
+  item: Msitem = { id: 0, itemCd : '', name : '', descs : '', minQty : 0, qty: 0 };
   sub: any;
   loadingbar = true;
 
@@ -36,7 +36,8 @@ export class MsitemDetailComponent implements OnInit {
       itemCd : {},
         name : {},
         descs : {},
-        minQty : {}
+        minQty : {},
+        qty : {}
     };
   }
 
@@ -46,7 +47,8 @@ export class MsitemDetailComponent implements OnInit {
       itemCd : [this.item.itemCd, Validators.required],
       name  : [this.item.name, Validators.required],
       descs  : [this.item.descs, Validators.required],
-      minQty  : [this.item.minQty, Validators.required]
+      minQty  : [this.item.minQty, Validators.required],
+      qty     : [this.item.qty, Validators.required]
     });
 
     this.sub = this.route.params.subscribe(params => {
@@ -64,7 +66,8 @@ export class MsitemDetailComponent implements OnInit {
           itemCd: this.item.itemCd,
           name: this.item.name,
           descs: this.item.descs,
-          minQty: this.item.minQty
+          minQty: this.item.minQty,
+          qty: this.item.qty
       });
     this.loadingbar = false;
   });

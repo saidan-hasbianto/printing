@@ -39,7 +39,7 @@ export class AuthenticationService {
 
     login(username: string, password: string): Observable<boolean> {
         return this.http.post(environment.baseUrl + 'api-token-auth/', JSON.stringify({ username: username, password: password }), httpOptions)
-        .timeout(4000)
+        .timeout(120000)
         .map((response: Response) => {
           console.log(response);
           if (response.json() && !response.json().user.userGroups[0]) {

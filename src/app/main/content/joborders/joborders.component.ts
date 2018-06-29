@@ -15,8 +15,8 @@ export class JobordersComponent implements OnInit {
 
   statusOption = [
     {value: 'C', display_name: 'Create'},
-    {value: 'W', display_name: 'Waiting'},
-    {value: 'P', display_name: 'Pending'},
+    {value: 'A', display_name: 'Admin'},
+    {value: 'W', display_name: 'Working'},
     {value: 'D', display_name: 'Done'}
   ];
   constructor(

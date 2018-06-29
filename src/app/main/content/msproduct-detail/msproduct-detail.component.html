@@ -1,11 +1,16 @@
 <div id="forms" class="page-layout simple fullwidth" fxLayout="column" fusePerfectScrollbar>
 
   <!-- HEADER -->
-  <div class="header mat-accent-bg p-24 h-160" fxLayout="row" fxLayoutAlign="start center">
-    <div fxLayout="column" fxLayoutAlign="center start">
-      <div class="h1 mt-16">Product</div>
+  <div class="mat-accent-bg p-24 h-12" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="space-between center">
+    <div fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="column" fxLayoutAlign.gt-xs="center start">
+        <div class="black-fg" fxLayout="row" fxLayoutAlign="start center">
+            <mat-icon class="secondary-text s-16">work</mat-icon>
+            <span class="secondary-text pl-4 s-16">Master</span>
+            <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
+            <span class="secondary-text">Products</span>
+        </div>
     </div>
-  </div>
+</div>
   <!-- / HEADER -->
   <!-- <div class="content">
     <mat-progress-bar mode="indeterminate" [hidden]="loadingbar"></mat-progress-bar>
@@ -20,14 +25,14 @@
 
           <div fxLayout="row" fxLayoutAlign="start center" fxFlex="10 0 auto" fxLayoutWrap>
 
-              <mat-form-field fxFlex="100">
+              <mat-form-field fxFlex="30">
                 <input matInput placeholder="Product Code" formControlName="productCd" required>
                   <mat-error *ngIf="formErrors.productCd.required">
                       Required
                   </mat-error>
               </mat-form-field>
 
-              <mat-form-field fxFlex="100">
+              <mat-form-field fxFlex="70">
                 <input matInput placeholder="Product Name" formControlName="name">
                 <mat-error *ngIf="formErrors.name.required">
                     Required
@@ -51,10 +56,9 @@
           <mat-tab-group>
             <mat-tab>
               <ng-template mat-tab-label>
-                Item
-              </ng-template>
-              <h1>Product Item Material</h1>
-              <div class="content p-24">
+                Product Item Material
+              </ng-template> 
+              <div class="content p-10">
               <div class="button-row">
                 <a mat-raised-button color="accent" (click)="addItem()">
                   Add New
@@ -91,10 +95,9 @@
             </mat-tab>
             <mat-tab>
               <ng-template mat-tab-label>
-                Price
+                Price Level
               </ng-template>
-              <h1>Price level</h1>
-              <div class="content p-24">
+              <div class="content p-10">
               <div class="button-row">
                     <a mat-raised-button color="accent" (click)="addPrice()">
                   Add New

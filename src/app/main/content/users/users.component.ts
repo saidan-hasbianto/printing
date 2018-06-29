@@ -62,6 +62,6 @@ export class UsersComponent implements OnInit {
             // this.onError(j_message.error_message);
             this.logErrorHandle.log('Error', j_message, 3);
           });
-    };
+    }
   }
 }

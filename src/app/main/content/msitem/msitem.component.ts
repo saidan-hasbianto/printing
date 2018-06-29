@@ -16,7 +16,8 @@ export class MsitemComponent implements OnInit {
     itemCd : 'ITEM001',
     name : 'Screen Printing',
     descs : 'Screen Printing',
-    minQty : 10
+    minQty : 10,
+    qty : 0
   };
   loadingIndicator = true;
 
