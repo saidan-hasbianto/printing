@@ -29,25 +29,28 @@ export class JobordersComponent implements OnInit {
   }
 
   getRows(): void {
-
     this.josvc.getRows()
       .subscribe(rows => {
         this.jorow = rows;
-        if (this.jorow['status'] === 'C') {
-        this.jorow['status'] = 'Create';
-      }
-      else if (this.jorow['status'] === 'W')
-      {
-        this.jorow['status'] = 'Working';
-      }
-      else if (this.jorow['status'] === 'P')
-      {
-        this.jorow['status'] = 'Pending';
-      }
-      else
-      {
-        this.jorow['status'] = 'Done';
-      }
+        console.log(this.jorow);
+        let i;
+        for (i=0; i < this.jorow.length; i++)
+        {
+          if (this.jorow[i].status === 'C') {
+            this.jorow[i].status = 'Create';
+          }
+          else if (this.jorow[i].status === 'A') {
+            this.jorow[i].status = 'Admin';
+          }
+          else if (this.jorow[i].status === 'W') {
+            this.jorow[i].status = 'Working';
+          }
+          else
+          {
+            this.jorow[i].status = 'Done';
+          }
+        }
+        
 
         this.temp = [...rows];
       });

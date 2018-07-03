@@ -396,7 +396,7 @@ const routes = [
   {
     path     : 'joborder-view/:id',
     component: JoborderViewComponent,
-    canActivate: [AuthGuardUserService],
+    canActivate: [AuthGuard],
     data: {data: this.selectedData}
   },
   {

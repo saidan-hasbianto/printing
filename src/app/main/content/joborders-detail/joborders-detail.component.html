@@ -20,7 +20,7 @@
         <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto" fxLayoutWrap>
 
           <mat-form-field fxFlex="20">
-            <input  matInput placeholder="Job Order No" [(ngModel)]="jo.jobOrderNo" readonly="true" required>
+            <input  matInput placeholder="Job Order No" [(ngModel)]="jo.jobOrderNo" [disabled]="true" required>
               <mat-error *ngIf="formErrors.jobOrderNo.required">
                   Required
               </mat-error>
@@ -45,7 +45,7 @@
           </mat-form-field>-->
           
           <mat-form-field fxFlex="30">
-            <mat-select placeholder="Delivery Address" [disabled]="isUser" [(ngModel)]="jo.deliveryAddress" required>
+            <mat-select placeholder="Delivery Address" [disabled]="isUser" [(ngModel)]="selected" required>
               <mat-option *ngFor="let item of dlvaddrOption" [value]="item.id">
                 {{ item.name }}
               </mat-option>
@@ -104,16 +104,21 @@
         </div>
 
         <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
-          <h1>Order Item</h1>
-          <a mat-raised-button color="accent" *ngIf="isOperator" (click)="addOrderItem()">
+          <div class="pr-252">
+            <h1>Order Item</h1>
+          </div>
+          <div class="pr-60"></div>
+          <div class="pl-252">
+            <a mat-raised-button color="accent" *ngIf="isOperator" (click)="addOrderItem()">
               New Order Item
           </a>
+          </div>          
         </div>
 
         <div *ngFor="let row of rows; let i = index">
 
           <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
-            <mat-form-field fxFlex="30">
+            <mat-form-field fxFlex="10" class="pr-12">
               <mat-select placeholder="Product" [disabled]="isUser" [(ngModel)]="products[i]" required>
                 <mat-option *ngFor="let item of prodOption" [value]="item.id">
                   {{ item.name }}
@@ -124,7 +129,7 @@
               </mat-error>
             </mat-form-field>
 
-            <mat-form-field fxFlex="10">
+            <mat-form-field fxFlex="8" class="pr-12">
               <mat-select placeholder="Types" [disabled]="isUser" [(ngModel)]="types[i]" required>
                 <mat-option *ngFor="let item of typesOption" [value]="item.value">
                   {{ item.display_name }}
@@ -134,33 +139,29 @@
                 Required
               </mat-error>
             </mat-form-field>
-          </div>
-
-          <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
-            <mat-form-field fxFlex="5">
+          
+            <mat-form-field fxFlex="4" class="pr-12">
               <input matInput placeholder="Qty" [disabled]="isUser" [(ngModel)]="qties[i]" required>
                 <mat-error *ngIf="formErrors.qty.required">
                     Required
                 </mat-error>
             </mat-form-field>
 
-            <mat-form-field fxFlex="25" *ngIf="isUser">
+            <mat-form-field fxFlex="10" *ngIf="isUser" class="pr-12">
               <input matInput placeholder="Price" [(ngModel)]="prices[i]" required>
                 <mat-error *ngIf="formErrors.price.required">
                     Required
                 </mat-error>
             </mat-form-field>
 
-            <mat-form-field fxFlex="25" *ngIf="isUser">
+            <mat-form-field fxFlex="10" *ngIf="isUser" class="pr-12">
               <input matInput placeholder="Markup Amount" [(ngModel)]="markups[i]" required>
                 <mat-error *ngIf="formErrors.markup.required">
                     Required
                 </mat-error>
             </mat-form-field>
-          </div>         
 
-          <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
-            <mat-form-field fxFlex="50">
+            <mat-form-field fxFlex="12" class="pr-12">
               <mat-select placeholder="File Source" [disabled]="isUser" [(ngModel)]="fileSources[i]" required>
                 <mat-option *ngFor="let item of filesourceOption" [value]="item.value">
                   {{ item.display_name }}
@@ -171,29 +172,28 @@
               </mat-error>
             </mat-form-field>
 
-            <label for="file"></label>
-            <input #fileInput type="file" [disabled]="isUser" id="file" (change)="handleFileInput($event.target.files, i)">
-            <input #inputFile type="file" [style.display]="'none'">
-            
-            <mat-form-field fxFlex="25">
-              <input matInput placeholder="File Name" [disabled]="isUser" [(ngModel)]="fileNames[i]">
-            </mat-form-field>
-          </div>
-
-          
+            <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto" class="pr-12">
+              <label for="file"></label>
+              <input #fileInput type="file" [disabled]="isUser" id="file" (change)="handleFileInput($event.target.files, i)">
+              <input #inputFile type="file" [style.display]="'none'">
+              
+              <mat-form-field fxFlex="15">
+                <input matInput placeholder="File Name" [disabled]="isUser" [(ngModel)]="fileNames[i]">
+              </mat-form-field>
+            </div>
         </div>
-
+      </div>
         <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto" *ngIf="jo.status != 'D'">
           <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
             <div class="button-row">
               <button mat-raised-button class="mat-accent" *ngIf="!(isOperator && jo.id != 0)" (click)="NewOnSubmit()">
                 Submit
               </button>
-              <button mat-raised-button class="mat-accent" *ngIf="jo.id != 0 && jo.status != 'D'"  (click)="nextstatus()">
+              <!-- <button mat-raised-button class="mat-accent" *ngIf="jo.id != 0 && jo.status != 'D'"  (click)="nextstatus()">
                 <span>
                   {{ txtbtn }}
                 </span>
-              </button>
+              </button> -->
 
               <a mat-raised-button (click)="goback()">
                 Back
@@ -201,7 +201,7 @@
             </div>
           </div>
         </div>
-      </div>
+      
     </div>
   </div>
 

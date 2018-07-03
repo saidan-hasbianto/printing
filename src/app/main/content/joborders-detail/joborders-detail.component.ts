@@ -36,6 +36,7 @@ export class JobordersDetailComponent implements OnInit {
   public isOperator = false;
   public isUser = false;
   public isAdmin = false;
+  public selected: Number;
 
   jo: Joborders = {id : 0, jobOrderNo : '',  refNo : null,    orderDate : this.today,    completionDate : this.today, remarks: null,
     status : null, customer : null,    deliveryAddress : null,    operator : null, OrderDetails : []};
@@ -47,7 +48,7 @@ export class JobordersDetailComponent implements OnInit {
 
   custOption: Mscustomer[] = [];
   cust: Mscustomer = {id: 0 , customerCd: null,    name: null,    level: null,    marketing: null,     address: null,
-    cp: null,    email: null,     telp: null,    fax: null,    mobile: null,    deliveryAddresses: null };
+    cp: null,    email: null,     telp: null,    fax: null,    mobile: null,    deliveryAddresses: [] };
 
   opsOption: Msoperator[] = [];
   ops: Msoperator = {id: 0 , operatorCd: null, name: null };
@@ -73,7 +74,7 @@ export class JobordersDetailComponent implements OnInit {
   fileSources: string[] = [];
   fileUrls: File[] = [];
   fileNames: string[] = [];
-  txtbtn: string;
+  
 
   statusOption = [
     {value: 'C', display_name: 'Create'},
@@ -163,7 +164,7 @@ export class JobordersDetailComponent implements OnInit {
           .subscribe(res => {
             this.jo = res;
             this.jo.OrderDetails = this.jo['jobOrderDetails'];
-            console.log(this.jo);
+            
           this.form.setValue({
             id : this.jo.id,
             jobOrderNo : this.jo.jobOrderNo, refNo : this.jo.refNo,
@@ -181,18 +182,7 @@ export class JobordersDetailComponent implements OnInit {
             // fileName : this.jo['jobOrderDetails'][0]['fileName']
           });
           
-          if (this.jo.status == 'C')
-          {
-            this.txtbtn = "Send To Admin";
-          }
-          else if (this.jo.status == 'A')
-          {
-            this.txtbtn = "Send To Working";
-          }
-          else //if (this.jo.status == 'W')
-          {
-            this.txtbtn = "Job Finish";
-          }
+
 
           let i;
           if (this.jo.OrderDetails.length > 0)
@@ -212,7 +202,7 @@ export class JobordersDetailComponent implements OnInit {
               }
 
             }
-            console.log(this.products);
+            
           }
 
 
@@ -331,8 +321,22 @@ export class JobordersDetailComponent implements OnInit {
   addAddr() {
     const dialogRef = this.dialog.open(MsdeliveryaddrDetailComponent);
     dialogRef.afterClosed().subscribe(result => {
-      this.dlvaddrsvc.add(result);
-      // this.dlvaddrOption.push(result);
+      this.dlvaddr = result;
+      this.dlvaddr.customer = this.cust.id.toString();
+      
+      this.dlvaddrsvc.add(this.dlvaddr).subscribe(
+        success => {
+          this.toastr.success('Add address success')
+          this.cust.deliveryAddresses.push(success);
+          this.dlvaddrOption.push(success);                 
+          this.selected = success.id;
+          this.jo.deliveryAddress = this.selected.toString();
+        },
+        error => {
+          console.log(error.error);
+          this.toastr.error(error.error.error_message, 'Error');
+        }
+      ) 
     });
   }
 
@@ -358,32 +362,40 @@ export class JobordersDetailComponent implements OnInit {
   }
 
   onChooseCust(event) {
-    console.log(event.value);
     this.dlvaddrsvc.getRowsForJO(event.value).subscribe(res =>
-      this.dlvaddrOption = res);
+       this.dlvaddrOption = res
+    );
+      this.custsvc.getProd(event.value).subscribe(result =>
+        {
+          this.cust.id = result.id;
+          this.cust.address = result.address;
+          this.cust.deliveryAddresses = result.deliveryAddresses;
+          this.cust.cp = result.cp;
+          this.cust.customerCd = result.customerCd;
+          this.cust.email = result.email;
+          this.cust.fax = result.fax;
+          this.cust.level = result.level;
+          this.cust.marketing = result.marketing;
+          this.cust.mobile = result.mobile;
+          this.cust.name = result.name;
+          this.cust.telp = result.telp;
+        }
+    );
   }
 
-// regroupDetail() {
-//   this.cust = this.jo.customer.filter(x => x.customerCd === 'N');
-//   // this.ovtDtlWeekend = this.ovt.overtimeDtls.filter(x => x.type === 'H');
-// }
-
-// uploadFileToActivity() {
-//   this.josvc.postFile(this.fileToUpload).subscribe(data => {
-//     // do something, if upload success
-//     }, error => {
-//       console.log(error);
-//       this.toastr.error(error.error.error_message, 'Error');
-//     });
-// }
 
 NewOnSubmit() {
-  console.log(this.jo);
-  console.log(this.jo2);
+  // console.log(this.jo);
+  // console.log(this.jo2);
   if (this.jo.id === 0) // new
   {
+    if (this.jo.orderDate > this.jo.completionDate)
+    {
+      this.jo.completionDate = this.jo.orderDate;
+    }
     const datestring = this.jo.orderDate;
     const newDate = new Date(datestring);
+    
     this.jo2.orderDate = newDate.getFullYear() + '-' + (newDate.getMonth() + 1) + '-' + newDate.getDate();
 
     const completion = new Date(this.jo.completionDate);
@@ -427,6 +439,10 @@ NewOnSubmit() {
   }
   else // update
   {
+    if (this.jo.orderDate > this.jo.completionDate)
+    {
+      this.jo.completionDate = this.jo.orderDate;
+    }
     const datestring = this.jo.orderDate;
     const newDate = new Date(datestring);
     this.jo2.orderDate = newDate.getFullYear() + '-' + (newDate.getMonth() + 1) + '-' + newDate.getDate();
@@ -464,6 +480,7 @@ NewOnSubmit() {
       this.josvc.updateForUser(this.jo2).subscribe(
         // console.log(data));
           success => {
+            this.nextstatus();
             this.toastr.success('Success');
             console.log(success);
             this.getFile(success.id);
@@ -479,6 +496,8 @@ NewOnSubmit() {
       alert('Please fill Order Item');
     }
   }
+
+  
 }
 
 nextstatus()

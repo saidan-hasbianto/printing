@@ -4,4 +4,5 @@ export interface Msdeliveryaddr {
   address: string;
   cp: string;
   contactNumber: string;
+  customer?: string;
 }
