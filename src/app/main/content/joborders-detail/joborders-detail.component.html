@@ -45,7 +45,7 @@
           </mat-form-field>-->
           
           <mat-form-field fxFlex="30">
-            <mat-select placeholder="Delivery Address" [disabled]="isUser" [(ngModel)]="selected" required>
+            <mat-select placeholder="Delivery Address" [disabled]="isUser" [(ngModel)]="selected" (change)="onChooseAddr($event)" required>
               <mat-option *ngFor="let item of dlvaddrOption" [value]="item.id">
                 {{ item.name }}
               </mat-option>
@@ -111,7 +111,10 @@
           <div class="pl-252">
             <a mat-raised-button color="accent" *ngIf="isOperator" (click)="addOrderItem()">
               New Order Item
-          </a>
+            </a>
+            <!-- <a mat-raised-button color="danger" *ngIf="isOperator" (click)="delOrderItem(index)">
+              Delete Order Item
+            </a> -->
           </div>          
         </div>
 
@@ -180,7 +183,14 @@
               <mat-form-field fxFlex="15">
                 <input matInput placeholder="File Name" [disabled]="isUser" [(ngModel)]="fileNames[i]">
               </mat-form-field>
+
+              <button mat-icon-button color="warn" (click)="delOrderItem(i)">
+                <!-- {{i}} -->
+                <mat-icon aria-label="Delete">delete</mat-icon>
+              </button>
             </div>
+
+            
         </div>
       </div>
         <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto" *ngIf="jo.status != 'D'">
@@ -194,10 +204,15 @@
                   {{ txtbtn }}
                 </span>
               </button> -->
+              
 
               <a mat-raised-button (click)="goback()">
                 Back
               </a>
+
+              <!-- <a mat-raised-button color="danger" *ngIf="isOperator" (click)="delOrderItem(row)">
+                Delete Order Item
+              </a> -->
             </div>
           </div>
         </div>

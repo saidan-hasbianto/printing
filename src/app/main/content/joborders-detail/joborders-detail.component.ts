@@ -55,6 +55,7 @@ export class JobordersDetailComponent implements OnInit {
 
   dlvaddrOption: Msdeliveryaddr[] = [];
   dlvaddr: Msdeliveryaddr = {id: 0,    name: null,    address: null,    cp: null,    contactNumber: null };
+  dlvaddr2: Msdeliveryaddr[] = [];
 
   prodOption: Msproduct[] = [];
   prod: Msproduct = {id: 0,    priceLevels: null,    productItems: null,    productCd: null,    name: null,    descs: null,    minQty: null };
@@ -74,7 +75,9 @@ export class JobordersDetailComponent implements OnInit {
   fileSources: string[] = [];
   fileUrls: File[] = [];
   fileNames: string[] = [];
-  
+  orderItem: number;
+  last: number;
+  lengthidx: number;
 
   statusOption = [
     {value: 'C', display_name: 'Create'},
@@ -319,29 +322,57 @@ export class JobordersDetailComponent implements OnInit {
   }
 
   addAddr() {
+    
     const dialogRef = this.dialog.open(MsdeliveryaddrDetailComponent);
     dialogRef.afterClosed().subscribe(result => {
       this.dlvaddr = result;
-      this.dlvaddr.customer = this.cust.id.toString();
+      this.dlvaddr.customer = this.cust.id.toString();      
+      this.cust.deliveryAddresses.push(this.dlvaddr);
       
-      this.dlvaddrsvc.add(this.dlvaddr).subscribe(
-        success => {
-          this.toastr.success('Add address success')
-          this.cust.deliveryAddresses.push(success);
-          this.dlvaddrOption.push(success);                 
-          this.selected = success.id;
+      this.custsvc.update(this.cust).subscribe(
+        success => {          
+          this.lengthidx = success.deliveryAddresses.length - 1;          
+          this.dlvaddrOption.push(success.deliveryAddresses[this.lengthidx]);                 
+          this.selected = success.deliveryAddresses[this.lengthidx].id;
           this.jo.deliveryAddress = this.selected.toString();
-        },
-        error => {
-          console.log(error.error);
-          this.toastr.error(error.error.error_message, 'Error');
         }
-      ) 
+      )
+
+      // this.dlvaddrsvc.add(this.dlvaddr).subscribe(
+      //   success => {
+      //     console.log(success);
+      //     this.toastr.success('Add address success')
+      //     this.cust.deliveryAddresses.push(success);
+      //     this.dlvaddrOption.push(success);                 
+      //     this.selected = success.id;
+      //     this.jo.deliveryAddress = this.selected.toString();
+          
+      //     // this.jo.deliveryAddress = success.id.toString();
+      //   },
+      //   error => {
+      //     console.log(error.error);
+      //     this.toastr.error(error.error.error_message, 'Error');
+      //   }
+      // ) 
     });
   }
 
   addOrderItem() {
     this.rows.push(this.rows.length + 1);
+    console.log(this.rows);
+  }
+
+  delOrderItem(no: number) {    
+    console.log(this.rows);
+    console.log(no);
+    this.rows.splice(no, 1);
+    this.products.splice(no, 1);
+    this.qties.splice(no, 1);
+    this.types.splice(no, 1);
+    this.prices.splice(no, 1);
+    this.markups.splice(no, 1);
+    this.fileSources.splice(no, 1);
+    this.fileNames.splice(no, 1);
   }
 
   onFileChange(event) {
@@ -383,9 +414,14 @@ export class JobordersDetailComponent implements OnInit {
     );
   }
 
+  onChooseAddr(event) {
+    // console.log(event.value);
+    this.jo.deliveryAddress = event.value;
+
+  }
 
 NewOnSubmit() {
-  // console.log(this.jo);
+  console.log(this.jo);
   // console.log(this.jo2);
   if (this.jo.id === 0) // new
   {
