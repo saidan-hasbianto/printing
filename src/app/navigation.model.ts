@@ -125,13 +125,13 @@ export class NavigationModel
                   'url'  : '/joborders',
                   'privileges' : 'operator',
                 },
-                {
-                  'id'   : 'deliveryorder',
-                  'title': 'Delivery Orders',
-                  'type' : 'item',
-                  'url'  : '/deliveryorder',
-                  'privileges' : 'user',
-                },
+                // {
+                //   'id'   : 'deliveryorder',
+                //   'title': 'Delivery Orders',
+                //   'type' : 'item',
+                //   'url'  : '/deliveryorder',
+                //   'privileges' : 'user',
+                // },
                 {
                   'id'   : 'receipts',
                   'title': 'Receiptings',
