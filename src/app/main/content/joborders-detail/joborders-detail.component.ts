@@ -402,6 +402,9 @@ export class JobordersDetailComponent implements OnInit {
     if ((i + 1) < this.fileUrls.length) {
       this.fileUrls[i] = file;
     }else {
+      for (let y = this.fileUrls.length; y < i; y++) {
+        this.fileUrls.push(null);
+      }
       this.fileUrls.push(file);
     }
   }

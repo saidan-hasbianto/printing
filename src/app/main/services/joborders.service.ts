@@ -158,7 +158,7 @@ export class JobordersService {
         // formData.append('fileUrl' + x, item.fileUrl[i], item.fileUrl[i].name);
         if (!item.fileUrl[i])
         {
-          //formData.append('fileUrl' + x, '', 'null');
+          //formData.append('fileUrl' + x, item.fileUrl[i], null);
         }
         else
         {

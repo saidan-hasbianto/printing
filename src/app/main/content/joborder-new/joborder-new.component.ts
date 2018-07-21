@@ -384,13 +384,21 @@ export class JoborderNewComponent implements OnInit {
     }
   }
 
-  handleFileInput(fileInput: FileList, i) {
+  handleFileInput(fileInput: FileList, i) 
+  {
     const file = fileInput[0];
-    if ((i + 1) < this.fileUrls.length) {
+    if ((i + 1) < this.fileUrls.length) 
+    {
       this.fileUrls[i] = file;
-    }else {
+    }
+    else
+    {
+      for (let y = this.fileUrls.length; y < i; y++) {
+        this.fileUrls.push(null);
+      }
       this.fileUrls.push(file);
     }
+    console.log(this.fileUrls);
   }
 
   onChooseCust(event) {
