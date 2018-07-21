@@ -36,6 +36,10 @@ export class MarkupreleaseDetailComponent implements OnInit {
   mujo: Markupreleasejoborders[] = [];
   murelease2: Markupreleases2;
   murelease: Markupreleases = { id: 0, markupNo : null, markupReleaseJobOrders : null, releaseDate : '', remarks : '', customer : null, payTo : '' };
+  isVisible = false;
+  cust: Mscustomer = {id: 0 , customerCd: null,    name: null,    level: null,    marketing: null,     address: null,
+    cp: null,    email: null,     telp: null,    fax: null,    mobile: null,    deliveryAddresses: null };
+
   constructor(
     private musvc: MarkupreleasesService,
     private mujosvc: MarkupreleasejobordersService,
@@ -96,6 +100,7 @@ export class MarkupreleaseDetailComponent implements OnInit {
             }
             this.jo = arr;
           this.loadingbar = false;
+          this.isVisible = true;
       });
     }});
 
@@ -108,7 +113,7 @@ export class MarkupreleaseDetailComponent implements OnInit {
 
   addDetail() {
     const dialogRef = this.dialog.open(ReceiptJobOrdersComponent, {
-      width : '90%',
+      width : '50%',
       data: { type: 'update', data: this.form.controls['customer'].value} });
       dialogRef.afterClosed().subscribe(result => {
       this.jo = result;
@@ -330,9 +335,32 @@ export class MarkupreleaseDetailComponent implements OnInit {
   updateValue(event, cell, rowIndex) {
     console.log('inline editing rowIndex', rowIndex);
     this.editing[rowIndex + '-' + cell] = false;
-    this.jo[rowIndex][cell] = event.target.value;
+    //this.jo[rowIndex][cell] = event.target.value;
+    if (event.target.value < 0 || !event.target.value)
+    {
+      this.toastrSvc.error('0.00 not allowed', 'Error');
+      this.jo[rowIndex][cell] = '0.00';
+    }
+    else
+    {
+      // this.jo[rowIndex][cell] = event.target.value + '.00';
+      this.jo[rowIndex][cell] = event.target.value;
+    }
+    this.jo = [...this.jo];
     this.jo = [...this.jo];
     console.log('UPDATED!', this.jo[rowIndex][cell]);
     console.log(this.jo);
+
+    // if (event.target.value = "''")
+    // {
+    //   this.jo[rowIndex][cell] = 0;
+    // }
+  }
+
+  onChooseCust(event) {
+    console.log(event);
+    this.cust = event;
+    this.isVisible = true;
+
   }
 }

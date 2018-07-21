@@ -44,14 +44,14 @@
                 </mat-form-field>
 
                 <mat-form-field fxFlex="100">
-                  <input matInput placeholder="Mobile phone" formControlName="contactNumber">
+                  <input matInput placeholder="Mobile phone" type="number" formControlName="contactNumber">
                   <mat-error *ngIf="formErrors.contactNumber.required">
                       Required
                   </mat-error>
                   </mat-form-field>
 
                   <mat-form-field fxFlex="100">
-                    <input matInput placeholder="Commission (%)" formControlName="commission">
+                    <input matInput placeholder="Commission (%)" type="number" formControlName="commission">
                     <mat-error *ngIf="formErrors.commission.required">
                         Required
                     </mat-error>

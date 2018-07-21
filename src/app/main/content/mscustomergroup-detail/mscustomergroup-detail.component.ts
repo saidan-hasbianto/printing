@@ -145,7 +145,7 @@ export class MscustomergroupDetailComponent implements OnInit {
   }
 
   adddlvaddr() {
-    const dialogRef = this.dialog.open(MsdeliveryaddrDetailComponent);
+    const dialogRef = this.dialog.open(MsdeliveryaddrDetailComponent, {width : '75%'});
     dialogRef.afterClosed().subscribe(res => {
       this.dlvaddr.push(res);
     });
@@ -154,6 +154,7 @@ export class MscustomergroupDetailComponent implements OnInit {
   editdlvaddr(msdlvaddr: Msdeliveryaddr) {
     const dialogRef = this.dialog.open(MsdeliveryaddrDetailComponent,
       {
+        width : '75%',
         data: msdlvaddr
       }
     );

@@ -119,11 +119,32 @@ export class NavigationModel
               'privileges' : 'operator',
               'children': [
                 {
+                  'id'   : 'mscustomer',
+                  'title': 'Customers',
+                  'type' : 'item',
+                  'url'  : '/mscustomer',
+                  'privileges' : 'user'
+                },
+                {
                   'id'   : 'joborders',
                   'title': 'Job Orders',
-                  'type' : 'item',
-                  'url'  : '/joborders',
-                  'privileges' : 'operator',
+                  'type' : 'collapse',
+                  'children': [
+                  {
+                    'id'   : 'jonew',
+                    'title': 'Create Job Order',
+                    'type' : 'item',
+                    'url'  : '/jobordernew',
+                  // 'privileges' : 'user'
+                  },
+                  {
+                    'id'   : 'joborders',
+                    'title': 'Lists',
+                    'type' : 'item',
+                    'url'  : '/joborders',
+                    'privileges' : 'operator',
+                  }
+                  ]
                 },
                 // {
                 //   'id'   : 'deliveryorder',
@@ -145,14 +166,7 @@ export class NavigationModel
                   'type' : 'item',
                   'url'  : '/markupreleases',
                   'privileges' : 'user',
-                },
-                {
-                  'id'   : 'mscustomer',
-                  'title': 'Customers',
-                  'type' : 'item',
-                  'url'  : '/mscustomer',
-                  'privileges' : 'user'
-                }
+                },                
               ]
             },
             {

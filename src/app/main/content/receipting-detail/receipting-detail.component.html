@@ -20,10 +20,10 @@
 
           <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto" fxLayoutWrap>
             <mat-form-field fxFlex="20">
-              <input matInput placeholder="Receipt No" formControlName="receiptNo" required>
-                <mat-error *ngIf="formErrors.receiptNo.required">
+              <input matInput placeholder="Receipt No" formControlName="receiptNo" [disabled]="true">
+                <!-- <mat-error *ngIf="formErrors.receiptNo.required">
                     Required
-                </mat-error>
+                </mat-error> -->
             </mat-form-field>
 
             <mat-form-field fxFlex="20">
@@ -33,7 +33,7 @@
             </mat-form-field>
 
             <mat-form-field fxFlex="60">
-              <mat-select placeholder="Customer" formControlName="customer" required>
+              <mat-select placeholder="Customer" formControlName="customer" required (change)="onChooseCust($event)">
                 <mat-option *ngFor="let item of custOption" [value]="item.id">
                   {{ item.name }}
                 </mat-option>
@@ -50,30 +50,31 @@
               </mat-form-field>
           </div>
 
-          <div class="content p-24">
-            <div class="button-row">
-              <a mat-raised-button color="accent" (click)="addreceiptjoborders()">
+          <div class="content p-4">
+            <div class="button-row" *ngIf="isVisible">
+              <a mat-raised-button  color="accent"  (click)="addreceiptjoborders()" >
                 Add Receipt Item
               </a>
             </div>
 
             <ngx-datatable class="material"
               [rows]="jo"
-              [selected]="selected"
-              [selectionType]="'single'"
+              
+              [selectionType]="'cell'"
               [columnMode]="'force'"
               [rowHeight]="'auto'"
               [scrollbarH]="true"
-              [footerHeight]="50">
-              <ngx-datatable-column
+              [footerHeight]="50"
+              [limit]="5">
+              <!-- <ngx-datatable-column
                 [width]="30"
                 [sortable]="false"
                 [canAutoResize]="false"
                 [draggable]="false"
                 [resizeable]="false"
                 [checkboxable]="true">
-              </ngx-datatable-column>
-              <ngx-datatable-column name="#" [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
+              </ngx-datatable-column> -->
+              <ngx-datatable-column name="No." [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
                 <ng-template let-rowIndex="rowIndex" ngx-datatable-cell-template>
                   {{rowIndex + 1}}
                 </ng-template>
@@ -81,11 +82,11 @@
               <ngx-datatable-column name="Job Order No" prop="jobOrderNo"></ngx-datatable-column>
               <ngx-datatable-column name="Order Date" prop="orderDate"></ngx-datatable-column>
               <ngx-datatable-column name="Remarks"></ngx-datatable-column>
-              <ngx-datatable-column name="Amount" prop="price"></ngx-datatable-column>
+              <ngx-datatable-column name="Amount" prop="aging"></ngx-datatable-column>
               <ngx-datatable-column name="Receipt" prop="receipt">
                 <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
                   <span
-                    title="Double click to edit"
+                    title="Double click the number to edit"
                     (dblclick)="editing[rowIndex + '-receipt'] = true"
                     *ngIf="!editing[rowIndex + '-receipt']">
                     {{value}}
@@ -94,7 +95,7 @@
                   autofocus
                   (blur)="updateValue($event, 'receipt', rowIndex)"
                   *ngIf="editing[rowIndex+ '-receipt']"
-                  type="text"
+                  type="number"
                   [value]="value"
                   />
                 </ng-template>

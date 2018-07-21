@@ -37,6 +37,8 @@ export class JobordersDetailComponent implements OnInit {
   public isUser = false;
   public isAdmin = false;
   public selected: Number;
+  isDisabled: boolean;
+  
 
   jo: Joborders = {id : 0, jobOrderNo : '',  refNo : null,    orderDate : this.today,    completionDate : this.today, remarks: null,
     status : null, customer : null,    deliveryAddress : null,    operator : null, OrderDetails : []};
@@ -131,6 +133,7 @@ export class JobordersDetailComponent implements OnInit {
       this.isOperator = authenticationService.isOperator();
       this.isUser = authenticationService.isUser();
       this.isAdmin = authenticationService.isAdmin();
+      
    }
 
   ngOnInit() {
@@ -163,10 +166,20 @@ export class JobordersDetailComponent implements OnInit {
       this.paramId = Number.parseInt(params['id']);
       if (this.paramId) {
         this.loadingbar = false;
-        this.josvc.getJO(this.paramId)
-          .subscribe(res => {
-            this.jo = res;
+        this.josvc.getJOb(this.paramId)
+          .subscribe(hasil => {
+            console.log(hasil["status"]);
+            this.jo = hasil;
+            console.log(this.jo);
+            
+            this.selected = parseInt(hasil.deliveryAddress);
             this.jo.OrderDetails = this.jo['jobOrderDetails'];
+
+            if (hasil["status"] == "'D'")
+            {
+              this.isDisabled = true;
+              
+            }
             
           this.form.setValue({
             id : this.jo.id,
@@ -198,7 +211,8 @@ export class JobordersDetailComponent implements OnInit {
               this.prices.push(this.jo.OrderDetails[i].price);
               this.markups.push(this.jo.OrderDetails[i].markup);
               this.fileSources.push(this.jo.OrderDetails[i].fileSource);
-
+              this.fileNames.push(this.jo.OrderDetails[i].fileName);
+              // console.log(this.fileNames);
               if (this.rows.length !== this.jo.OrderDetails.length)
               {
                 this.rows.push(this.rows.length + 1);
@@ -560,6 +574,10 @@ getFile(id: number): void {
   error => {
     console.log(error);
   });
+}
+
+isCreated() {
+  5
 }
 
 }

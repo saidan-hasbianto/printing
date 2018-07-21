@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs/Observable';
 import { Joborders } from '../models/joborders';
 import { catchError } from 'rxjs/operators';
+import { Msitem } from '../models/msitem';
 
 const httpOptions = {
   headers: new HttpHeaders(
@@ -19,6 +20,7 @@ const httpOptions = {
 @Injectable()
 export class MainformService {
   private url = environment.baseUrl + 'dashboard/';  // URL to web api
+  private urllqi = environment.baseUrl + 'itemlowquantities/';  // URL to web api
   constructor(
     private http: HttpClient,
     private toastr: ToastrService,
@@ -33,4 +35,10 @@ export class MainformService {
     );
   }
 
+  getlqi(): Observable<Msitem[]> {
+    return this.http.get<Msitem[]>(this.urllqi, httpOptions)
+    .pipe(
+      catchError(this.logErrorHandle.handleError('getlqi', []))
+    );
+  }
 }

@@ -181,14 +181,14 @@ export class MsproductDetailComponent implements OnInit {
   }
 
   addPrice() {
-    const dialogRef = this.dialog.open(PricelevelDetailComponent);
+    const dialogRef = this.dialog.open(PricelevelDetailComponent, {width : '50%'});
     dialogRef.afterClosed().subscribe(result => {
       this.pricelevel1.push(result);
     });
   }
 
   addItem(){
-    const dialogRef = this.dialog.open(MsproductDetailItemformComponent);
+    const dialogRef = this.dialog.open(MsproductDetailItemformComponent, {width : '50%'});
     dialogRef.afterClosed().subscribe(res => {
        this.proditem.push(res);
     });
@@ -197,6 +197,7 @@ export class MsproductDetailComponent implements OnInit {
   editItem(msitem: ProductItemMaterial) {
     const dialogRef = this.dialog.open(MsproductDetailItemformComponent,
       {
+        width : '50%',
         data: msitem
       }
     );
@@ -217,6 +218,7 @@ export class MsproductDetailComponent implements OnInit {
   editPrice(msitem: Pricelevel) {
     const dialogRef = this.dialog.open(PricelevelDetailComponent,
       {
+        width : '50%',
         data: msitem
       }
     );

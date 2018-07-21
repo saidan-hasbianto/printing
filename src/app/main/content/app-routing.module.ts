@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, CanActivate } from '@angular/router';
+import { RouterModule } from '@angular/router';
 
 import { SharedModule } from '../../core/modules/shared.module';
 
@@ -11,15 +11,12 @@ import { AuthGuardService as AuthGuard, AuthGuardAdminService as AuthAdmin, Auth
 import { RtDetailComponent } from './rt-detail/rt-detail.component';
 import { MsitemComponent } from './msitem/msitem.component';
 import { MsitemDetailComponent } from './msitem-detail/msitem-detail.component';
-import { Msproduct } from '../models/msproduct';
 import { MsproductDetailComponent } from './msproduct-detail/msproduct-detail.component';
 import { MsproductComponent } from './msproduct/msproduct.component';
 import { MsproductDetailItemformComponent } from './msproduct-detail-itemform/msproduct-detail-itemform.component';
-import { Pricelevel } from '../models/pricelevel';
 import { PricelevelDetailComponent } from './pricelevel-detail/pricelevel-detail.component';
 import { UsersComponent } from './users/users.component';
 import { UsersDetailComponent } from './users-detail/users-detail.component';
-import { Groups } from '../models/groups';
 import { GroupComponent } from './group/group.component';
 import { GroupDetailComponent } from './group-detail/group-detail.component';
 import { MsactivityComponent } from './msactivity/msactivity.component';
@@ -38,7 +35,6 @@ import { ReceiptingListComponent } from './receipting-list/receipting-list.compo
 import { ReceiptJobOrdersComponent } from './receipt-job-orders/receipt-job-orders.component';
 import { MarkupreleasesComponent } from './markupreleases/markupreleases.component';
 import { MarkupreleasejobordersComponent } from './markupreleasejoborders/markupreleasejoborders.component';
-import { MarkupreleasesService } from '../services/markupreleases.service';
 import { ReceiptingDetailComponent } from './receipting-detail/receipting-detail.component';
 import { MarkupreleaseDetailComponent } from './markuprelease-detail/markuprelease-detail.component';
 import { VendorComponent } from './vendor/vendor.component';
@@ -49,16 +45,20 @@ import { CashbookComponent } from './cashbook/cashbook.component';
 import { PurchItemDetailComponent } from './purch-item-detail/purch-item-detail.component';
 import { PaymPurchListDetailComponent } from './paym-purch-list-detail/paym-purch-list-detail.component';
 import { CashbookDetailComponent } from './cashbook-detail/cashbook-detail.component';
-import { PurchItem } from '../models/purch-item';
 import { PurchItemFormComponent } from './purch-item-form/purch-item-form.component';
 import { PaymPurchFormComponent } from './paym-purch-form/paym-purch-form.component';
-import { Deliveryorder } from '../models/deliveryorder';
 import { DeliveryorderDetailComponent } from './deliveryorder-detail/deliveryorder-detail.component';
 import { DeliveryorderComponent } from './deliveryorder/deliveryorder.component';
 import { MainformComponent } from './mainform/mainform.component';
 import { DocprefixComponent } from './docprefix/docprefix.component';
 import { DocprefixDetailComponent } from './docprefix-detail/docprefix-detail.component';
 import { ChangepasswordComponent } from './changepassword/changepassword.component';
+import { MainformJoOverdueComponent } from './mainform-jo-overdue/mainform-jo-overdue.component';
+import { MainformLowqtyitemComponent } from './mainform-lowqtyitem/mainform-lowqtyitem.component';
+import { JoborderNewComponent } from './joborder-new/joborder-new.component';
+import { MainformWaiPayComponent } from './mainform-wai-pay/mainform-wai-pay.component';
+import { MainformOpjComponent } from './mainform-opj/mainform-opj.component';
+import { ReceiptingViewComponent } from './receipting-view/receipting-view.component';
 
 const routes = [
   {
@@ -425,7 +425,38 @@ const routes = [
     path     : 'changepassword',
     component: ChangepasswordComponent,
     canActivate: [AuthGuard]
-  }
+  },
+  {
+    path     : 'mainformjood',
+    component: MainformJoOverdueComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path     : 'mainformlqi',
+    component: MainformLowqtyitemComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path     : 'mainformwaipay',
+    component: MainformWaiPayComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path     : 'mainformopj',
+    component: MainformOpjComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path     : 'jobordernew',
+    component: JoborderNewComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path     : 'receipting-view/:id',
+    component: ReceiptingViewComponent,
+    canActivate: [AuthGuard],
+    data: {data: this.selectedData}
+  },
 ];
 
 @NgModule({
@@ -478,7 +509,13 @@ const routes = [
     MainformComponent,
     DocprefixComponent,
     DocprefixDetailComponent,
-    ChangepasswordComponent
+    ChangepasswordComponent,
+    MainformJoOverdueComponent,
+    MainformLowqtyitemComponent,
+    MainformOpjComponent,
+    MainformWaiPayComponent,
+    JoborderNewComponent,
+    ReceiptingViewComponent,
   ],
   imports     : [
       SharedModule,

@@ -143,11 +143,28 @@ export class PaymPurchListDetailComponent implements OnInit {
   updateValue(event, cell, rowIndex) {
     console.log('inline editing rowIndex', rowIndex);
     this.editing[rowIndex + '-' + cell] = false;
-    this._purchItem[rowIndex][cell] = event.target.value;
+    // this._purchItem[rowIndex][cell] = event.target.value;
+    if (event.target.value < 0 || !event.target.value)
+    {
+      this.toastrSvc.error('0.00 not allowed', 'Error');
+      this._purchItem[rowIndex][cell] = '0.00';
+    }
+    else
+    {
+      // this.jo[rowIndex][cell] = event.target.value + '.00';
+      this._purchItem[rowIndex][cell] = event.target.value;
+    }
     this._purchItem = [...this._purchItem];
-    console.log('UPDATED!', this._purchItem[rowIndex][cell]);
-    console.log(this._purchItem);
+    // console.log('UPDATED!', this._purchItem[rowIndex][cell]);
+    // console.log(this._purchItem);
+
+    // if (event.target.value = "''")
+    // {
+    //   this._purchItem[rowIndex][cell] = 0;
+    // }
   }
+
+
 
   addDtls() {
     const dialogRef = this.dialog.open(PaymPurchFormComponent, {
@@ -165,7 +182,7 @@ export class PaymPurchListDetailComponent implements OnInit {
         panjangPI = this._purchItem[i].purchaseItems.length;
         for (j = 0; j < panjangPI; j++)
         {
-          this._purchItem[j].totalamt = this._purchItem[j].purchaseItems[j].amount;
+          this._purchItem[j].totalamt = +this._purchItem[j].purchaseItems[j].amount;
         }
       }
     });
@@ -213,47 +230,5 @@ export class PaymPurchListDetailComponent implements OnInit {
       }
     }
   }
-
-  //   if (this.form.valid === true)
-  //   {
-  //     // const datestring = ppl.payDate;
-  //     // const newDate = new Date(datestring);
-  //     // ppl.payDate = newDate.getFullYear() + '-' + (newDate.getMonth() + 1) + '-' + newDate.getDate();
-
-  //     if (this._PaymPurchDtls.length > 0)
-  //     {
-  //       ppl.paymentDtls = this._PaymPurchDtls;
-  //     }
-  //     else
-  //     {
-  //       alert('Please Add Payment Item');
-  //     }
-  //   }
-
-  //   if (ppl.id === 0)
-  //   {
-  //     this.paympurchsvc.add(ppl).subscribe(
-  //       success => {
-  //         this.goback();
-  //       },
-  //       error => {
-  //         // console.log(error.error);
-  //         this.toastrSvc.error(error.error.error_message, 'Error');
-  //       }
-  //     );
-  //   }
-  //   else
-  //   {
-  //     this.paympurchsvc.update(ppl).subscribe(
-  //       success => {
-  //         this.goback();
-  //       },
-  //       error => {
-  //         console.log(error.error);
-  //         this.toastrSvc.error(error.error.error_message, 'Error');
-  //       }
-  //     );
-  //   }
-  // }
 
 }

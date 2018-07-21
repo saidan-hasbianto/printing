@@ -36,6 +36,7 @@ export class JobOrderDtls {
   qty: number;
   price: number;
   markup: number;
+  fileName: string;
   fileSource: string;
   fileUrl: any;
   product: string;
@@ -58,6 +59,6 @@ export interface Joborders {
     ischecked?: boolean;
     receipt?: number;
     OrderDetails: JobOrderDtls[];
-
+    isOverdue?: boolean;
 
 }

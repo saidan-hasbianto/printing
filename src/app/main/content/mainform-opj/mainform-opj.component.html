@@ -1,0 +1,47 @@
+<div class="page-layout simple fullwidth" fusePerfectScrollbar>
+    <!-- HEADER -->
+    <div class="mat-accent-bg p-24 h-12" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="space-between center">
+        <div fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="column" fxLayoutAlign.gt-xs="center start">
+            <div class="black-fg" fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="secondary-text s-16">compare_arrows</mat-icon>
+                <!-- <mat-icon class="secondary-text s-16">chevron_right</mat-icon> -->
+                <span class="secondary-text pl-4 s-16">Dashboard</span>
+                <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
+                <span class="secondary-text">On Progress Job</span>
+            </div>
+        </div>
+    </div>
+    <!-- / HEADER -->
+    
+  <div class="content p-24">
+    <div style='float:left;width:100%'>
+      <h1>On Progress Job</h1>
+      <ngx-datatable
+        style="width: 100%; vertical-align: bottom; vertical-align: text-bottom; align-content: flex-start; align-items: flex-start; text-align: start; align-self: flex-start"
+        class="material"
+        [rows]="jorow"
+        [columnMode]="'force'"
+        [rowHeight]="30"
+        [footerHeight]="50" 
+        [limit]="10">
+        <ngx-datatable-column name="No." [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
+            <ng-template let-rowIndex="rowIndex" ngx-datatable-cell-template>
+              {{rowIndex + 1}}
+            </ng-template>
+          </ngx-datatable-column>
+        <ngx-datatable-column name="Job Order No" prop="jobOrderNo"></ngx-datatable-column>
+        <ngx-datatable-column name="Operator" prop="operatorName"></ngx-datatable-column>
+        <ngx-datatable-column name="Customer" prop="customerName"></ngx-datatable-column>
+        <ngx-datatable-column name="Amount"></ngx-datatable-column>
+        <ngx-datatable-column name="Order Date" prop="orderDate"></ngx-datatable-column>
+        <ngx-datatable-column name="Completion Date" prop="completionDate"></ngx-datatable-column>
+      </ngx-datatable>
+    </div>
+    <div class='selected-column'>
+      <!-- <button data-ng-click="add()">OK</button> -->
+      <button mat-raised-button class="mat-accent" (click)="close()">
+          Close
+        </button>
+    </div>
+  </div>
+</div>

@@ -92,30 +92,46 @@
               [rowHeight]="'auto'"
               [scrollbarH]="true"
               [footerHeight]="50">
-              <ngx-datatable-column name="#" [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
+              <ngx-datatable-column name="No." [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
                 <ng-template let-rowIndex="rowIndex" ngx-datatable-cell-template>
                   {{rowIndex + 1}}
                 </ng-template>
               </ngx-datatable-column>
               <ngx-datatable-column name="Item ID" prop="id"></ngx-datatable-column>
               <ngx-datatable-column name="Item Name" prop="name"></ngx-datatable-column>
-              <ngx-datatable-column name="Qty"></ngx-datatable-column>
-              <ngx-datatable-column name="Item Price" prop="amount">
+              <ngx-datatable-column name="Qty" prop="minQty">
                 <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
                     <span
                       title="Double click to edit"
-                      (dblclick)="editing[rowIndex + '-amount'] = true"
-                      *ngIf="!editing[rowIndex + '-amount']">
+                      (dblclick)="editing[rowIndex + '-minQty'] = true"
+                      *ngIf="!editing[rowIndex + '-minQty']">
                       {{value}}
                     </span>
                     <input
                     autofocus
-                    (blur)="updateValue($event, 'amount', rowIndex)"
-                    *ngIf="editing[rowIndex+ '-amount']"
-                    type="text"
+                    (blur)="updateQty($event, 'minQty', rowIndex)"
+                    *ngIf="editing[rowIndex+ '-minQty']"
+                    type="number"
                     [value]="value"
                     />
                   </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Item Price" prop="amount">
+                <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+                  <span
+                    title="Double click to edit"
+                    (dblclick)="editing[rowIndex + '-amount'] = true"
+                    *ngIf="!editing[rowIndex + '-amount']">
+                    {{value}}
+                  </span>
+                  <input
+                  autofocus
+                  (blur)="updateValue($event, 'amount', rowIndex)"
+                  *ngIf="editing[rowIndex+ '-amount']"
+                  type="number"
+                  [value]="value"
+                  />
+                </ng-template>
               </ngx-datatable-column>
               <ngx-datatable-column name="Action" [width]="150" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
                 <ng-template let-row="row" ngx-datatable-cell-template>

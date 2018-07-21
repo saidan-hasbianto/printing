@@ -29,7 +29,7 @@
       [scrollbarH]="true"
       (select)='onSelect($event)'
       [loadingIndicator]="loadingIndicator">
-      <ngx-datatable-column name="#" [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
+      <ngx-datatable-column name="No." [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
         <ng-template let-rowIndex="rowIndex" ngx-datatable-cell-template>
           {{rowIndex + 1}}
         </ng-template>

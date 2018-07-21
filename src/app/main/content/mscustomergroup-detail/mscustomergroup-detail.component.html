@@ -54,18 +54,18 @@
                 </mat-form-field>
 
                 <mat-form-field fxFlex="32">
-                  <input matInput placeholder="Telp" formControlName="telp" required>
+                  <input matInput placeholder="Telp" type="number" formControlName="telp" required>
                   <mat-error *ngIf="formErrors.telp.required">
                       Required
                   </mat-error>
                 </mat-form-field>
 
                 <mat-form-field fxFlex="32">
-                  <input matInput placeholder="Fax" formControlName="fax">
+                  <input matInput placeholder="Fax" type="number" formControlName="fax">
                 </mat-form-field>
 
                 <mat-form-field fxFlex="32">
-                  <input matInput placeholder="Mobile Phone" formControlName="mobile">
+                  <input matInput placeholder="Mobile Phone" type="number" formControlName="mobile">
                 </mat-form-field>
 
                 <mat-form-field fxFlex="35">
@@ -104,7 +104,7 @@
               [rowHeight]="'auto'"
               [scrollbarH]="true"
               [footerHeight]="50">
-              <ngx-datatable-column name="#" [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
+              <ngx-datatable-column name="No." [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
                 <ng-template let-rowIndex="rowIndex" ngx-datatable-cell-template>
                   {{rowIndex + 1}}
                 </ng-template>

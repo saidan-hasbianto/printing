@@ -33,7 +33,7 @@
               </mat-form-field>
 
               <mat-form-field fxFlex="60">
-                <mat-select placeholder="Customer" formControlName="customer" required>
+                <mat-select placeholder="Customer" formControlName="customer" (change)="onChooseCust($event)" required>
                   <mat-option *ngFor="let item of custOption" [value]="item.id">
                     {{ item.name }}
                   </mat-option>
@@ -59,8 +59,8 @@
                 </mat-error>
             </div>
 
-            <div class="content p-24">
-              <div class="button-row">
+            <div class="content p-4">
+              <div class="button-row" *ngIf="isVisible">
                 <a mat-raised-button color="accent" (click)="addDetail()">
                   Add Job Order
                 </a>
@@ -73,8 +73,8 @@
                 [scrollbarH]="true"
                 [footerHeight]="50"
                 [selected]="selected"
-                [selectionType]="'single'">
-                <ngx-datatable-column name="#" [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
+                [selectionType]="'cell'">
+                <ngx-datatable-column name="No." [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
                   <ng-template let-rowIndex="rowIndex" ngx-datatable-cell-template>
                     {{rowIndex + 1}}
                   </ng-template>
@@ -105,7 +105,7 @@
                     autofocus
                     (blur)="updateValue($event, 'receipt', rowIndex)"
                     *ngIf="editing[rowIndex+ '-receipt']"
-                    type="text"
+                    type="number"
                     [value]="value"
                     />
                   </ng-template>

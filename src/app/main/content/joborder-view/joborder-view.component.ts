@@ -5,7 +5,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Joborders2, JobOrderDtls } from '../../models/joborders';
 import { Msdeliveryaddr } from '../../models/msdeliveryaddr';
 import { Msoperator } from '../../models/msoperator';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { group } from '@angular/animations';
 import { Mscustomer } from '../../models/mscustomergroup';
 import { MscustomergroupService } from '../../services/mscustomergroup.service';
@@ -54,6 +54,7 @@ export class JoborderViewComponent implements OnInit {
     private opsSvc: MsoperatorService,
     private _location: Location,
     private route: ActivatedRoute,
+    private router: Router,
   ) {
     this.joform = formBuilder.group({
       jobOrderNo: [''],      refNo: [''], orderDate: [''], completionDate: [''],
@@ -71,26 +72,26 @@ export class JoborderViewComponent implements OnInit {
 
         this.josvc.getJO2(this.paramId)
           .subscribe(res => {
-           // console.log(res);
+           console.log(res);
            this.jo2 = res;
            this.joDtls = this.jo2['jobOrderDetails'];
-            console.log(this.jo2);
-           if (this.jo2.status === 'C')
-           {
-             this.jo2.status = 'Create';
-           }
-           else if (this.jo2.status === 'W')
-            {
-              this.jo2.status = 'Working';
-            }
-            else if (this.jo2.status === 'P')
-            {
-              this.jo2.status = 'Pending';
-            }
-            else
-            {
-              this.jo2.status = 'Done';
-            }
+            //console.log(this.jo2);
+          //  if (this.jo2.status === 'C')
+          //  {
+          //    this.jo2.status = 'Create';
+          //  }
+          //  else if (this.jo2.status === 'W')
+          //   {
+          //     this.jo2.status = 'Working';
+          //   }
+          //   else if (this.jo2.status === 'P')
+          //   {
+          //     this.jo2.status = 'Pending';
+          //   }
+          //   else
+          //   {
+          //     this.jo2.status = 'Done';
+          //   }
             const num = Number (this.jo2.operator);
             this.opsSvc.getItem(num).subscribe(result => this.jo2.operator = result.name);
 
@@ -109,6 +110,11 @@ export class JoborderViewComponent implements OnInit {
       });
     }});
 
+  }
+
+  close() {
+    // this.dialogRef.close();
+    this.router.navigate(['/mainform'])
   }
 
 }

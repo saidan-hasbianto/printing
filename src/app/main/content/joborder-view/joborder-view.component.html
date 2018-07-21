@@ -72,7 +72,7 @@
             [columnMode]="'force'"
             [rowHeight]="'auto'"
             [scrollbarH]="true">
-            <ngx-datatable-column name="#" [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
+            <ngx-datatable-column name="No." [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
               <ng-template let-rowIndex="rowIndex" ngx-datatable-cell-template>
                 {{rowIndex + 1}}
               </ng-template>
@@ -81,8 +81,9 @@
             <ngx-datatable-column name="Type"></ngx-datatable-column>
             <ngx-datatable-column name="Qty"></ngx-datatable-column>
             <ngx-datatable-column name="Price"></ngx-datatable-column>
-            <ngx-datatable-column name="File Source" prop="fileSource"></ngx-datatable-column>
             <ngx-datatable-column name="Markup Amt" prop="markup"></ngx-datatable-column>
+            <ngx-datatable-column name="File Source" prop="fileSource"></ngx-datatable-column>
+            <ngx-datatable-column name="File Name" prop="fileName"></ngx-datatable-column>
             <ngx-datatable-column name="File" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
               <ng-template let-row="row" ngx-datatable-cell-template>
                 <button mat-icon-button color="primary">
@@ -93,6 +94,12 @@
               </ng-template>
             </ngx-datatable-column>
           </ngx-datatable>
+          <div class='selected-column pt-3'>
+            <!-- <button data-ng-click="add()">OK</button> -->
+            <button mat-raised-button class="mat-accent" (click)="close()">
+                Close
+              </button>
+          </div>
         </form>
       </div>
     </div>

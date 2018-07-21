@@ -25,15 +25,15 @@
                 </mat-error>
               </mat-form-field>
 
-              <mat-form-field fxFlex="35">
+              <mat-form-field fxFlex="50">
                   <input matInput placeholder="Contact Person" formControlName="cp" required>
                   <mat-error *ngIf="formErrors.cp.required">
                       Required
                   </mat-error>
                 </mat-form-field>
 
-                <mat-form-field fxFlex="35">
-                  <input matInput placeholder="Contact Number" formControlName="contactNumber" required>
+                <mat-form-field fxFlex="50">
+                  <input matInput placeholder="Contact Number" type="number" formControlName="contactNumber" required>
                   <mat-error *ngIf="formErrors.contactNumber.required">
                       Required
                   </mat-error>

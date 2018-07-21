@@ -122,6 +122,8 @@ export class AuthenticationService {
         localStorage.removeItem('group');
         localStorage.removeItem('groupname');
         localStorage.removeItem('email');
+        localStorage.removeItem('urban_user');
+        localStorage.removeItem('urban_userid');
         console.log(localStorage);
     }
 

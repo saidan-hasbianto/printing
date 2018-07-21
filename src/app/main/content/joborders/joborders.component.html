@@ -8,6 +8,8 @@
               <span class="secondary-text pl-4 s-16">Receivable</span>
               <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
               <span class="secondary-text">Job Orders</span>
+              <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
+            <span class="secondary-text">Lists</span>
           </div>
       </div>
   </div>
@@ -36,13 +38,15 @@
     </div>
     <ngx-datatable class="material"
       [rows]="jorow"
-      [selected]="selectedData"
+      
       [selectionType]="'single'"
       [columnMode]="'force'"
       [rowHeight]="'auto'"
       [scrollbarH]="true"
+      [limit]="5"
+      [footerHeight]="'auto'"
       [loadingIndicator]="loadingIndicator">
-      <ngx-datatable-column name="#" [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
+      <ngx-datatable-column name="No." [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
         <ng-template let-rowIndex="rowIndex" ngx-datatable-cell-template>
           {{rowIndex + 1}}
         </ng-template>
@@ -58,7 +62,7 @@
               <mat-icon aria-label="View">visibility</mat-icon>
             </button>
             <button mat-icon-button color="primary" [routerLink]="'/joborders-detail/' + row.id">
-              <mat-icon aria-label="View">edit</mat-icon>
+              <mat-icon aria-label="Edit">edit</mat-icon>
             </button>
             <button mat-icon-button color="warn" (click)="deleteRow(row)">
               <mat-icon aria-label="Delete">delete</mat-icon>

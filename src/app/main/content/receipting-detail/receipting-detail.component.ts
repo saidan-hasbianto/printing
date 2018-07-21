@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Joborders } from '../../models/joborders';
+import { Joborders, Joborders2 } from '../../models/joborders';
 import { ReceiptingList, Receipting, ReceiptingDtls } from '../../models/receipting-list';
 import { ReceiptJobOrders } from '../../models/receipt-job-orders';
 import { FormGroup, FormBuilder, Validators, FormControl, FormControlName } from '@angular/forms';
@@ -24,7 +24,7 @@ import { JobordersService } from '../../services/joborders.service';
   styleUrls: ['./receipting-detail.component.scss']
 })
 export class ReceiptingDetailComponent implements OnInit {
-
+  today = new Date();
   form: FormGroup;
   formErrors: any;
   type: string;
@@ -32,7 +32,7 @@ export class ReceiptingDetailComponent implements OnInit {
   selected = [];
   lengthreceiptjo: number;
   rjo: any [] = [];
-
+  receiptZero = [];
   jo: Joborders[];
   jotmp: Joborders;
   receipt: Receipting;
@@ -41,12 +41,16 @@ export class ReceiptingDetailComponent implements OnInit {
   jolist: ReceiptJobOrders[] = [];
   jolisttmp: ReceiptJobOrders;
 
+  resep: Receipting = {id: null, receiptNo: null, receiptDate: null, receiptJobOrders: null, remarks: null};
+
   custOption: Mscustomer[] = [];
   cust: Mscustomer = {id: 0 , customerCd: null,    name: null,    level: null,    marketing: null,     address: null,
     cp: null,    email: null,     telp: null,    fax: null,    mobile: null,    deliveryAddresses: null };
 
   sub: any;
   loadingbar= true;
+  isVisible = false;
+
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -61,7 +65,7 @@ export class ReceiptingDetailComponent implements OnInit {
     this.formErrors = {
 
       customer : {},
-      receiptNo : {},
+      // receiptNo : {},
       receiptDate : null
       // remarks : {}
       };
@@ -71,8 +75,8 @@ export class ReceiptingDetailComponent implements OnInit {
 
     this.form = this.formBuilder.group({
       id : [''],
-      receiptNo  : ['', Validators.required],
-      receiptDate  : ['', Validators.required],
+      receiptNo  : [{value:'', disabled: true}, Validators.required],
+      receiptDate  : [this.today, Validators.required],
       remarks  : [''],
       customer  : ['', Validators.required]
     });
@@ -86,14 +90,14 @@ export class ReceiptingDetailComponent implements OnInit {
         this.receiptsvc.getReceipt(id)
         .subscribe(res =>
           {
-            this.receipt = res;
-            console.log(this.receipt);
+            this.resep = res;
+            console.log(this.resep);
             this.form.setValue({
               id: id,
-              receiptNo: this.receipt.receiptNo,
-              receiptDate: this.receipt.receiptDate,
-              remarks: this.receipt.remarks,
-              customer: this.receipt.customer
+              receiptNo: this.resep.receiptNo,
+              receiptDate: this.resep.receiptDate,
+              remarks: this.resep.remarks,
+              customer: this.resep.customer
             });
 
             const arr = [];
@@ -106,6 +110,7 @@ export class ReceiptingDetailComponent implements OnInit {
 
             this.jo = arr;
             this.loadingbar = false;
+            this.isVisible = true;
           });
     }});
 
@@ -146,14 +151,15 @@ export class ReceiptingDetailComponent implements OnInit {
   }
 
   newOnSubmit(prod: Receipting)
-  {
-    console.log(prod);
+  {    
+    this.receiptZero = [];
+    // console.log(this.receiptZero.length);
     if (this.form.valid === true)
     {
       if (prod.id === '')
       {
         if (this.jo.length > 0)
-        {
+        {          
           const datestring = prod.receiptDate;
           const newDate = new Date(datestring);
           prod.receiptDate = newDate.getFullYear() + '-' + (newDate.getMonth() + 1) + '-' + newDate.getDate();
@@ -162,29 +168,42 @@ export class ReceiptingDetailComponent implements OnInit {
           let oReceiptingDtls: ReceiptingDtls;
           oReceipting.id = '0';
           oReceipting.receiptDate = prod.receiptDate;
-          oReceipting.receiptNo = prod.receiptNo;
+          oReceipting.receiptNo = '0'; // prod.receiptNo;
           oReceipting.remarks = prod.remarks;
           oReceipting.customer = prod.customer;
           for (let i = 0; i < this.jo.length; i++)
           {
-            oReceiptingDtls = new ReceiptingDtls();
-            oReceiptingDtls.amount = this.jo[i].receipt;
-            oReceiptingDtls.jobOrder = this.jo[i].id;
-            oReceipting.receiptJobOrders.push(oReceiptingDtls);
+            if (this.jo[i].receipt == 0.00)
+            {
+              this.receiptZero.push(this.jo[i]);
+            }
+            else
+            {
+              oReceiptingDtls = new ReceiptingDtls();
+              oReceiptingDtls.amount = this.jo[i]['receipt']; //this.jo[i].receipt;
+              oReceiptingDtls.jobOrder = this.jo[i].id;
+              oReceipting.receiptJobOrders.push(oReceiptingDtls);
+            }
           }
           this.form.value['receiptJobOrders'] = oReceipting;
-
-          this.receiptsvc.add(oReceipting).subscribe
-          (
-            success =>
-            {
-              this.goback();
-            },
-            error =>
-            {
-              this.toastr.error(error.error.error_message, 'Error');
-            }
-          );
+          if (this.receiptZero.length > 0) 
+          {
+            this.toastr.error('Receipt 0.00 not allowed ', 'Receipt JO');          
+          }
+          else
+          {
+            this.receiptsvc.add(oReceipting).subscribe
+            (
+              success =>
+              {
+                this.goback();
+              },
+              error =>
+              {
+                this.toastr.error(error.error.error_message, 'Error');
+              }
+            );
+          }
         }
         else
         {
@@ -201,30 +220,46 @@ export class ReceiptingDetailComponent implements OnInit {
         let oReceiptingDtls: ReceiptingDtls;
         oReceipting.id = prod.id;
         oReceipting.receiptDate = prod.receiptDate;
-        oReceipting.receiptNo = prod.receiptNo;
+        oReceipting.receiptNo = '-'; // prod.receiptNo;
         oReceipting.remarks = prod.remarks;
         oReceipting.customer = prod.customer;
+        //console.log(this.jo);
         for (let i = 0; i < this.jo.length; i++)
         {
-          oReceiptingDtls = new ReceiptingDtls();
-          oReceiptingDtls.amount = this.jo[i].receipt;
-          oReceiptingDtls.jobOrder = this.jo[i].id;
-          oReceipting.receiptJobOrders.push(oReceiptingDtls);
-        }
-        this.form.value['receiptJobOrders'] = oReceipting;
-
-        this.receiptsvc.update(oReceipting).subscribe
-        (
-          success =>
-          {
-            this.goback();
-          },
-          error =>
-          {
-            console.log(error.error);
-            this.toastr.error(error.error.error_message, 'Error');
+          if (this.jo[i].receipt == 0.00)
+          {            
+            this.receiptZero.push(this.jo[i]);
           }
-        );
+          else
+          {
+            oReceiptingDtls = new ReceiptingDtls();
+            oReceiptingDtls.amount = this.jo[i]['receipt']; //this.jo[i].receipt;
+            oReceiptingDtls.jobOrder = this.jo[i].id;
+            oReceipting.receiptJobOrders.push(oReceiptingDtls);
+          }
+        }
+        
+        this.form.value['receiptJobOrders'] = oReceipting;
+        // console.log(this.receiptZero);
+        if (this.receiptZero.length > 0) 
+        {
+          this.toastr.error('Receipt 0.00 not allowed ', 'Receipt JO');          
+        }
+        else
+        {
+          this.receiptsvc.update(oReceipting).subscribe
+          (
+            success =>
+            {
+              this.goback();
+            },
+            error =>
+            {
+              console.log(error.error);
+              this.toastr.error(error.error.error_message, 'Error');
+            }
+          );
+        }       
       }
     }
   }
@@ -355,30 +390,63 @@ export class ReceiptingDetailComponent implements OnInit {
 
   addreceiptjoborders() {
     const dialogRef = this.dialog.open(ReceiptJobOrdersComponent, {
-      width : '90%',
+      width : '50%',
       data: { type: 'update', data: this.form.controls['customer'].value} });
     // dialogRef.componentInstance.ngOnInit('receipt');
     // dialogRef.componentInstance.getRows(this.form.controls['customer'].value);
     // const instance = dialogRef.componentInstance;
     // instance.form.controls['customer']
     dialogRef.afterClosed().subscribe(result => {
-      this.jo = result;
-      console.log(this.jo);
-      let i;
-      for (i = 0; i < this.jo.length; i++)
+      //console.log(result);
+      if (!this.jo) // new
       {
-        this.jo[i]['receipt'] = 0.00;
+        let i;
+        for (i = 0; i < result.length; i++)
+        {
+          result[i]['receipt'] = '0.00';
+          //this.jo[i].receipt = 0.00;    
+        }
+        this.jo = result;
       }
+      else // update
+      {
+        let i;
+        for (i = 0; i < result.length; i++)
+        {          
+          result[i]['receipt'] = '0.00';
+          //this.jo[i].receipt = 0.00;   
+          this.jo.push(result[i]);            
+        }
+        
+      }
+      
 
     });
   }
 
   updateValue(event, cell, rowIndex) {
-    console.log('inline editing rowIndex', rowIndex);
+    console.log(event);
+    console.log(event.target);
+    // console.log('inline editing rowIndex', rowIndex);
     this.editing[rowIndex + '-' + cell] = false;
-    this.jo[rowIndex][cell] = event.target.value;
+    //this.jo[rowIndex][cell] = event.target.value + '.00';
+    if (event.target.value < 0 || !event.target.value)
+    {
+      this.toastr.error('0.00 not allowed', 'Error Receipt');
+      this.jo[rowIndex][cell] = '0.00';
+    }
+    else
+    {
+      // this.jo[rowIndex][cell] = event.target.value + '.00';
+      this.jo[rowIndex][cell] = event.target.value;
+    }
     this.jo = [...this.jo];
-    console.log('UPDATED!', this.jo[rowIndex][cell]);
-    console.log(this.jo);
+  }
+
+  onChooseCust(event) {
+    console.log(event);
+    this.cust = event;
+    this.isVisible = true;
+
   }
 }

@@ -29,7 +29,7 @@ export class JobordersComponent implements OnInit {
   }
 
   getRows(): void {
-    this.josvc.getRows()
+    this.josvc.getJOUndlvrd()
       .subscribe(rows => {
         this.jorow = rows;
         console.log(this.jorow);

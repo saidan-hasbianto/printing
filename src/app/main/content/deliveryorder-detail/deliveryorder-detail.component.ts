@@ -209,7 +209,10 @@ export class DeliveryorderDetailComponent implements OnInit {
       // console.log('UPDATED!', this.joDtls[rowIndex][cell]);
       // console.log(this.joDtls);
     }
-
+    if (event.target.value = "''")
+    {
+      this.joDtls[rowIndex][cell] = 0;
+    }
   }
 
   onSelect({ selected }) {

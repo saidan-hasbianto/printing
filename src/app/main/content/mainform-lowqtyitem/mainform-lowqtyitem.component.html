@@ -1,0 +1,43 @@
+<div class="page-layout simple fullwidth" fusePerfectScrollbar>
+    <div class="mat-accent-bg p-24 h-12" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="space-between center">
+        <div fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="column" fxLayoutAlign.gt-xs="center start">
+            <div class="black-fg" fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="secondary-text s-16">compare_arrows</mat-icon>
+                <!-- <mat-icon class="secondary-text s-16">chevron_right</mat-icon> -->
+                <span class="secondary-text pl-4 s-16">Dashboard</span>
+                <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
+                <span class="secondary-text">Low Quantity Item</span>
+            </div>
+        </div>
+    </div>
+    <div class="content p-24">
+      <div style='float:left;width:100%'>
+        <h1>Low Quantity Item</h1>
+        <ngx-datatable
+          style="width: 100%"
+          class="material"
+          [rows]="row"
+          [columnMode]="'force'"
+          [rowHeight]="30"
+          [footerHeight]="50"
+          [limit]="10">
+          <ngx-datatable-column name="No." [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
+              <ng-template let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                {{rowIndex + 1}}
+              </ng-template>
+            </ngx-datatable-column>
+          <ngx-datatable-column name="Item Code" prop="itemCd"></ngx-datatable-column>
+          <ngx-datatable-column name="Name"></ngx-datatable-column>
+          <ngx-datatable-column name="Descs"></ngx-datatable-column>
+          <ngx-datatable-column name="Min Qty" prop="minQty"></ngx-datatable-column>
+          <ngx-datatable-column name="Qty"></ngx-datatable-column>
+        </ngx-datatable>
+      </div>
+      <div class='selected-column'>
+        <!-- <button data-ng-click="add()">OK</button> -->
+        <button mat-raised-button class="mat-accent" (click)="close()">
+            Close
+          </button>
+      </div>
+    </div>
+  </div>

@@ -20,7 +20,8 @@ export class Receipting {
     public receiptDate?: string,
     public remarks?: string,
     public customer?: number,
-    public receiptJobOrders: ReceiptingDtls[] = []
+    public receiptJobOrders: ReceiptingDtls[] = [],
+    public customerName?: string,
   ){}
 }
 

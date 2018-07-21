@@ -1,6 +1,6 @@
 <div id="ngx-datatable" class="page-layout simple fullwidth" fusePerfectScrollbar>
   <!-- HEADER -->
-  <div class="header mat-accent-bg p-24 h-12" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="space-between center">
+  <div class="mat-accent-bg p-24 h-12" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="space-between center">
       <div fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="column" fxLayoutAlign.gt-xs="center start">
           <div class="black-fg" fxLayout="row" fxLayoutAlign="start center">
               <mat-icon class="secondary-text s-16">home</mat-icon>
@@ -15,7 +15,7 @@
   <!-- / HEADER -->
 
   <!-- CONTENT -->
-  <div class="content p-24">
+  <div class="content p-20">
     <div class="label-row">
         <span class="mat-headline">
           <mat-icon class="material-icons md-24">dashboard</mat-icon>
@@ -23,56 +23,68 @@
         </span>
     </div>
     <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="2%">
-      <div class="p-16" >
-        <mat-card>
-          <mat-icon class="h2">tune</mat-icon>
-          <span class="mat-title">On Progress Job</span>
-          <div class="pt-8 pb-32" fxLayout="column" fxLayoutAlign="center center">
+      <div class="p-8">
+          <mat-card>
+          <mat-icon class="h1">info</mat-icon>
+          <span class="mat-title" style="vertical-align: text-bottom">On Progress Job</span>
+          <!-- <button (click)="GotoJoOD()" >
+              <mat-icon>more_vert</mat-icon>
+            </button>  -->
+          <div class="pt-8 pb-8" fxLayout="column" fxLayoutAlign="center center">
             <div fxFlexAlign="center">
-              <span class="mat-display-3 light-blue-A700-fg">{{ opj }}</span>
+                <span class="mat-display-3 light-blue-A700-fg" (click)="GotoOpj()">{{ opj }}</span>
             </div>
           </div>
         </mat-card>
       </div>
 
-      <div class="p-16">
+      <div class="p-8">
           <mat-card>
-          <mat-icon class="h2">info</mat-icon>
-          <span class="mat-title">Overdue Job</span>
-          <div class="pt-8 pb-32" fxLayout="column" fxLayoutAlign="center center">
+          <mat-icon class="h1">info</mat-icon>
+          <span class="mat-title" style="vertical-align: text-bottom">Overdue Job</span>
+          <!-- <button (click)="GotoJoOD()" >
+              <mat-icon>more_vert</mat-icon>
+            </button>  -->
+          <div class="pt-8 pb-8" fxLayout="column" fxLayoutAlign="center center">
             <div fxFlexAlign="center">
-              <span class="mat-display-3 warn-A700-fg">{{ odj }}</span>
+              <span class="mat-display-3 warn-A700-fg" (click)="GotoJoOD()">{{ odj }}</span>
             </div>
           </div>
         </mat-card>
       </div>
 
-      <div class="p-16">
+      <div class="p-8">
           <mat-card>
-          <mat-icon class="h2">info</mat-icon>
-          <span class="mat-title">Waiting Payment</span>
-          <div class="pt-8 pb-32" fxLayout="column" fxLayoutAlign="center center">
+          <mat-icon class="h1">info</mat-icon>
+          <span class="mat-title" style="vertical-align: text-bottom">Waiting Payment</span>
+          <!-- <button (click)="GotoJoOD()" >
+              <mat-icon>more_vert</mat-icon>
+            </button>  -->
+          <div class="pt-8 pb-8" fxLayout="column" fxLayoutAlign="center center">
             <div fxFlexAlign="center">
-              <span class="mat-display-3 green-800-fg">{{ wpay }}</span>
+              <span class="mat-display-3 green-800-fg" (click)="Gotowaipay()">{{ wpay }}</span>
             </div>
           </div>
         </mat-card>
       </div>
 
-      <div class="p-16">
+      <div class="p-8">
           <mat-card>
-          <mat-icon class="h2">warning</mat-icon>
-          <span class="mat-title">Quantity Item</span>
-          <div class="pt-8 pb-32" fxLayout="column" fxLayoutAlign="center center">
+          <mat-icon class="h1">warning</mat-icon>
+          <span class="mat-title" style="vertical-align: text-bottom">Low Quantity Item</span>
+          <!-- <button (click)="Gotolqi()" >
+              <mat-icon>more_vert</mat-icon>
+            </button>  -->
+          <div class="pt-8 pb-8" fxLayout="column" fxLayoutAlign="center center">
             <div fxFlexAlign="center">
-              <span class="mat-display-3 yellow-A700-fg">{{ lqi }}</span>
+              <span class="mat-display-3 yellow-A700-fg" (click)="Gotolqi()">{{ lqi }}</span>
             </div>
           </div>
         </mat-card>
       </div>
     </div>
 
-    <div class="label-row">
+    <div class="label-row pt-8">
         <span class="mat-title">
           <mat-icon class="material-icons md-24">business_center</mat-icon>
           Job Orders
@@ -82,24 +94,32 @@
       [rows]="jorow"
       [selectionType]="'single'"
       [columnMode]="'force'"
-      [rowHeight]="'auto'"
-      [scrollbarH]="true"
+      [rowHeight]="40"
+      
       [limit]="5"
-      [headerHeight]="50"
-      [footerHeight]="50"
-      [loadingIndicator]="loadingIndicator">
+      [headerHeight]="30"
+      [footerHeight]="'auto'"
+      [loadingIndicator]="loadingIndicator"
+      (activate)='onUserEvent($event)'>
+      <ngx-datatable-column name="No." [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
+        <ng-template let-rowIndex="rowIndex" ngx-datatable-cell-template>
+          {{rowIndex + 1}}
+        </ng-template>
+      </ngx-datatable-column>
       <ngx-datatable-column name="Operator" prop="operatorName"></ngx-datatable-column>
       <ngx-datatable-column name="Customer" prop="customerName"></ngx-datatable-column>
-
-      <ngx-datatable-column
-      [width]="15"
-      [sortable]="false"
-      [draggable]="false"
-      [resizeable]="false"
-      [checkboxable]="true"
-      name="Overdue">
-    </ngx-datatable-column>
+      <ngx-datatable-column name="Remarks" ></ngx-datatable-column>
+      <ngx-datatable-column name="Overdue" prop="isOverdue">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <div class="button-row">
+              <mat-icon *ngIf="row.isOverdue === true">check</mat-icon>
+              <mat-icon *ngIf="row.isOverdue === false">clear</mat-icon>
+            </div>
+          </ng-template>
+          
+      </ngx-datatable-column>
     </ngx-datatable>
+  
   </div>
 
   <!-- / CONTENT -->

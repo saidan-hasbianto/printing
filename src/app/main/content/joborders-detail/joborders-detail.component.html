@@ -9,6 +9,10 @@
             <span class="secondary-text pl-4 s-16">Receivable</span>
             <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
             <span class="secondary-text">Job Orders</span>
+            <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
+            <span class="secondary-text">Lists</span>
+            <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
+            <span class="secondary-text">Add New</span>
         </div>
     </div>
 </div>
@@ -81,7 +85,7 @@
 
         <div fxLayout="row" fxLayoutAlign="start center" *ngIf="isUser" fxFlex="1 0 auto">
           <mat-form-field fxFlex="25" >
-            <mat-select placeholder="Operator"  [(ngModel)]="jo.operator" required>
+            <mat-select placeholder="Operator" [disabled]="isDisabled" [(ngModel)]="jo.operator" required>
               <mat-option *ngFor="let item of opsOption" [value]="item.id">
                 {{ item.name }}
               </mat-option>
@@ -121,7 +125,7 @@
         <div *ngFor="let row of rows; let i = index">
 
           <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
-            <mat-form-field fxFlex="10" class="pr-12">
+            <mat-form-field fxFlex="8" class="pr-12">
               <mat-select placeholder="Product" [disabled]="isUser" [(ngModel)]="products[i]" required>
                 <mat-option *ngFor="let item of prodOption" [value]="item.id">
                   {{ item.name }}
@@ -132,7 +136,7 @@
               </mat-error>
             </mat-form-field>
 
-            <mat-form-field fxFlex="8" class="pr-12">
+            <mat-form-field fxFlex="7" class="pr-12">
               <mat-select placeholder="Types" [disabled]="isUser" [(ngModel)]="types[i]" required>
                 <mat-option *ngFor="let item of typesOption" [value]="item.value">
                   {{ item.display_name }}
@@ -143,28 +147,31 @@
               </mat-error>
             </mat-form-field>
           
-            <mat-form-field fxFlex="4" class="pr-12">
-              <input matInput placeholder="Qty" [disabled]="isUser" [(ngModel)]="qties[i]" required>
+            
+              <mat-form-field fxFlex="3" class="pr-12">
+              <input matInput placeholder="Qty" [disabled]="isUser" [(ngModel)]="qties[i]" type="number" required>
                 <mat-error *ngIf="formErrors.qty.required">
                     Required
                 </mat-error>
             </mat-form-field>
+            
+            
 
-            <mat-form-field fxFlex="10" *ngIf="isUser" class="pr-12">
-              <input matInput placeholder="Price" [(ngModel)]="prices[i]" required>
+            <mat-form-field fxFlex="7" *ngIf="isUser" class="pr-12">
+              <input matInput placeholder="Price" [disabled]="isDisabled" [(ngModel)]="prices[i]" type="number" required>
                 <mat-error *ngIf="formErrors.price.required">
                     Required
                 </mat-error>
             </mat-form-field>
 
-            <mat-form-field fxFlex="10" *ngIf="isUser" class="pr-12">
-              <input matInput placeholder="Markup Amount" [(ngModel)]="markups[i]" required>
+            <mat-form-field fxFlex="7" *ngIf="isUser" class="pr-12">
+              <input matInput placeholder="Markup Amount" [disabled]="isDisabled" [(ngModel)]="markups[i]" type="number" required>
                 <mat-error *ngIf="formErrors.markup.required">
                     Required
                 </mat-error>
             </mat-form-field>
 
-            <mat-form-field fxFlex="12" class="pr-12">
+            <mat-form-field fxFlex="8" class="pr-12">
               <mat-select placeholder="File Source" [disabled]="isUser" [(ngModel)]="fileSources[i]" required>
                 <mat-option *ngFor="let item of filesourceOption" [value]="item.value">
                   {{ item.display_name }}
@@ -175,20 +182,20 @@
               </mat-error>
             </mat-form-field>
 
-            <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto" class="pr-12">
-              <label for="file"></label>
+            <div fxLayout="row" fxLayoutAlign="start center" fxFlex="8" class="pr-12">
+              <label for="file" fxFlex="10"></label>
               <input #fileInput type="file" [disabled]="isUser" id="file" (change)="handleFileInput($event.target.files, i)">
               <input #inputFile type="file" [style.display]="'none'">
-              
-              <mat-form-field fxFlex="15">
+             
+              <mat-form-field fxFlex="60">
                 <input matInput placeholder="File Name" [disabled]="isUser" [(ngModel)]="fileNames[i]">
               </mat-form-field>
 
-              <button mat-icon-button color="warn" (click)="delOrderItem(i)">
+              <button mat-icon-button color="warn" (click)="delOrderItem(i)" fxFlex="5" [disabled]="isUser">
                 <!-- {{i}} -->
                 <mat-icon aria-label="Delete">delete</mat-icon>
               </button>
-            </div>
+            </div> 
 
             
         </div>

@@ -40,7 +40,7 @@
       [rowHeight]="'auto'"
       [scrollbarH]="true"
       [loadingIndicator]="loadingIndicator">
-      <ngx-datatable-column name="#" [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
+      <ngx-datatable-column name="No." [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
         <ng-template let-rowIndex="rowIndex" ngx-datatable-cell-template>
           {{rowIndex + 1}}
         </ng-template>
@@ -52,8 +52,11 @@
       <ngx-datatable-column name="Action" [width]="150" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
         <ng-template let-row="row" ngx-datatable-cell-template>
           <div class="button-row">
-            <button mat-icon-button color="primary" [routerLink]="'/receipts-detail/' + row.id">
+            <!-- <button mat-icon-button color="primary" [routerLink]="'/receipts-detail/' + row.id">
               <mat-icon aria-label="Edit">edit</mat-icon>
+            </button> -->
+            <button mat-icon-button color="primary" [routerLink]="'/receipting-view/' + row.id">
+              <mat-icon aria-label="View">visibility</mat-icon>
             </button>
             <button mat-icon-button color="warn" (click)="deleteRow(row)">
               <mat-icon aria-label="Delete">delete</mat-icon>

@@ -47,7 +47,7 @@
                 </mat-form-field>
 
                 <mat-form-field fxFlex="100">
-                    <input matInput placeholder="Minimal Quantity" formControlName="minQty" required>
+                    <input matInput placeholder="Minimal Quantity" type="number" formControlName="minQty" required>
                     <mat-error *ngIf="formErrors.minQty.required">
                         Required
                     </mat-error>
@@ -58,7 +58,7 @@
               <ng-template mat-tab-label>
                 Product Item Material
               </ng-template> 
-              <div class="content p-10">
+              <div class="content p-24">
               <div class="button-row">
                 <a mat-raised-button color="accent" (click)="addItem()">
                   Add New
@@ -71,7 +71,7 @@
                 [rowHeight]="'auto'"
                 [scrollbarH]="true"
                 [footerHeight]="50">
-                <ngx-datatable-column name="#" [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
+                <ngx-datatable-column name="No." [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
                   <ng-template let-rowIndex="rowIndex" ngx-datatable-cell-template>
                     {{rowIndex + 1}}
                   </ng-template>
@@ -97,7 +97,7 @@
               <ng-template mat-tab-label>
                 Price Level
               </ng-template>
-              <div class="content p-10">
+              <div class="content p-24">
               <div class="button-row">
                     <a mat-raised-button color="accent" (click)="addPrice()">
                   Add New
@@ -110,7 +110,7 @@
                 [rowHeight]="'auto'"
                 [scrollbarH]="true"
                 [footerHeight]="50">
-                <ngx-datatable-column name="#" [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
+                <ngx-datatable-column name="No." [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
                   <ng-template let-rowIndex="rowIndex" ngx-datatable-cell-template>
                     {{rowIndex + 1}}
                   </ng-template>

@@ -33,6 +33,8 @@ export class JobordersService {
   private url4 = environment.baseUrl + 'jopdf/?id=';  // URL to web api
   private url5 = environment.baseUrl + 'joborderforusers/';  // URL to web api
   private urlsendtoAdmin = environment.baseUrl + 'joupdatestatusnext/';  // URL to web api
+  private urljood = environment.baseUrl + 'jooverdues/';  // URL to web api
+  private urljounreceipt = environment.baseUrl + 'jounreceipteds/';  // URL to web api
   constructor(
     private http: HttpClient,
     private toastr: ToastrService,
@@ -47,16 +49,38 @@ export class JobordersService {
     );
   }
 
+  getRowsJoUnreceipt(): Observable<Joborders[]> {
+    return this.http.get<Joborders[]>(this.urljounreceipt, httpOptions)
+    .pipe(
+      catchError(this.logErrorHandle.handleError('getRowsJoUnreceipt', []))
+    );
+  }
+
   getJOUnreceipt(id: number): Observable<any> {
     return this.http.get<any>(`${this.url2}${id}`, httpOptions).pipe(
       catchError(this.logErrorHandle.handleError<any>('getJOUnreceipt'))
     );
   }
 
-  getJO(id: number): Observable<Joborders> {
-    return this.http.get<Joborders>(`${this.url}${id}`, httpOptions).pipe(
-      catchError(this.logErrorHandle.handleError<Joborders>('getJO'))
+  getJOOD(): Observable<Joborders[]> {
+    return this.http.get<Joborders[]>(this.urljood, httpOptions)
+    .pipe(
+      catchError(this.logErrorHandle.handleError('getRows', []))
     );
+  }
+
+  getJO(id: number): Observable<Joborders> {
+    return this.http.get<Joborders>(this.url + id, httpOptions).pipe(
+      catchError(this.logErrorHandle.handleError<Joborders>('getJO')),
+    );
+  }
+
+  getJOb(id: number): any {
+    return this.http.get(this.url + id, httpOptions)
+    // .subscribe(result => console.log(result));
+    // .pipe(
+    //   catchError(this.logErrorHandle.handleError<Joborders>('getJO')),
+    // );
   }
 
   getJO2(id: number): Observable<Joborders2> {

@@ -12,6 +12,7 @@ import { Vendor } from '../../models/vendor';
 import { PurchItemFormComponent } from '../purch-item-form/purch-item-form.component';
 import { Msitem } from '../../models/msitem';
 import { VendorService } from '../../services/vendor.service';
+import { MsitemService } from '../../services/msitem.service';
 
 @Component({
   selector: 'fuse-purch-item-detail',
@@ -29,6 +30,7 @@ export class PurchItemDetailComponent implements OnInit {
   vendOption: Vendor[];
   editing = {};
   selected = [];
+  singleitem: Msitem;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -38,7 +40,8 @@ export class PurchItemDetailComponent implements OnInit {
     private vendsvc: VendorService,
     private _location: Location,
     private toastr: ToastrService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private itemservice: MsitemService,
   ) {
     this.formErrors = {
       purchNo : {},
@@ -120,45 +123,34 @@ export class PurchItemDetailComponent implements OnInit {
 
   addDtls() {
     const dialogRef = this.dialog.open(PurchItemFormComponent, {
-      width : '90%'
+      width : '50%'
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.purchitemDtlsTmp = result;
-
-
-      // this.purchitemDtlsTmp.length = 0;
-      // this.purchitemDtlsTmp.push(result);
-
-      // // console.log(this.purchitemDtlsTmp);
-      // const _PurchItem = new PurchItem();
-      // let _PurchItemDetail: PurchItemDetail;
-
-      let i;
-      for (i = 0; i < this.purchitemDtlsTmp.length;)
+      if(!this.purchitemDtlsTmp) //new
       {
-        // console.log(this.purchitemDtlsTmp[i][i]['itemCd']);
-        // console.log(this.purchitemDtlsTmp[i][i]['name']);
-        // _PurchItemDetail = new PurchItemDetail();
-        // _PurchItemDetail.id = this.purchitemDtlsTmp[i][i]['itemCd'];
-        // _PurchItemDetail.itemName = this.purchitemDtlsTmp[i][i]['name'];
-        // _PurchItemDetail.item = this.purchitemDtlsTmp[i][i]['id'];
-        // _PurchItemDetail.amount = 0;
-        // _PurchItemDetail.qty = 0;
-        // this.purchitemDtls.push(_PurchItemDetail);
-
-        this.purchitemDtlsTmp[i]['amount'] = 0;
-        this.purchitemDtlsTmp[i]['qty'] = 0;
-        this.purchitemDtlsTmp[i]['item'] = this.purchitemDtlsTmp[i]['id'].toString();
-
-        i++;
+        for (let i = 0; i < result.length;i++)
+        {
+          result[i]['amount'] = '0.00';
+          result[i]['qty'] = '0.00';
+        }
+        this.purchitemDtlsTmp = result;
       }
-      console.log(this.purchitemDtlsTmp);
+      else //edit
+      {
+        for (let i = 0; i < result.length;i++)
+        {
+          result[i]['amount'] = '0.00';
+          //result[i]['qty'] = '0.00';
+          this.purchitemDtlsTmp.push(result[i]);
+        }
+      }
     });
   }
 
   editDtls(msitem: PurchItemDetail) {
     const dialogRef = this.dialog.open(MsitemComponent,
       {
+        width: '50%',
         data: msitem
       }
     );
@@ -166,9 +158,9 @@ export class PurchItemDetailComponent implements OnInit {
     dialogRef.afterClosed().subscribe(res => {
       const idx = this.purchitem.purchaseItems.indexOf(msitem);
 
-      for (const prop in this.purchitemDtls[idx])
+      for (const prop in this.purchitemDtlsTmp[idx])
       {
-        this.purchitemDtls[idx][prop] = res[prop];
+        this.purchitemDtlsTmp[idx][prop] = res[prop];
       }
     });
   }
@@ -229,10 +221,34 @@ export class PurchItemDetailComponent implements OnInit {
   updateValue(event, cell, rowIndex) {
     console.log('inline editing rowIndex', rowIndex);
     this.editing[rowIndex + '-' + cell] = false;
-    this.purchitemDtls[rowIndex][cell] = event.target.value;
-    this.purchitemDtls = [...this.purchitemDtls];
-    console.log('UPDATED!', this.purchitemDtls[rowIndex][cell]);
-    console.log(this.purchitemDtls);
+    if (event.target.value < 0 || !event.target.value)
+    {
+      this.toastr.error('0.00 not allowed', 'Error');
+      this.purchitemDtlsTmp[rowIndex][cell] = '0.00';
+    }
+    else
+    {
+      this.purchitemDtlsTmp[rowIndex][cell] = event.target.value;
+    }
+    this.purchitemDtlsTmp = [...this.purchitemDtlsTmp];
+  }
+
+  updateQty(event, cell, rowIndex) {
+
+    this.itemservice.getItem(this.purchitemDtlsTmp[rowIndex].id)
+    .subscribe(result => this.singleitem = result);
+    console.log(this.singleitem);
+    this.editing[rowIndex + '-' + cell] = false;
+    if (event.target.value < 0 || !event.target.value || event.target.value < this.singleitem['minQty'])
+    {
+      this.toastr.error('Min Qty is ' + this.purchitemDtlsTmp[rowIndex].minQty, 'Error');
+      this.purchitemDtlsTmp[rowIndex][cell] = this.singleitem['minQty'];
+    }
+    else
+    {
+      this.purchitemDtlsTmp[rowIndex][cell] = event.target.value;
+    }
+    this.purchitemDtlsTmp = [...this.purchitemDtlsTmp];
   }
 
 }

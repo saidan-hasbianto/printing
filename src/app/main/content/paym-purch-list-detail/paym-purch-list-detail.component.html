@@ -80,7 +80,7 @@
               [rowHeight]="'auto'"
               [scrollbarH]="true"
               [footerHeight]="50">
-              <ngx-datatable-column name="#" [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
+              <ngx-datatable-column name="No." [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
                 <ng-template let-rowIndex="rowIndex" ngx-datatable-cell-template>
                   {{rowIndex + 1}}
                 </ng-template>
@@ -101,7 +101,7 @@
                     autofocus
                     (blur)="updateValue($event, 'amount', rowIndex)"
                     *ngIf="editing[rowIndex+ '-amount']"
-                    type="text"
+                    type="number"
                     [value]="value"
                     />
                   </ng-template>
