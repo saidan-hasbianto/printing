@@ -76,31 +76,7 @@ export class JoborderViewComponent implements OnInit {
            console.log(res);
            this.jo2 = res;
            this.joDtls = this.jo2['jobOrderDetails'];
-           for (let i = 0; i < this.joDtls.length; i++)
-           {
-             if (this.joDtls[i].fileUrl)
-              {
-                this.isVisible = true;
-              }
-           }
            
-            //console.log(this.jo2);
-          //  if (this.jo2.status === 'C')
-          //  {
-          //    this.jo2.status = 'Create';
-          //  }
-          //  else if (this.jo2.status === 'W')
-          //   {
-          //     this.jo2.status = 'Working';
-          //   }
-          //   else if (this.jo2.status === 'P')
-          //   {
-          //     this.jo2.status = 'Pending';
-          //   }
-          //   else
-          //   {
-          //     this.jo2.status = 'Done';
-          //   }
             const num = Number (this.jo2.operator);
             this.opsSvc.getItem(num).subscribe(result => this.jo2.operator = result.name);
 
@@ -115,8 +91,8 @@ export class JoborderViewComponent implements OnInit {
             });
 
 
-          this.loadingbar = true;
-      });
+            this.loadingbar = true;
+          });
     }});
 
   }

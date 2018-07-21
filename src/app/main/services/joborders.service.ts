@@ -132,7 +132,6 @@ export class JobordersService {
   }
 
   postFile(item: Joborders2): Observable<any> {
-    console.log(item);
     const endpoint = this.url;
     const formData: FormData = new FormData();
       formData.append('jobOrderNo', item.jobOrderNo);
@@ -157,7 +156,7 @@ export class JobordersService {
         formData.append('markup' + x, '0'); //formData.append('markup', item.markup[i].toString());
         formData.append('fileSource' + x, item.fileSource[i]);
         // formData.append('fileUrl' + x, item.fileUrl[i], item.fileUrl[i].name);
-        if (item.fileUrl.length < 1)
+        if (!item.fileUrl[i])
         {
           //formData.append('fileUrl' + x, '', 'null');
         }
