@@ -116,15 +116,34 @@ export class MarkupreleaseDetailComponent implements OnInit {
       width : '50%',
       data: { type: 'update', data: this.form.controls['customer'].value} });
       dialogRef.afterClosed().subscribe(result => {
-      this.jo = result;
-      let i;
-      for (i = 0; i < result.length; i++)
-      {
-        this.jo[i].receipt = 0;
+      // this.jo = result;
+      // let i;
+      // for (i = 0; i < result.length; i++)
+      // {
+      //   this.jo[i].receipt = 0;
 
-      }
+      // }
       // this.jo.push(result[0]);
-
+      if (!this.jo) // new
+      {
+        let i;
+        for (i = 0; i < result.length; i++)
+        {
+          result[i]['receipt'] = '0.00';
+          //this.jo[i].receipt = 0.00;    
+        }
+        this.jo = result;
+      }
+      else
+      {
+        let i;
+        for (i = 0; i < result.length; i++)
+        {          
+          result[i]['receipt'] = '0.00';
+          //this.jo[i].receipt = 0.00;   
+          this.jo.push(result[i]);            
+        }
+      }
     });
   }
 
