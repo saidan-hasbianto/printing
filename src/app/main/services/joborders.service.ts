@@ -156,7 +156,15 @@ export class JobordersService {
         formData.append('price' + x, '0'); //formData.append('price', item.price[i].toString());
         formData.append('markup' + x, '0'); //formData.append('markup', item.markup[i].toString());
         formData.append('fileSource' + x, item.fileSource[i]);
-        formData.append('fileUrl' + x, item.fileUrl[i], item.fileUrl[i].name);
+        // formData.append('fileUrl' + x, item.fileUrl[i], item.fileUrl[i].name);
+        if (item.fileUrl.length < 1)
+        {
+          //formData.append('fileUrl' + x, '', 'null');
+        }
+        else
+        {
+          formData.append('fileUrl' + x, item.fileUrl[i], item.fileUrl[i].name);
+        }
         formData.append('fileName' + x, item.fileName[i]);
       }
       return this.http

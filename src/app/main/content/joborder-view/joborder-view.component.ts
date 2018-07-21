@@ -27,6 +27,7 @@ export class JoborderViewComponent implements OnInit {
   paramId: number;
   dlvaddr: Msdeliveryaddr;
   ops: Msoperator;
+  isVisible = false;
   statusOption = [
     {value: 'C', display_name: 'Create'},
     {value: 'W', display_name: 'Waiting'},
@@ -75,6 +76,14 @@ export class JoborderViewComponent implements OnInit {
            console.log(res);
            this.jo2 = res;
            this.joDtls = this.jo2['jobOrderDetails'];
+           for (let i = 0; i < this.joDtls.length; i++)
+           {
+             if (this.joDtls[i].fileUrl)
+              {
+                this.isVisible = true;
+              }
+           }
+           
             //console.log(this.jo2);
           //  if (this.jo2.status === 'C')
           //  {
