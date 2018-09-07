@@ -106,9 +106,7 @@
                     (blur)="updateValue($event, 'receipt', rowIndex)"
                     *ngIf="editing[rowIndex+ '-receipt']"
                     type="number"
-                    [value]="value"
-                    onkeydown="javascript: return event.keyCode == 69 ? false : true"
-                    />
+                    [value]="value"/>
                   </ng-template>
                 </ngx-datatable-column>
                 <ngx-datatable-column name="Action" [width]="150" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
