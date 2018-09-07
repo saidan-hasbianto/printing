@@ -66,7 +66,7 @@
             </mat-form-field>
           </div> -->
 
-          <div class="content p-24">
+          <div class="content p-4">
             <div class="button-row">
               <a mat-raised-button color="accent" (click)="addDtls()">
                 Add New
@@ -103,6 +103,7 @@
                     *ngIf="editing[rowIndex+ '-amount']"
                     type="number"
                     [value]="value"
+                    onkeydown="javascript: return event.keyCode == 69 ? false : true"
                     />
                   </ng-template>
               </ngx-datatable-column>

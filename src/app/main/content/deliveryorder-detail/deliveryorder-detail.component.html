@@ -87,8 +87,9 @@
                     autofocus
                     (blur)="updateValue($event, 'qtyDO', rowIndex)"
                     *ngIf="editing[rowIndex+ '-qtyDO']"
-                    type="text"
+                    type="number"
                     [value]="value"
+                    onkeydown="javascript: return event.keyCode == 69 ? false : true"
                     />
                   </ng-template>
                 </ngx-datatable-column>

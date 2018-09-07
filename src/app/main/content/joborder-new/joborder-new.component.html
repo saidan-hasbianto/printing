@@ -117,6 +117,18 @@
           </div>          
         </div>
 
+        <mat-grid-list cols="5" rowHeight="5:1" gutterSize="9px">
+          <mat-grid-tile   [style.background]="blue">Order Item</mat-grid-tile>
+          <mat-grid-tile></mat-grid-tile>
+          <mat-grid-tile></mat-grid-tile>
+          <mat-grid-tile></mat-grid-tile>
+          <mat-grid-tile>
+            <a mat-raised-button color="accent" (click)="addOrderItem()">
+              New Order Item
+            </a>
+          </mat-grid-tile>
+        </mat-grid-list>
+
         <div *ngFor="let row of rows; let i = index">
           <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
             <mat-form-field fxFlex="8" class="pr-12">

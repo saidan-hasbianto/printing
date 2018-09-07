@@ -115,7 +115,7 @@ const routes = [
     path     : 'msitem-detail/:id',
     component: MsitemDetailComponent,
     canActivate: [AuthGuardUserService],
-    data: {data: this.selectedData, type: 'edit'}
+    // data: {data: this.selectedData, type: 'edit'}
   },
   {
     path     : 'pricelevel',
@@ -136,7 +136,7 @@ const routes = [
     path     : 'users-detail/:id',
     component: UsersDetailComponent,
     canActivate: [AuthAdmin],
-    data: {data: this.selectedData, type: 'edit'}
+    // data: {data: this.selectedData, type: 'edit'}
   },
   {
     path     : 'group',
@@ -152,7 +152,7 @@ const routes = [
     path     : 'group-detail/:id',
     component: GroupDetailComponent,
     canActivate: [AuthGuardUserService],
-    data: {data: this.selectedData, type: 'edit'}
+    // data: {data: this.selectedData, type: 'edit'}
   },
   {
     path     : 'msactivity',
@@ -168,7 +168,7 @@ const routes = [
     path     : 'msactivity-detail/:id',
     component: MsactivityDetailComponent,
     canActivate: [AuthGuardUserService],
-    data: {data: this.selectedData, type: 'edit'}
+    // data: {data: this.selectedData, type: 'edit'}
   },
   {
     path     : 'msmarketing',
@@ -185,7 +185,7 @@ const routes = [
     path     : 'msmarketing-detail/:id',
     component: MsmarketingDetailComponent,
     canActivate: [AuthGuardUserService],
-    data: {data: this.selectedData, type: 'edit'}
+    // data: {data: this.selectedData, type: 'edit'}
   },
   {
     path     : 'msoperator',
@@ -202,7 +202,7 @@ const routes = [
     path     : 'msoperator-detail/:id',
     component: MsoperatorDetailComponent,
     canActivate: [AuthGuardUserService],
-    data: {data: this.selectedData, type: 'edit'}
+    // data: {data: this.selectedData, type: 'edit'}
   },
   {
     path     : 'mscustomer',
@@ -219,7 +219,7 @@ const routes = [
     path     : 'mscustomergroup-detail/:id',
     component: MscustomergroupDetailComponent,
     canActivate: [AuthGuardUserService],
-    data: {data: this.selectedData, type: 'edit'}
+    // data: {data: this.selectedData, type: 'edit'}
   },
   {
     path     : 'msdeliveryaddr-detail',
@@ -231,7 +231,7 @@ const routes = [
     path     : 'msdeliveryaddr-detail/:id',
     component: MsdeliveryaddrDetailComponent,
     canActivate: [AuthGuardUserService],
-    data: {data: this.selectedData, type: 'edit'}
+    // data: {data: this.selectedData, type: 'edit'}
   },
   {
     path     : 'joborders',
@@ -247,7 +247,7 @@ const routes = [
     path     : 'joborders-detail/:id',
     component: JobordersDetailComponent,
     canActivate: [AuthGuard],
-    data: {data: this.selectedData, type: 'edit'}
+    // data: {data: this.selectedData, type: 'edit'}
   },
   {
     path     : 'receipts',
@@ -264,7 +264,7 @@ const routes = [
     path     : 'receipts-detail/:id',
     component: ReceiptingDetailComponent,
     canActivate: [AuthGuardUserService],
-    data: {data: this.selectedData, type: 'edit'}
+    // data: {data: this.selectedData, type: 'edit'}
   },
   {
     path     : 'receiptjoborders',
@@ -286,7 +286,7 @@ const routes = [
     path     : 'markupreleases-detail/:id',
     component: MarkupreleaseDetailComponent,
     canActivate: [AuthGuardUserService],
-    data: {data: this.selectedData, type: 'edit'}
+    // data: {data: this.selectedData, type: 'edit'}
   },
   {
     path     : 'markupreleasejoborders',
@@ -309,7 +309,7 @@ const routes = [
     path     : 'vendor-detail/:id',
     component: VendorDetailComponent,
     canActivate: [AuthGuardUserService],
-    data: {data: this.selectedData, type: 'edit'}
+    // data: {data: this.selectedData, type: 'edit'}
   },
   {
     path     : 'purch-item',
@@ -326,7 +326,7 @@ const routes = [
     path     : 'purch-item-detail/:id',
     component: PurchItemDetailComponent,
     canActivate: [AuthGuardUserService],
-    data: {data: this.selectedData, type: 'edit'}
+    // data: {data: this.selectedData, type: 'edit'}
   },
   {
     path     : 'paym-purch-list',
@@ -344,7 +344,7 @@ const routes = [
     path     : 'paym-purch-list-detail/:id',
     component: PaymPurchListDetailComponent,
     canActivate: [AuthGuardUserService],
-    data: {data: this.selectedData, type: 'edit'}
+    // data: {data: this.selectedData, type: 'edit'}
   },
   {
     path     : 'paym-purch-form',
@@ -362,7 +362,7 @@ const routes = [
     path     : 'cashbook-detail/:id',
     component: CashbookDetailComponent,
     canActivate: [AuthGuardUserService],
-    data: {data: this.selectedData, type: 'edit'}
+    // data: {data: this.selectedData, type: 'edit'}
   },
   {
     path     : 'cashbook-detail',
@@ -380,7 +380,7 @@ const routes = [
     path     : 'deliveryorder-detail/:id',
     component: DeliveryorderDetailComponent,
     canActivate: [AuthGuardUserService],
-    data: {data: this.selectedData, type: 'edit'}
+    // data: {data: this.selectedData, type: 'edit'}
   },
   {
     path     : 'deliveryorder-detail',
@@ -397,7 +397,7 @@ const routes = [
     path     : 'joborder-view/:id',
     component: JoborderViewComponent,
     canActivate: [AuthGuard],
-    data: {data: this.selectedData}
+    // data: {data: this.selectedData}
   },
   {
     path     : 'mainform',
@@ -413,13 +413,13 @@ const routes = [
     path     : 'docprefix-detail',
     component: DocprefixDetailComponent,
     canActivate: [AuthGuardUserService],
-    data: {data: this.selectedData}
+    // data: {data: this.selectedData}
   },
   {
     path     : 'docprefix-detail/:ID',
     component: DocprefixDetailComponent,
     canActivate: [AuthGuardUserService],
-    data: {data: this.selectedData, type: 'edit'}
+    // data: {data: this.selectedData, type: 'edit'}
   },
   {
     path     : 'changepassword',
@@ -455,7 +455,7 @@ const routes = [
     path     : 'receipting-view/:id',
     component: ReceiptingViewComponent,
     canActivate: [AuthGuard],
-    data: {data: this.selectedData}
+    // data: {data: this.selectedData}
   },
 ];
 
