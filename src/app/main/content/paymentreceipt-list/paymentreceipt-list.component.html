@@ -1,0 +1,70 @@
+<div id="ngx-datatable" class="page-layout simple fullwidth" fusePerfectScrollbar>
+  <!-- HEADER -->
+  <div class="mat-accent-bg p-24 h-12" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="space-between center">
+      <div fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="column" fxLayoutAlign.gt-xs="center start">
+          <div class="black-fg" fxLayout="row" fxLayoutAlign="start center">
+              <mat-icon class="secondary-text s-16">compare_arrows</mat-icon>
+              <!-- <mat-icon class="secondary-text s-16">chevron_right</mat-icon> -->
+              <span class="secondary-text pl-4 s-16">Receivable</span>
+              <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
+              <span class="secondary-text">Payment Receiptings</span>
+          </div>
+      </div>
+  </div>
+  <!-- / HEADER -->
+  <!-- CONTENT -->
+  <div class="content p-24">
+    <div>
+        <input
+        type='text'
+        style='padding:8px;margin:15px auto;width:30%;'
+        placeholder='Search Receipt No...'
+        (keyup)='updateFilter($event)'
+      />
+    </div>
+    <div class="button-row">
+      <a mat-raised-button color="accent" [routerLink]="'/paymentreceipts-detail'">
+        Add New
+      </a>
+      <!-- <a mat-raised-button color="accent" ([routerLink]="['msitem-detail', {{item.id}}]")>
+        Edit
+      </a> -->
+      <!-- <button mat-raised-button color="warn" (click)="toastr()">
+        Delete
+      </button> -->
+    </div>
+    <ngx-datatable class="material"
+      [rows]="rows"
+      [selectionType]="'single'"
+      [columnMode]="'force'"
+      [rowHeight]="'auto'"
+      [scrollbarH]="true"
+      [loadingIndicator]="loadingIndicator">
+      <ngx-datatable-column name="No." [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
+        <ng-template let-rowIndex="rowIndex" ngx-datatable-cell-template>
+          {{rowIndex + 1}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Payment No"></ngx-datatable-column>
+      <ngx-datatable-column name="Payment Date"></ngx-datatable-column>
+      <ngx-datatable-column name="Customer Name" prop="customerName"></ngx-datatable-column>
+      <ngx-datatable-column name="Remarks"></ngx-datatable-column>
+      <ngx-datatable-column name="Amount"></ngx-datatable-column>
+      <ngx-datatable-column name="Action" [width]="150" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          <div class="button-row">
+            <!-- <button mat-icon-button color="primary" [routerLink]="'/receipts-detail/' + row.id">
+              <mat-icon aria-label="Edit">edit</mat-icon>
+            </button> -->
+            <button mat-icon-button color="primary" [routerLink]="'/paymentreceipts-detail/' + row.id">
+              <mat-icon aria-label="View">visibility</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="deleteRow(row)">
+              <mat-icon aria-label="Delete">delete</mat-icon>
+            </button>
+          </div>
+        </ng-template>
+      </ngx-datatable-column>
+    </ngx-datatable>
+  </div>
+</div>

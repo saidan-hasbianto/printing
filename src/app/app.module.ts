@@ -18,6 +18,7 @@ import { MyHttpInterceptor } from './httpinterceptor';
 // import { MatNativeDateModule } from '@angular/material';
 import { DateValueAccessorModule } from 'angular-date-value-accessor';
 import { MatDatepickerModule, MatNativeDateModule, DateAdapter } from '@angular/material';
+import { CurrencyPipe, DatePipe } from '@angular/common';
 // import { DateFormat } from './date-format';
 
 
@@ -56,7 +57,8 @@ const appRoutes: Routes = [
             provide: HTTP_INTERCEPTORS,
             useClass: MyHttpInterceptor,
             multi: true
-        }
+        },
+        CurrencyPipe,DatePipe,
     ],
     bootstrap   : [
         AppComponent

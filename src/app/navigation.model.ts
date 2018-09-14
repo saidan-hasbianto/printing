@@ -166,6 +166,13 @@ export class NavigationModel
                   'type' : 'item',
                   'url'  : '/markupreleases',
                   'privileges' : 'user',
+                },    
+                {
+                  'id'   : 'paymentreceipts',
+                  'title': 'Payment Receipts',
+                  'type' : 'item',
+                  'url'  : '/paymentreceipts',
+                  'privileges' : 'user',
                 },                
               ]
             },

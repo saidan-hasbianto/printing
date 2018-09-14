@@ -390,7 +390,7 @@ export class ReceiptingDetailComponent implements OnInit {
 
   addreceiptjoborders() {
     const dialogRef = this.dialog.open(ReceiptJobOrdersComponent, {
-      width : '50%',
+      width : '50%', height : '80%',
       data: { type: 'update', data: this.form.controls['customer'].value} });
     // dialogRef.componentInstance.ngOnInit('receipt');
     // dialogRef.componentInstance.getRows(this.form.controls['customer'].value);

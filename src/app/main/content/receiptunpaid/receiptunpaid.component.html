@@ -1,0 +1,35 @@
+<div class="page-layout simple fullwidth" fusePerfectScrollbar>
+  <div class="content p-24">
+    <div style='float:left;width:100%'>
+      <ngx-datatable
+        style="width: 100%"
+        class="material"
+        [rows]="paymreceipt"
+        [columnMode]="'force'"
+        [rowHeight]="'auto'"
+        [footerHeight]="50"
+        [limit]="5"
+        [selected]="selected"
+        [selectionType]="'checkbox'"
+        (select)='onSelect($event)'>
+        <ngx-datatable-column
+          [width]="30"
+          [sortable]="false"
+          [canAutoResize]="false"
+          [draggable]="false"
+          [resizeable]="false"          
+          [checkboxable]="true">
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Receipt No" ></ngx-datatable-column>
+        <ngx-datatable-column name="Receipt Date"></ngx-datatable-column>
+        <ngx-datatable-column name="Remains" prop="remainsStr"></ngx-datatable-column>
+      </ngx-datatable>
+    </div>
+    <div class='selected-column'>
+      <!-- <button data-ng-click="add()">OK</button> -->
+      <button mat-raised-button class="mat-accent" (click)="add()">
+        OK
+      </button>
+    </div>
+  </div>
+</div>

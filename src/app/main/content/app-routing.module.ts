@@ -59,6 +59,9 @@ import { JoborderNewComponent } from './joborder-new/joborder-new.component';
 import { MainformWaiPayComponent } from './mainform-wai-pay/mainform-wai-pay.component';
 import { MainformOpjComponent } from './mainform-opj/mainform-opj.component';
 import { ReceiptingViewComponent } from './receipting-view/receipting-view.component';
+import { PaymentreceiptListComponent } from './paymentreceipt-list/paymentreceipt-list.component';
+import { PaymentreceiptDetailComponent } from './paymentreceipt-detail/paymentreceipt-detail.component';
+import { ReceiptunpaidComponent } from './receiptunpaid/receiptunpaid.component';
 
 const routes = [
   {
@@ -457,6 +460,28 @@ const routes = [
     canActivate: [AuthGuard],
     // data: {data: this.selectedData}
   },
+  {
+    path     : 'paymentreceipts',
+    component: PaymentreceiptListComponent,
+    canActivate: [AuthGuardUserService]
+  },
+  {
+    path     : 'paymentreceipts-detail',
+    component: PaymentreceiptDetailComponent,
+    canActivate: [AuthGuardUserService],
+    // data: {data: this.selectedData, type: 'edit'}
+  },
+  {
+    path     : 'paymentreceipts-detail/:id',
+    component: PaymentreceiptDetailComponent,
+    canActivate: [AuthGuardUserService],
+    // data: {data: this.selectedData, type: 'edit'}
+  },
+  {
+    path     : 'receiptunpaid',
+    component: ReceiptunpaidComponent,
+    canActivate: [AuthGuardUserService]
+  },
 ];
 
 @NgModule({
@@ -516,6 +541,9 @@ const routes = [
     MainformWaiPayComponent,
     JoborderNewComponent,
     ReceiptingViewComponent,
+    PaymentreceiptListComponent,
+    PaymentreceiptDetailComponent,
+    ReceiptunpaidComponent,
   ],
   imports     : [
       SharedModule,

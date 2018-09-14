@@ -50,6 +50,10 @@ import { DeliveryorderService } from './services/deliveryorder.service';
 import { DocprefixService } from './services/docprefix.service';
 import { MainformService } from './services/mainform.service';
 import { ReceiptingViewComponent } from './content/receipting-view/receipting-view.component';
+import { PaymentreceiptListComponent } from './content/paymentreceipt-list/paymentreceipt-list.component';
+import { PaymentreceiptDetailComponent } from './content/paymentreceipt-detail/paymentreceipt-detail.component';
+import { PaymentreceiptsService } from './services/paymentreceipts.service';
+import { ReceiptunpaidComponent } from './content/receiptunpaid/receiptunpaid.component';
 
 
 @NgModule({
@@ -63,7 +67,7 @@ import { ReceiptingViewComponent } from './content/receipting-view/receipting-vi
         FuseNavbarVerticalToggleDirective,
         FuseThemeOptionsComponent,
         FuseQuickPanelComponent,
-
+        
     ],
     imports     : [
         SharedModule,
@@ -110,6 +114,7 @@ import { ReceiptingViewComponent } from './content/receipting-view/receipting-vi
         DeliveryorderService,
         DocprefixService,
         MainformService,
+        PaymentreceiptsService,
         { provide: MatDialogRef, useValue: {} },
         { provide: MAT_DIALOG_DATA, useValue: [] }
     ],
