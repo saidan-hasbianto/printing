@@ -184,11 +184,15 @@ export class PaymentreceiptDetailComponent implements OnInit {
           
           this.paymreceiptsvc.add(oPaymentreceiptsList).subscribe
           (
-            success => {this.goback()},
+            success => {
+              console.log(success);              
+              this.getFile(success.id);
+              this.goback()
+            },
             error => {
               this.toastr.error(error.message, 'Error');console.log(error);
             }
-          )
+          );
     }
   }
 
@@ -231,5 +235,17 @@ export class PaymentreceiptDetailComponent implements OnInit {
     console.log(event);
     this.receiptUnpaid = event.value;
     console.log(this.receiptUnpaid);
+  }
+
+  getFile(id: number): void {
+    this.paymreceiptsvc.getFile(id)
+    .subscribe((res) => {
+      const fileURL = URL.createObjectURL(res);
+      console.log(fileURL);
+      window.open(fileURL);
+    },
+    error => {
+      console.log(error);
+    });
   }
 }

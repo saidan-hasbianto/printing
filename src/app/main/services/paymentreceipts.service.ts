@@ -22,6 +22,7 @@ const httpOptions = {
 export class PaymentreceiptsService {
   private urlCust = environment.baseUrl + 'receiptunpaidbycustomer/?customer=';  // URL to web api
   private url = environment.baseUrl + 'paymentreceipts/';  // URL to web api
+  private url4 = environment.baseUrl + 'fakturpdf/?id=';  // URL to web api
   constructor(
     private http: HttpClient,
     private toastr: ToastrService,
@@ -61,6 +62,15 @@ export class PaymentreceiptsService {
         this.logErrorHandle.log('Payment receipt ', ' successfully added', 0);
       }),
     );
+  }
+
+  public getFile(id: number) {
+    return this.http.get(this.url4 + id,
+    {responseType: 'blob', headers: new HttpHeaders({ 'accept': 'application/pdf' })})
+    .map(
+      (res) => {
+        return new Blob([res], {type: 'application/pdf'})
+      });
   }
 
 }
