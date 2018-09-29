@@ -84,7 +84,7 @@
               <ngx-datatable-column name="Remarks"></ngx-datatable-column>
               <ngx-datatable-column name="Amount" prop="aging"></ngx-datatable-column>
               <ngx-datatable-column name="Receipt" prop="receipt">
-                <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+                <!-- <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
                   <span
                     title="Double click the number to edit"
                     (dblclick)="editing[rowIndex + '-receipt'] = true"
@@ -99,7 +99,7 @@
                   [value]="value"
                   onkeydown="javascript: return event.keyCode == 69 ? false : true"
                   />
-                </ng-template>
+                </ng-template> -->
               </ngx-datatable-column>
               <ngx-datatable-column name="Action" [width]="150" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
                 <ng-template let-row="row" ngx-datatable-cell-template>

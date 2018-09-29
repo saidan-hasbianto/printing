@@ -196,6 +196,7 @@ export class ReceiptingDetailComponent implements OnInit {
             (
               success =>
               {
+                this.getFile(parseInt(success.id));
                 this.goback();
               },
               error =>
@@ -403,7 +404,7 @@ export class ReceiptingDetailComponent implements OnInit {
         let i;
         for (i = 0; i < result.length; i++)
         {
-          result[i]['receipt'] = '0.00';
+          result[i]['receipt'] = result[i].amount;
           //this.jo[i].receipt = 0.00;    
         }
         this.jo = result;
@@ -413,7 +414,7 @@ export class ReceiptingDetailComponent implements OnInit {
         let i;
         for (i = 0; i < result.length; i++)
         {          
-          result[i]['receipt'] = '0.00';
+          result[i]['receipt'] = result[i].amount;
           //this.jo[i].receipt = 0.00;   
           this.jo.push(result[i]);            
         }
@@ -448,5 +449,16 @@ export class ReceiptingDetailComponent implements OnInit {
     this.cust = event;
     this.isVisible = true;
 
+  }
+  getFile(id: number): void {
+    this.receiptsvc.getFile(id)
+    .subscribe((res) => {
+      const fileURL = URL.createObjectURL(res);
+      console.log(fileURL);
+      window.open(fileURL);
+    },
+    error => {
+      console.log(error);
+    });
   }
 }

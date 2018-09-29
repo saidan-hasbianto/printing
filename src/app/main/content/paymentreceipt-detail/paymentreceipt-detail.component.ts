@@ -186,7 +186,6 @@ export class PaymentreceiptDetailComponent implements OnInit {
           (
             success => {
               console.log(success);              
-              this.getFile(success.id);
               this.goback()
             },
             error => {
@@ -234,18 +233,7 @@ export class PaymentreceiptDetailComponent implements OnInit {
   onChooseUnpaid(event) {
     console.log(event);
     this.receiptUnpaid = event.value;
+    this.form.patchValue({amount: this.receiptUnpaid.remains});
     console.log(this.receiptUnpaid);
-  }
-
-  getFile(id: number): void {
-    this.paymreceiptsvc.getFile(id)
-    .subscribe((res) => {
-      const fileURL = URL.createObjectURL(res);
-      console.log(fileURL);
-      window.open(fileURL);
-    },
-    error => {
-      console.log(error);
-    });
-  }
+  }  
 }

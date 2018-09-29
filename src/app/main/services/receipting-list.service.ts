@@ -20,6 +20,7 @@ const httpOptions = {
 @Injectable()
 export class ReceiptingListService {
   private url = environment.baseUrl + 'receipts/';  // URL to web api
+  private url4 = environment.baseUrl + 'fakturpdf/?id=';  // URL to web api
   constructor(
     private http: HttpClient,
     private toastr: ToastrService,
@@ -62,5 +63,14 @@ export class ReceiptingListService {
     tap(_ => this.logErrorHandle.log('Receipting', item + ' successfully deleted', 0)),
     catchError(this.logErrorHandle.handleError<Receipting>('delete'))
     );
+  }
+
+  public getFile(id: number) {
+    return this.http.get(this.url4 + id,
+    {responseType: 'blob', headers: new HttpHeaders({ 'accept': 'application/pdf' })})
+    .map(
+      (res) => {
+        return new Blob([res], {type: 'application/pdf'})
+      });
   }
 }

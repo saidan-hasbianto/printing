@@ -39,6 +39,8 @@
       [columnMode]="'force'"
       [rowHeight]="'auto'"
       [scrollbarH]="true"
+      [limit]="5"
+      [footerHeight]="'auto'"
       [loadingIndicator]="loadingIndicator">
       <ngx-datatable-column name="No." [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
         <ng-template let-rowIndex="rowIndex" ngx-datatable-cell-template>
