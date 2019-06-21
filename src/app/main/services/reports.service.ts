@@ -25,8 +25,8 @@ export class ReportsService {
   ) { }
 
   getReports(customerId: number,statusId : number): Observable<any> { 
-    return this.http.get<any>(this.url + customerId + '/' + statusId, httpOptions).pipe(
-      catchError(this.logErrorHandle.handleError<any>('getJO'))
+    return this.http.post<any>(this.url + customerId + '/' + statusId, httpOptions).pipe(
+      catchError(this.logErrorHandle.handleError2<any>('getReports'))
     );
   }
 
@@ -36,7 +36,10 @@ export class ReportsService {
     .map(
       (res) => {
         return new Blob([res], {type: 'application/pdf'})
-      });
+      })
+      .pipe(
+        catchError(this.logErrorHandle.handleError2<any>('PDF'))
+      );;
   }
 }
 

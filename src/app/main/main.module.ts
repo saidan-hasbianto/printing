@@ -55,6 +55,7 @@ import { PaymentreceiptDetailComponent } from './content/paymentreceipt-detail/p
 import { PaymentreceiptsService } from './services/paymentreceipts.service';
 import { ReceiptunpaidComponent } from './content/receiptunpaid/receiptunpaid.component';
 import { ReportsComponent } from './content/reports/reports.component';
+import { ReportsService } from './services/reports.service';
 
 
 @NgModule({
@@ -117,6 +118,7 @@ import { ReportsComponent } from './content/reports/reports.component';
         DocprefixService,
         MainformService,
         PaymentreceiptsService,
+        ReportsService,
         { provide: MatDialogRef, useValue: {} },
         { provide: MAT_DIALOG_DATA, useValue: [] }
     ],

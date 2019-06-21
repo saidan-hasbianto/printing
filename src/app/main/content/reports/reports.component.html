@@ -17,7 +17,7 @@
   <div class="content p-24">
     <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto" fxLayoutWrap>
       <mat-form-field fxFlex="100" >
-        <mat-select placeholder="Please select Customer" (change)="onChooseCust($event.target.value)" required>
+        <mat-select placeholder="Please select Customer" (change)="onChooseCust($event.value)" required>
           <mat-option *ngFor="let item of custOption" [value]="item.id">
             {{ item.name }}
           </mat-option>
@@ -28,7 +28,7 @@
       </mat-form-field>
 
       <mat-form-field fxFlex="200" >
-        <mat-select placeholder="Please select Status" (change)="onChooseStatus($event.target.value)" required>
+        <mat-select placeholder="Please select Status" (change)="onChooseStatus($event.value)" required>
           <mat-option *ngFor="let item of statusOption" [value]="item.id">
             {{ item.display_name }}
           </mat-option>

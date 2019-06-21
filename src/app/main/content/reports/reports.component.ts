@@ -15,8 +15,8 @@ export class ReportsComponent implements OnInit {
   formErrors: any;
   custOption: Mscustomer[] = [];
   statusOption = [
-    {value: '0', display_name: 'Paid'},
-    {value: '1', display_name: 'Unpaid'}
+    {id: '0', display_name: 'Paid'},
+    {id: '1', display_name: 'Unpaid'}
   ];
   customerSelected : number;
   statusSelected : number;
@@ -38,21 +38,26 @@ export class ReportsComponent implements OnInit {
 
     this.form = this.formBuilder.group({
       customer : ['', Validators.required],
-      statusOption : ['', Validators.required],
+      statusOption : [''],
     })
   }
 
   NewOnSubmit() {
     this.reportsvc.getReports(this.customerSelected,this.statusSelected).subscribe(
       success => {
-        this.toastr.success('Success');
-            console.log(success);
+        console.log(success);
+        if(success) {
+          this.toastr.success('Success');
             this.reportsvc.getFile(this.customerSelected);
+        }
+        
       }
     )
   }
   
   onChooseStatus(statusId) {
+    console.log(statusId);
+    
     this.statusSelected = statusId;
   }
 
