@@ -78,6 +78,8 @@ export class MscustomergroupDetailComponent implements OnInit {
       marketing  : [this.cust.marketing],
       level  : [this.cust.level]
     });
+    let newAddres : Msdeliveryaddr = {id : 1,   name: "Default", address: "Office" , cp: "-", contactNumber: "-"};
+    this.dlvaddr.push(newAddres);
 
     this.sub = this.route.params.subscribe(params => {
       const id = Number.parseInt(params['id']);
@@ -159,11 +161,20 @@ export class MscustomergroupDetailComponent implements OnInit {
       }
     );
 
-    dialogRef.afterClosed().subscribe(res => {
-      let idx = this.cust.deliveryAddresses.indexOf(msdlvaddr);
+    dialogRef.afterClosed().subscribe(res => 
+      {
+        console.log(res);
+        if (res)
+        {
+          // let idx = this.cust.deliveryAddresses.indexOf(msdlvaddr);
+          // for (var prop in this.cust.deliveryAddresses[idx]) {
+          // this.cust.deliveryAddresses[idx][prop] = res[prop];
 
-      for (var prop in this.cust.deliveryAddresses[idx]) {
-        this.cust.deliveryAddresses[idx][prop] = res[prop];
+          let idx = this.dlvaddr.indexOf(msdlvaddr);
+          for (var prop in this.dlvaddr[idx]) {
+          this.dlvaddr[idx][prop] = res[prop];
+        }
+      
       }
     });
   }
@@ -208,7 +219,6 @@ export class MscustomergroupDetailComponent implements OnInit {
           );
           // this.goback();
         }
-
     }
   }
 }
