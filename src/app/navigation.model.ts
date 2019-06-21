@@ -202,6 +202,21 @@ export class NavigationModel
                   'url'  : '/paym-purch-list'
                 }
               ]
+          },
+          {
+            'id'      : 'report',
+            'title'   : 'Report',
+            'type'    : 'collapse',
+            'icon'    : 'compare_arrows',
+            'privileges' : 'admin',
+            'children': [
+              {
+                'id'   : 'report',
+                'title': 'Report',
+                'type' : 'item',
+                'url'  : '/reports'
+              }
+            ]
           }
         ];
         // if (this.gr !== 'Group Admin')

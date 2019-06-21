@@ -62,6 +62,7 @@ import { ReceiptingViewComponent } from './receipting-view/receipting-view.compo
 import { PaymentreceiptListComponent } from './paymentreceipt-list/paymentreceipt-list.component';
 import { PaymentreceiptDetailComponent } from './paymentreceipt-detail/paymentreceipt-detail.component';
 import { ReceiptunpaidComponent } from './receiptunpaid/receiptunpaid.component';
+import { ReportsComponent } from './reports/reports.component';
 
 const routes = [
   {
@@ -480,6 +481,11 @@ const routes = [
   {
     path     : 'receiptunpaid',
     component: ReceiptunpaidComponent,
+    canActivate: [AuthGuardUserService]
+  },
+  {
+    path     : 'reports',
+    component: ReportsComponent,
     canActivate: [AuthGuardUserService]
   },
 ];

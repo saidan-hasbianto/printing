@@ -54,6 +54,7 @@ import { PaymentreceiptListComponent } from './content/paymentreceipt-list/payme
 import { PaymentreceiptDetailComponent } from './content/paymentreceipt-detail/paymentreceipt-detail.component';
 import { PaymentreceiptsService } from './services/paymentreceipts.service';
 import { ReceiptunpaidComponent } from './content/receiptunpaid/receiptunpaid.component';
+import { ReportsComponent } from './content/reports/reports.component';
 
 
 @NgModule({
@@ -67,6 +68,7 @@ import { ReceiptunpaidComponent } from './content/receiptunpaid/receiptunpaid.co
         FuseNavbarVerticalToggleDirective,
         FuseThemeOptionsComponent,
         FuseQuickPanelComponent,
+        ReportsComponent,
         
     ],
     imports     : [
