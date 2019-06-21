@@ -24,14 +24,14 @@ export class ReportsService {
     private logErrorHandle: LogErrorHandleService
   ) { }
 
-  getRows(id: number): Observable<any> {
-    return this.http.get<any>(this.url + id, httpOptions).pipe(
+  getReports(customerId: number,statusId : number): Observable<any> { 
+    return this.http.get<any>(this.url + customerId + '/' + statusId, httpOptions).pipe(
       catchError(this.logErrorHandle.handleError<any>('getJO'))
     );
   }
 
-  public getFile(id: number) {
-    return this.http.get(this.url + id,
+  public getFile(customerId: number) {
+    return this.http.get(this.url + customerId,
     {responseType: 'blob', headers: new HttpHeaders({ 'accept': 'application/pdf' })})
     .map(
       (res) => {
