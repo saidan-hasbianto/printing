@@ -1,3 +1,52 @@
-<p>
-  reports works!
-</p>
+<div id="ngx-datatable" class="page-layout simple fullwidth" fusePerfectScrollbar>
+  <!-- HEADER -->
+  <div class="mat-accent-bg p-24 h-12" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="space-between center">
+      <div fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="column" fxLayoutAlign.gt-xs="center start">
+          <div class="black-fg" fxLayout="row" fxLayoutAlign="start center">
+              <mat-icon class="secondary-text s-16">compare_arrows</mat-icon>
+              <!-- <mat-icon class="secondary-text s-16">chevron_right</mat-icon> -->
+              <span class="secondary-text pl-4 s-16">Reports</span>
+              <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
+              <span class="secondary-text">Report</span>
+          </div>
+      </div>
+  </div>
+  <!-- / HEADER -->
+
+  <!-- CONTENT -->
+  <div class="content p-24">
+    <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto" fxLayoutWrap>
+      <mat-form-field fxFlex="100" >
+        <mat-select placeholder="Please select Customer" required>
+          <mat-option *ngFor="let item of custOption" [value]="item.id">
+            {{ item.name }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="formErrors.customer.required">
+          Required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field fxFlex="200" >
+        <mat-select placeholder="Please select Status" required>
+          <mat-option *ngFor="let item of statusOption" [value]="item.id">
+            {{ item.display_name }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="formErrors.customer.required">
+          Required
+        </mat-error>
+      </mat-form-field>
+
+      <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+        <div class="button-row">
+          <button mat-raised-button class="mat-accent" (click)="NewOnSubmit()">
+            Submit
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+</div>

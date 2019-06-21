@@ -133,7 +133,7 @@ export class AuthenticationService {
 
     public isAdmin(): boolean {
       const admin = localStorage.getItem('groupname');
-      if (admin === 'Group Admin')
+      if (admin === 'Group Super Admin')
       {
         return true;
       }
@@ -142,7 +142,7 @@ export class AuthenticationService {
 
     public isUser(): boolean {
       const groupname = localStorage.getItem('groupname');
-      if (groupname === 'Group User' || groupname === 'Group Admin')
+      if (groupname === 'Group Admin' || groupname === 'Group Super Admin')
       {
         return true;
       }

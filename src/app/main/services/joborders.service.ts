@@ -78,13 +78,13 @@ export class JobordersService {
   getJOb(id: number): any {
     return this.http.get(this.url + id, httpOptions)
     // .subscribe(result => console.log(result));
-    // .pipe(
-    //   catchError(this.logErrorHandle.handleError<Joborders>('getJO')),
-    // );
+    .pipe(
+      catchError(this.logErrorHandle.handleError<Joborders>('getJO')),
+    );
   }
 
   getJO2(id: number): Observable<Joborders2> {
-    return this.http.get<Joborders2>(`${this.url}${id}`, httpOptions).pipe(
+    return this.http.get<Joborders2>(this.url + id, httpOptions).pipe(
       catchError(this.logErrorHandle.handleError<Joborders2>('getJO'))
     );
   }

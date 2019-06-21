@@ -70,11 +70,11 @@ export class FuseNavVerticalCollapseComponent implements OnInit
                 }
             );
         const abc = localStorage.getItem('groupname');
-        if (abc === 'Group Admin')
+        if (abc === 'Group Super Admin')
         {
           this.gr = 'admin, user, operator';
         }
-        else if (abc === 'Group User')
+        else if (abc === 'Group Admin')
         {
           this.gr = 'user, operator';
         }

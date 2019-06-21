@@ -137,7 +137,6 @@ export class JobordersDetailComponent implements OnInit {
    }
 
   ngOnInit() {
-    
     this.custsvc.getRows().subscribe(res => this.custOption = res);
     this.prodsvc.getRows().subscribe(res => this.prodOption = res);
     this.dlvaddrsvc.getRows().subscribe(res => this.dlvaddrOption = res);

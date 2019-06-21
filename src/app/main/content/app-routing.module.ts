@@ -211,18 +211,18 @@ const routes = [
   {
     path     : 'mscustomer',
     component: MscustomergroupComponent,
-    canActivate: [AuthGuardUserService]
+    canActivate: [AuthGuard]
   },
   {
     path     : 'mscustomer-detail',
     component: MscustomergroupDetailComponent,
-    canActivate: [AuthGuardUserService]
+    canActivate: [AuthGuard]
     // data: {data: this.selectedData, type: 'edit'}
   },
   {
     path     : 'mscustomergroup-detail/:id',
     component: MscustomergroupDetailComponent,
-    canActivate: [AuthGuardUserService],
+    canActivate: [AuthGuard],
     // data: {data: this.selectedData, type: 'edit'}
   },
   {

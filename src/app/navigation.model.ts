@@ -123,7 +123,7 @@ export class NavigationModel
                   'title': 'Customers',
                   'type' : 'item',
                   'url'  : '/mscustomer',
-                  'privileges' : 'user'
+                  'privileges' : 'operator'
                 },
                 {
                   'id'   : 'joborders',
@@ -205,9 +205,9 @@ export class NavigationModel
           },
           {
             'id'      : 'report',
-            'title'   : 'Report',
+            'title'   : 'Reports',
             'type'    : 'collapse',
-            'icon'    : 'compare_arrows',
+            'icon'    : 'bar_chart',
             'privileges' : 'admin',
             'children': [
               {

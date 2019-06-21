@@ -55,7 +55,7 @@
       <ngx-datatable-column name="Job Order No" prop="jobOrderNo"></ngx-datatable-column>
       <ngx-datatable-column name="Operator" prop="operatorName"></ngx-datatable-column>
       <ngx-datatable-column name="Customer" prop="customerName"></ngx-datatable-column>
-      <ngx-datatable-column name="Action" [width]="150" [sortable]="false"  [draggable]="false" [resizeable]="false">
+      <ngx-datatable-column name="Action" [width]="200" [sortable]="false"  [draggable]="false" [resizeable]="false">
         <ng-template let-row="row" ngx-datatable-cell-template>
           <div class="button-row">
             <button mat-icon-button color="primary" [routerLink]="'/joborder-view/' + row.id">
@@ -66,6 +66,9 @@
             </button>
             <button mat-icon-button color="warn" (click)="deleteRow(row)">
               <mat-icon aria-label="Delete">delete</mat-icon>
+            </button>
+            <button mat-icon-button color="primary" (click)="getFile(row.id)">
+              <mat-icon aria-label="Print">print</mat-icon>
             </button>
           </div>
         </ng-template>

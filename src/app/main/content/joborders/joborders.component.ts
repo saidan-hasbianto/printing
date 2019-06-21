@@ -84,4 +84,16 @@ export class JobordersComponent implements OnInit {
     // Whenever the filter changes, always go back to the first page
     // this.table.offset = 0;
   }
+  
+  getFile(id: number): void {
+    this.josvc.getFile(id)
+    .subscribe((res) => {
+      const fileURL = URL.createObjectURL(res);
+      console.log(fileURL);
+      window.open(fileURL);
+    },
+    error => {
+      console.log(error);
+    });
+  }
 }
